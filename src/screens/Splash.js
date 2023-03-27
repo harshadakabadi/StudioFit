@@ -6,7 +6,7 @@ import { Center, NativeBaseProvider,Box, Container,Text } from 'native-base';
 const Splash = ({navigation}) => {
     useEffect(() =>{
         setTimeout(()=>{
-navigation.navigate('Login')
+navigation.navigate('Member Login')
         },2000)
     },[]);
   return (

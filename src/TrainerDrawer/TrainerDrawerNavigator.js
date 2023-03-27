@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import {useNavigation } from "@react-navigation/native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -10,41 +10,35 @@ import {
   Button,
   Box,
   Pressable,
-  Heading,
   VStack,
   Text,
   Center,
   HStack,
   Divider,
   Icon,
-  NativeBaseProvider,
-  Overlay,
 } from "native-base";
+
 import { profile } from "../../assets";
-import Feedback from './Feedback';
-import Report_Issue from "./Report_Issue";
-import Health_Forum from "./Health_Forum";
-import Health_Status from "./Health_Status";
-import { NativeScreenContainer } from "react-native-screens";
-import Renew_Membership from "./Renew_Membership";
-import Logout from "./Logout";
-import Dashboard from './Dashboard'
-import BottomDrawer from "./BottomDrawer";
-global.__reanimatedWorkletInit = () => {};
+import TrainerBottomDrawer from "./TrainerBottomDrawer";
+import TrainerDashboard from "./TrainerDashboard";
+import TrainerHealth_Forum from "./TrainerHealth_Forum";
+import TrainerReport_Issue from "./TrainerReport_Issue";
+import TrainerLogout from "./TrainerLogout";
+
+
+
+
+
 const Drawer = createDrawerNavigator();
 
 const getIcon = (screenName) => {
   switch (screenName) {
     case "Dashboard":
       return "dashboard";
-    case "Feedback":
-      return "feedback";
     case "Report Issue":
       return "report-problem";
     case "Health Forum":
       return "amp-stories";
-    case "Renew Membership":
-      return "wallet-membership";
     case "Logout":
       return "logout";
     default:
@@ -74,7 +68,7 @@ function CustomDrawerContent(props) {
           <Button
             mr={10}
             bgColor={"#85C1E9"}
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate("Trainer Profile")}
           >
             <Text fontWeight={"bold"}>View Profile</Text>
           </Button>
@@ -131,16 +125,7 @@ function MyDrawer() {
       >
         <Drawer.Screen
           name="Dashboard"
-          component={Dashboard}
-          options={{
-            headerStyle: {
-              backgroundColor: "#85C1E9",
-            },
-          }}
-        />
-        <Drawer.Screen
-          name="Feedback"
-          component={Feedback}
+          component={TrainerDashboard}
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
@@ -149,7 +134,7 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Report Issue"
-          component={Report_Issue}
+          component={TrainerReport_Issue}
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
@@ -158,18 +143,8 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Health Forum"
-          component={Health_Forum}
+          component={TrainerHealth_Forum}
           options={{
-            headerStyle: {
-              backgroundColor: "#85C1E9",
-            },
-          }}
-        />
-        <Drawer.Screen
-          name="Renew Membership"
-          component={Renew_Membership}
-          options={{
-            
             headerStyle: {
               backgroundColor: "#85C1E9",
             },
@@ -177,7 +152,7 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Logout"
-          component={Logout}
+          component={TrainerLogout}
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
@@ -188,13 +163,14 @@ function MyDrawer() {
     </Box>
   );
 }
-const DrawerNavigator = () => {
+
+const TrainerDrawerNavigator = () => {
   return (
     <>
-        <MyDrawer/>
-        <BottomDrawer/>
+      <MyDrawer />
+      <TrainerBottomDrawer/>
     </>
   );
 };
-export default DrawerNavigator
+export default TrainerDrawerNavigator;
 

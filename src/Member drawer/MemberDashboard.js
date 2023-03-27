@@ -1,21 +1,16 @@
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import {
-  Select,
   Box,
   Center,
   View,
-  CheckIcon,
   ScrollView,
   Text,
-  TextArea,
-  Button,
   NativeBaseProvider,
   Card,
   HStack
 } from "native-base";
 
-const Dashboard = () => {
+const MemberDashboard = () => {
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -103,4 +98,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MemberDashboard;

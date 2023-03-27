@@ -97,7 +97,7 @@ const ForgotPassword = () => {
             height={50}
             borderRadius={20}
             bgColor={"#4CAF50"}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("Member Login")}
           >
             <Text>Reset Password</Text>
           </Button>

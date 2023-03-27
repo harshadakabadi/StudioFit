@@ -10,7 +10,6 @@ import {
   HStack,
   Icon
 } from "native-base";
-import { profile } from '../../assets';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   MaterialIcons,
@@ -19,14 +18,12 @@ import {
 } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-const Profile = () => {
+const TrainerProfile = () => {
   return (
     <NativeBaseProvider>
-      <SafeAreaView>
-       
-      </SafeAreaView>
+      <SafeAreaView></SafeAreaView>
     </NativeBaseProvider>
   );
-}
+};
 
-export default Profile
+export default TrainerProfile;

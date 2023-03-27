@@ -1,28 +1,15 @@
 import * as React from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from "@react-navigation/drawer";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, Image } from "react-native";
-import {
-  Button,
-  Box,
   Pressable,
-  Heading,
-  VStack,
   Text,
   Center,
   HStack,
-  Divider,
   Icon,
-  NativeBaseProvider,
-  Overlay,
 } from "native-base";
 
-
-export default function BottomDrawer() {
+export default function TrainerBottomDrawer() {
   const [selected, setSelected] = React.useState(1);
   const navigation = useNavigation();
   return (
@@ -57,7 +44,7 @@ export default function BottomDrawer() {
         py="2"
         flex={1}
         onPressOut={() => setSelected(1)}
-        onPress={() => navigation.navigate("Contact")}
+        onPress={() => navigation.navigate("Contact Us")}
       >
         <Center>
           <Icon

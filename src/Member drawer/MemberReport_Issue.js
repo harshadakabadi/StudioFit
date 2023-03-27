@@ -12,10 +12,9 @@ import {
   NativeBaseProvider,
   Container
 } from "native-base";
-import StarRating from "react-native-star-rating-widget";
-import { useState } from "react";
+
 import { ScrollView } from "react-native-gesture-handler";
-const Report_Issue = () => {
+const MemberReport_Issue = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -86,4 +85,4 @@ const Report_Issue = () => {
   );
 };
 
-export default Report_Issue;
+export default MemberReport_Issue;

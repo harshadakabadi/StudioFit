@@ -8,11 +8,9 @@ import {
   Box,
   Text,
   Center,
-  Select,CheckIcon,Button,HStack,Pressable,Icon
+  Select,CheckIcon,Button,
 } from "native-base";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
-import BottomDrawer from './BottomDrawer';
+import MemberBottomDrawer from './MemberBottomDrawer';
 
 
 const Payment = () => {
@@ -80,7 +78,7 @@ const Payment = () => {
           </Container>
         </Center>
       </ScrollView>
-      <BottomDrawer/>
+      <MemberBottomDrawer/>
     </NativeBaseProvider>
   );
 }

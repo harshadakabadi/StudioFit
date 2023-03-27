@@ -1,19 +1,20 @@
-import { View, Text } from 'react-native'
+
 import React from 'react'
-import Login from './src/screens/Login';
-import HomeScreen from './src/screens/HomeScreen';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Splash from './src/screens/Splash';
 import Home from './src/bottom/Home';
 import Contact from './src/bottom/Contact';
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Icon } from 'native-base';
 import ForgotPassword from './src/screens/ForgotPassword';
-import Profile from './src/drawer/Profile';
-import LoginSplash from './src/screens/LoginSplash';
-import Payment from './src/drawer/Payment';
-import BottomDrawer from './src/drawer/BottomDrawer';
+import MemberLogin from './src/screens/MemberLogin';
+import TrainerLogin from './src/screens/TrainerLogin';
+import MemberHomeScreen from './src/screens/MemberHomeScreen';
+import TrainerHomeScreen from './src/screens/TrainerHomeScreen';
+import TrainerProfile from './src/TrainerDrawer/TrainerProfile';
+import MemberProfile from './src/Member drawer/MemberProfile';
+import Payment from './src/Member drawer/Payment';
+import TrainerBottomDrawer from './src/TrainerDrawer/TrainerBottomDrawer';
+import MemberBottomDrawer from './src/Member drawer/MemberBottomDrawer';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,13 +28,23 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Login"
-          component={Login}
+          name="Member Login"
+          component={MemberLogin}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
+          name="Trainer Login"
+          component={TrainerLogin}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Member HomeScreen"
+          component={MemberHomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Trainer HomeScreen"
+          component={TrainerHomeScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -42,7 +53,7 @@ const App = () => {
           options={{ headerShown: true }}
         />
         <Stack.Screen
-          name="Contact"
+          name="Contact Us"
           component={Contact}
           options={{ headerShown: true }}
         />
@@ -52,13 +63,13 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Profile"
-          component={Profile}
+          name="Trainer Profile"
+          component={TrainerProfile}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="LoginSplash"
-          component={LoginSplash}
+          name="Member Profile"
+          component={MemberProfile}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -67,8 +78,13 @@ const App = () => {
           options={{ headerShown: true }}
         />
         <Stack.Screen
-          name="BottomDrawer"
-          component={BottomDrawer}
+          name="Trainer BottomDrawer"
+          component={TrainerBottomDrawer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Member BottomDrawer"
+          component={MemberBottomDrawer}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

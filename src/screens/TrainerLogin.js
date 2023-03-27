@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 const baseUrl = "https://reqres.in";
-const Login = () => {
+const TrainerLogin = () => {
   const navigation = useNavigation();
   const [show, setShow] = React.useState(false);
   const [email, setEmail] = useState("");
@@ -158,7 +158,7 @@ const Login = () => {
                   borderRadius={17}
                   onPressOut={onLoginFormHandler}
                   disabled={isLoading}
-                  onPress={() => navigation.navigate("HomeScreen")}
+                  onPress={() => navigation.navigate("Trainer HomeScreen")}
                 >
                   <Text>Log In</Text>
                 </Button>
@@ -185,4 +185,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default TrainerLogin;
