@@ -65,17 +65,26 @@ const App = () => {
         <Stack.Screen
           name="Trainer Profile"
           component={TrainerProfile}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
         />
         <Stack.Screen
           name="Member Profile"
           component={MemberProfile}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
         />
         <Stack.Screen
           name="Payment"
           component={Payment}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
         />
         <Stack.Screen
           name="Trainer BottomDrawer"

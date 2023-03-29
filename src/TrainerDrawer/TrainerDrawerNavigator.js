@@ -18,12 +18,12 @@ import {
   Icon,
 } from "native-base";
 
-import { profile } from "../../assets";
+import { profile, profile1 } from "../../assets";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import TrainerDashboard from "./TrainerDashboard";
 import TrainerHealth_Forum from "./TrainerHealth_Forum";
 import TrainerReport_Issue from "./TrainerReport_Issue";
-import TrainerLogout from "./TrainerLogout";
+import TrainerLogin from "../screens/TrainerLogin";
 
 
 
@@ -57,7 +57,7 @@ function CustomDrawerContent(props) {
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               left={50}
-              source={profile}
+              source={profile1}
               alt="Alternate Text"
               bottom={10}
             />
@@ -152,7 +152,7 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Logout"
-          component={TrainerLogout}
+          component={TrainerLogin}
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",

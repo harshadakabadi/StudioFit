@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -7,17 +7,37 @@ import {
   Text,
   NativeBaseProvider,
   Card,
-  HStack
+  HStack,
+  Heading
 } from "native-base";
+import axios from "axios";
+import { Divider } from "@rneui/themed";
 
 const MemberDashboard = () => {
+  const [notification, setNotification] = useState([]);
+  const getData = async () => {
+    try {
+      const data = await fetch("http://192.168.1.5:8000/api/notification_api/");
+      const notification = await data.json();
+      console.log(notification);
+      setNotification(notification);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      console.log("done");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <NativeBaseProvider>
       <ScrollView>
         <Center>
           <View mt={20}>
             <HStack space={2}>
-              <Card bgColor="#e7f3fb" height={100} width={160}>
+              <Card bgColor="#e7f3fb" height={100} width={170}>
                 <Center>
                   <Text
                     fontSize={18}
@@ -32,7 +52,7 @@ const MemberDashboard = () => {
                   </Text>
                 </Center>
               </Card>
-              <Card bgColor="#e7f3fb" height={100} width={160}>
+              <Card bgColor="#e7f3fb" height={100} width={170}>
                 <Center>
                   <Text
                     fontSize={18}
@@ -49,7 +69,7 @@ const MemberDashboard = () => {
               </Card>
             </HStack>
             <HStack space={2} mt={3}>
-              <Card bgColor="#e7f3fb" height={100} width={160}>
+              <Card bgColor="#e7f3fb" height={100} width={170}>
                 <Center>
                   <Text
                     fontSize={18}
@@ -64,7 +84,7 @@ const MemberDashboard = () => {
                   </Text>
                 </Center>
               </Card>
-              <Card bgColor="#e7f3fb" height={100} width={160}>
+              <Card bgColor="#e7f3fb" height={100} width={170}>
                 <Center>
                   <Text
                     fontSize={18}
@@ -72,7 +92,7 @@ const MemberDashboard = () => {
                     color={"#7d5fff"}
                     opacity={0.9}
                   >
-                    Fat Percentage
+                    Fat percentage
                   </Text>
                   <Text fontSize={17} fontWeight={"bold"} mt={3}>
                     20%
@@ -83,15 +103,24 @@ const MemberDashboard = () => {
           </View>
         </Center>
         <Center>
-          <Box mt={50}>
-            <Card style={{ width: 270, height: 130 }} bgColor="#e7f3fb">
-              <Text fontWeight={"bold"}>Holiday </Text>
-              <Text>
-                There is a Holiday on 26th January on the occasion of republic
-                day..
-              </Text>
-            </Card>
-          </Box>
+          <Card bgColor="#e7f3fb" mt={4} style={{ width: 350, height: 500 }}>
+            <ScrollView>
+              <Center>
+                <Heading>Notifications</Heading>
+              </Center>
+
+              {notification &&
+                notification.map((object) => (
+                  <Box mt={10} key={object.id}>
+                    <Heading>{object.title}</Heading>
+                    <Text mt={3}>{object.description}</Text>
+                    <Box mt={3}>
+                      <Divider />
+                    </Box>
+                  </Box>
+                ))}
+            </ScrollView>
+          </Card>
         </Center>
       </ScrollView>
     </NativeBaseProvider>

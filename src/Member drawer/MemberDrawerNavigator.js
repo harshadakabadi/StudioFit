@@ -17,14 +17,14 @@ import {
   Icon,
  
 } from "native-base";
-import { profile } from "../../assets";
+import { profile, profile1 } from "../../assets";
 import Renew_Membership from "./Renew_Membership";
-import Logout from "./Logout";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import MemberDashboard from "./MemberDashboard";
 import MemberFeedback from "./MemberFeedback";
 import MemberHealth_Forum from "./MemberHealth_Forum";
 import MemberReport_Issue from "./MemberReport_Issue";
+import MemberLogin from "../screens/MemberLogin"
 
 global.__reanimatedWorkletInit = () => {};
 const Drawer = createDrawerNavigator();
@@ -59,7 +59,7 @@ function CustomDrawerContent(props) {
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               left={50}
-              source={profile}
+              source={profile1}
               alt="Alternate Text"
               bottom={10}
             />
@@ -172,8 +172,9 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Logout"
-          component={Logout}
+          component={MemberLogin}
           options={{
+            headerShown:false,
             headerStyle: {
               backgroundColor: "#85C1E9",
             },

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { EvilIcons } from "@expo/vector-icons"; 
 import {
@@ -16,6 +16,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 
+
 const MemberHealth_Forum = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -26,77 +27,52 @@ const MemberHealth_Forum = () => {
 
    const [blog, setBlog] = useState([]);
   
-   axios
-     .get("https://jsonplaceholder.typicode.com/posts")
-     .then((response) => {
-       setBlog(response.data);
-     })
-     .catch(function (error) {
-       // handle error
-       alert(error.message);
-     });
-  
+  //  axios
+  //    .get("http://127.0.0.1:8000/api/blog_api/?format=json")
+  //    .then((response) => {
+  //      setBlog(response.data);
+  //    })
+  //    .catch(function (error) {
+  //      // handle error
+  //      setBlog(null);
+  //      alert(error.message);
+  //    });
  
+  const getData = async () => {
+    try {
+    const data = await fetch("http://192.168.0.103:8000/api/blog_api/");
+    const blog = await data.json();
+    console.log(blog);
+    setBlog(blog);
+    }
+    catch(e){
+      console.log({e})
+    }finally{
+      console.log('done')
+    }
+  }
+useEffect(()=>{
+  getData();
+},[])
+
   return (
     <NativeBaseProvider>
-      <Center>
-        <VStack
-          my="4"
-          space={5}
-          w="100%"
-          maxW="300px"
-          divider={
-            <Box px="2">
-              <Divider />
-            </Box>
-          }
-        >
-          <VStack w="100%" mt={19} space={5} alignSelf="center">
-            <Input
-              bgColor="#e7f3fb"
-              size={20}
-              placeholder="Search"
-              variant="filled"
-              width="100%"
-              borderRadius="8"
-              py="1"
-              px="2"
-              InputLeftElement={
-                <Icon
-                  ml="2"
-                  size="6"
-                  color="gray.400"
-                  as={<EvilIcons name="search" size={24} color="black" />}
-                />
-              }
-            />
-          </VStack>
-        </VStack>
-      </Center>
       <ScrollView>
         <Center>
-          <Box>
-             {blog && blog.map((object, index) => (
-              <Card bgColor="#e7f3fb" key={object.id}>
-                <Heading>Harshada Kabadi</Heading>
-                <VStack
-                  my="4"
-                  space={5}
-                  w="100%"
-                  maxW="300px"
-                  divider={
-                    <Box px="2">
-                      <Divider />
-                    </Box>
-                  }
-                ></VStack>
-                <Text fontWeight={"semibold"}>{object.title}</Text>
-                <Text mt={2}> {object.body}</Text>
-                <Text fontSize={12} color={"gray.400"}>
-                  posted on 29/03/2023 23:45:60
-                </Text>
-              </Card>
-            ))} 
+          <Box mt={4}>
+            {blog &&
+              blog.map((object) => (
+                <Card bgColor="#e7f3fb" key={object.id}>
+                  <Heading>{object.title}</Heading>
+                  <Text mt={2} fontWeight={"semibold"} fontSize={17}>
+                    {object.category}
+                  </Text>
+                  <Text mt={1}>{object.content}</Text>
+                  <Text fontSize={12} mt={1} color={"gray.400"}>
+                    posted on : {new Date(object.updated_at).toGMTString()}
+                  </Text>
+                </Card>
+              ))}
           </Box>
         </Center>
       </ScrollView>
