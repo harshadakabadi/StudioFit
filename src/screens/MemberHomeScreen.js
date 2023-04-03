@@ -9,7 +9,6 @@ const MemberHomeScreen = () => {
     <NativeBaseProvider>
       <View style={{ flex: 1 }}>
         <MemberDrawerNavigator />
-        <MemberBottomDrawer/>
       </View>
     </NativeBaseProvider>
   );

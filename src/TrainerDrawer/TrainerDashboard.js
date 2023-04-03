@@ -5,10 +5,12 @@ import {
   ScrollView,
   Text,
   NativeBaseProvider,
-  Card,Heading
+  Card,Heading, KeyboardAvoidingView
 } from "native-base";
 import { useEffect, useState } from "react";
 import { Divider } from "@rneui/themed";
+import MemberBottomDrawer from "../Member drawer/MemberBottomDrawer";
+import TrainerBottomDrawer from "./TrainerBottomDrawer";
 
 
 const TrainerDashboard = () => {
@@ -33,28 +35,33 @@ const TrainerDashboard = () => {
 
   return (
     <NativeBaseProvider>
-      <ScrollView>
-        <Center>
-          <Card bgColor="#e7f3fb" mt={4} style={{ width: 350 }}>
-            <ScrollView>
-              <Center>
-                <Heading>Notifications</Heading>
-              </Center>
+      <KeyboardAvoidingView
+        behavior="height"
+        style={[{ justifyContent: "center", height: 670 }]}>
+        <ScrollView>
+          <Center>
+            <Card bgColor="#e7f3fb" mt={4} style={{ width: 350 }}>
+              <ScrollView>
+                <Center>
+                  <Heading>Notifications</Heading>
+                </Center>
 
-              {notification &&
-                notification.map((object) => (
-                  <Box mt={10} key={object.id}>
-                    <Heading>{object.title}</Heading>
-                    <Text mt={3}>{object.description}</Text>
-                    <Box mt={3}>
-                      <Divider />
+                {notification &&
+                  notification.map((object) => (
+                    <Box mt={10} key={object.id}>
+                      <Heading>{object.title}</Heading>
+                      <Text mt={3}>{object.description}</Text>
+                      <Box mt={3}>
+                        <Divider />
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
-            </ScrollView>
-          </Card>
-        </Center>
-      </ScrollView>
+                  ))}
+              </ScrollView>
+            </Card>
+          </Center>
+        </ScrollView>
+        <TrainerBottomDrawer />
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };

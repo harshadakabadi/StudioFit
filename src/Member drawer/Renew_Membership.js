@@ -14,9 +14,11 @@ import {
   Card,
   NativeBaseProvider,
   HStack,
+  KeyboardAvoidingView,
 } from "native-base";
 import { ScrollView } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons"; 
+import MemberBottomDrawer from "./MemberBottomDrawer";
 
 const Renew_Membership = () => {
   const navigation = useNavigation();
@@ -41,69 +43,74 @@ const description = [
 ];
   return (
     <NativeBaseProvider>
-      <ScrollView>
-        <Center>
-          <Container maxWidth="1000" mb={10}>
-            {type.map((element, index) => (
-              <Card
-                key={element}
-                style={{ height: 400, width: 250 }}
-                bgColor={"#e9f4fb"}
-                mt={10}
-                styles={{ boxShadow: "2px 2px 2px grey" }}
-              >
-                <Center>
-                  <Text fontSize={18} fontWeight="bold">
-                    {element}
-                  </Text>
-                  <HStack space="3">
-                    <Icon
-                      mt={3}
-                      size="8"
-                      as={
-                        <MaterialIcons
-                          name="local-offer"
-                          size={24}
-                          color="black"
-                        />
-                      }
-                    />
-                  </HStack>
-                  <Text fontSize={17} fontWeight="bold" mt={15}>
-                    {duration[index]}
-                  </Text>
-                  <HStack>
-                    <Icon
-                      mt={5}
-                      size="17"
-                      as={<FontAwesome name="rupee" size={17} color="black" />}
-                    />
+      <KeyboardAvoidingView
+        behavior="height"
+        style={[{ justifyContent: "center", height: 670 }]}>
+        <ScrollView>
+          <Center>
+            <Container maxWidth="1000" mb={10}>
+              {type.map((element, index) => (
+                <Card
+                  key={element}
+                  style={{ height: 400, width: 250 }}
+                  bgColor={"#e9f4fb"}
+                  mt={10}
+                  styles={{ boxShadow: "2px 2px 2px grey" }}
+                >
+                  <Center>
+                    <Text fontSize={18} fontWeight="bold">
+                      {element}
+                    </Text>
+                    <HStack space="3">
+                      <Icon
+                        mt={3}
+                        size="8"
+                        as={
+                          <MaterialIcons
+                            name="local-offer"
+                            size={24}
+                            color="black"
+                          />
+                        }
+                      />
+                    </HStack>
                     <Text fontSize={17} fontWeight="bold" mt={15}>
-                      {price[index]}
+                      {duration[index]}
                     </Text>
-                  </HStack>
-                  <Text fontSize={17} fontWeight="bold" mt={15}>
-                    {description[index]}
-                  </Text>
-
-                  <Button
-                    mt={100}
-                    mb={6}
-                    color="primary"
-                    borderColor="white"
-                    borderWidth={1}
-                    width={"100%"}
-                    onPress={() => navigation.navigate("Payment")}
-                  >
-                    <Text borderRadius={8} color="white">
-                      Purchase
+                    <HStack>
+                      <Icon
+                        mt={5}
+                        size="17"
+                        as={
+                          <FontAwesome name="rupee" size={17} color="black" />
+                        }
+                      />
+                      <Text fontSize={17} fontWeight="bold" mt={15}>
+                        {price[index]}
+                      </Text>
+                    </HStack>
+                    <Text fontSize={17} fontWeight="bold" mt={15}>
+                      {description[index]}
                     </Text>
-                  </Button>
-                </Center>
-              </Card>
-            ))}
 
-            {/* <Card
+                    <Button
+                      mt={100}
+                      mb={6}
+                      color="primary"
+                      borderColor="white"
+                      borderWidth={1}
+                      width={"100%"}
+                      onPress={() => navigation.navigate("Payment")}
+                    >
+                      <Text borderRadius={8} color="white">
+                        Purchase
+                      </Text>
+                    </Button>
+                  </Center>
+                </Card>
+              ))}
+
+              {/* <Card
               style={{ height: 300, width: 250 }}
               mt={10}
               bgColor={"#e9f4fb"}
@@ -181,9 +188,11 @@ const description = [
                 </Button>
               </Center>
             </Card> */}
-          </Container>
-        </Center>
-      </ScrollView>
+            </Container>
+          </Center>
+        </ScrollView>
+        <MemberBottomDrawer />
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };

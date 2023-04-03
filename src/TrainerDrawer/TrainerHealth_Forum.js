@@ -15,11 +15,10 @@ import {
   Select,
   Card,
   Input,
-  HStack,
+  KeyboardAvoidingView
 
 } from "native-base";
-import { Divider } from "@rneui/themed";
-import axios from "axios";
+import TrainerBottomDrawer from "./TrainerBottomDrawer";
 
 
 const TrainerHealth_Forum = () => {
@@ -82,170 +81,173 @@ const postData = async () => {
     console.log("Done");
   }
 };
-  
-  
-
   return (
     <NativeBaseProvider>
-      <Center>
-        <Card width={"300"} height={"350"}>
-          <ScrollView>
-            <Center>
-              <Box>
-                <Input
-                  bgColor="#e7f3fb"
-                  mt={5}
-                  fontSize={13}
-                  minWidth="200"
-                  placeholder="Title of Forum"
-                  value={title}
-                  onChangeText={(text) => setTitle(text)}
-                />
-              </Box>
-              <Box maxW="300" mt={4}>
-                <Select
-                  bgColor="#e7f3fb"
-                  selectedValue={category}
-                  minWidth="200"
-                  accessibilityLabel="select category"
-                  placeholder="select category"
-                  _selectedItem={{
-                    bg: "teal.600",
-                    endIcon: <CheckIcon size="3" />,
-                  }}
-                  _light={{
-                    bg: "coolGray.100",
-                    _hover: {
-                      bg: "coolGray.200",
-                    },
-                    _focus: {
-                      bg: "coolGray.200:alpha.70",
-                    },
-                  }}
-                  _dark={{
-                    bg: "coolGray.800",
-                    _hover: {
-                      bg: "coolGray.900",
-                    },
-                    _focus: {
-                      bg: "coolGray.900:alpha.70",
-                    },
-                  }}
-                  mt={1}
-                  onValueChange={(itemValue) => setCategory(itemValue)}
-                >
-                  <Select.Item
-                    shadow={2}
-                    label="Health"
-                    value={"Health"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Diet"
-                    value={"Diet"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Motivation"
-                    value={"Motivation"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Workout"
-                    value={"Workout"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Clothing"
-                    value={"Clothing"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Body building"
-                    value={"Body building"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                </Select>
-              </Box>
+      <KeyboardAvoidingView
+        behavior="height"
+        style={[{ justifyContent: "center", height: 670 }]}
+      >
+        <Center>
+          <Card width={"300"} height={"350"}>
+            <ScrollView>
               <Center>
                 <Box>
-                  <TextArea
+                  <Input
                     bgColor="#e7f3fb"
                     mt={5}
                     fontSize={13}
-                    placeholder="Enter Your Content"
                     minWidth="200"
-                    value={content}
-                    onChangeText={(text) => setContent(text)}
+                    placeholder="Title of Forum"
+                    value={title}
+                    onChangeText={(text) => setTitle(text)}
                   />
                 </Box>
-              </Center>
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                maxW="300"
-                placeholder="Enter branch ID"
-                value={created_by}
-                onChangeText={(id) => setCreatedBy(id)}
-              />
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                maxW="300"
-                placeholder="Enter created by"
-                value={updated_by}
-                onChangeText={(id) => setUpdatedBy(id)}
-              />
-              <View>
-                <Center>
-                  <Button
-                    mt={5}
-                    textAlign={"center"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    width={"100%"}
-                    height={45}
-                    borderRadius={8}
-                    bgColor={"#4CAF50"}
-                    mb={0}
-                    onPress={postData}
+                <Box maxW="300" mt={4}>
+                  <Select
+                    bgColor="#e7f3fb"
+                    selectedValue={category}
+                    minWidth="200"
+                    accessibilityLabel="select category"
+                    placeholder="select category"
+                    _selectedItem={{
+                      bg: "teal.600",
+                      endIcon: <CheckIcon size="3" />,
+                    }}
+                    _light={{
+                      bg: "coolGray.100",
+                      _hover: {
+                        bg: "coolGray.200",
+                      },
+                      _focus: {
+                        bg: "coolGray.200:alpha.70",
+                      },
+                    }}
+                    _dark={{
+                      bg: "coolGray.800",
+                      _hover: {
+                        bg: "coolGray.900",
+                      },
+                      _focus: {
+                        bg: "coolGray.900:alpha.70",
+                      },
+                    }}
+                    mt={1}
+                    onValueChange={(itemValue) => setCategory(itemValue)}
                   >
-                    <Text fontSize={15} textAlign={"center"} color={"white"}>
-                      Post
-                    </Text>
-                  </Button>
+                    <Select.Item
+                      shadow={2}
+                      label="Health"
+                      value={"Health"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Diet"
+                      value={"Diet"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Motivation"
+                      value={"Motivation"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Workout"
+                      value={"Workout"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Clothing"
+                      value={"Clothing"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Body building"
+                      value={"Body building"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                  </Select>
+                </Box>
+                <Center>
+                  <Box>
+                    <TextArea
+                      bgColor="#e7f3fb"
+                      mt={5}
+                      fontSize={13}
+                      placeholder="Enter Your Content"
+                      minWidth="200"
+                      value={content}
+                      onChangeText={(text) => setContent(text)}
+                    />
+                  </Box>
                 </Center>
-              </View>
-            </Center>
-          </ScrollView>
-        </Card>
-      </Center>
-      <ScrollView>
-        <Center>
-          <Box mt={3}>
-            {blog &&
-              blog.map((object) => (
-                <Card bgColor="#e7f3fb" key={object.id}>
-                  <Heading>{object.title}</Heading>
-                  <Text mt={2} fontWeight={"semibold"} fontSize={17}>
-                    {object.category}
-                  </Text>
-                  <Text mt={1}>{object.content}</Text>
-                  <Text fontSize={12} mt={1} color={"gray.400"}>
-                    posted on : {new Date(object.created_at).toGMTString()}
-                  </Text>
-                </Card>
-              ))}
-          </Box>
+                <Input
+                  mt={5}
+                  fontSize={16}
+                  bgColor="#e7f3fb"
+                  maxW="300"
+                  placeholder="Enter branch ID"
+                  value={created_by}
+                  onChangeText={(id) => setCreatedBy(id)}
+                />
+                <Input
+                  mt={5}
+                  fontSize={16}
+                  bgColor="#e7f3fb"
+                  maxW="300"
+                  placeholder="Enter created by"
+                  value={updated_by}
+                  onChangeText={(id) => setUpdatedBy(id)}
+                />
+                <View>
+                  <Center>
+                    <Button
+                      mt={5}
+                      textAlign={"center"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      width={"100%"}
+                      height={45}
+                      borderRadius={8}
+                      bgColor={"#4CAF50"}
+                      mb={0}
+                      onPress={postData}
+                    >
+                      <Text fontSize={15} textAlign={"center"} color={"white"}>
+                        Post
+                      </Text>
+                    </Button>
+                  </Center>
+                </View>
+              </Center>
+            </ScrollView>
+          </Card>
         </Center>
-      </ScrollView>
+        <ScrollView>
+          <Center>
+            <Box mt={3}>
+              {blog &&
+                blog.map((object) => (
+                  <Card bgColor="#e7f3fb" key={object.id}>
+                    <Heading>{object.title}</Heading>
+                    <Text mt={2} fontWeight={"semibold"} fontSize={17}>
+                      {object.category}
+                    </Text>
+                    <Text mt={1}>{object.content}</Text>
+                    <Text fontSize={12} mt={1} color={"gray.400"}>
+                      posted on : {new Date(object.created_at).toGMTString()}
+                    </Text>
+                  </Card>
+                ))}
+            </Box>
+          </Center>
+        </ScrollView>
+        <TrainerBottomDrawer/>
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };

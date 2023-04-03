@@ -1,22 +1,14 @@
 import React, { useState } from "react";
- import { Dropdown } from "react-native-element-dropdown";
- import { View } from "native-base";
+import { KeyboardAvoidingView } from "native-base";
 import {
   Button,
   Center,
   NativeBaseProvider,
   Text,
-  Icon,
   TextArea,Box,Input, ScrollView, Container,Select,CheckIcon
 } from "native-base";
-import AntDesign from "@expo/vector-icons/AntDesign";
-const data = [
-  { label: "Member", value: "1" },
-  { label: "Trainer", value: "2" },
-  { label: "Management", value: "3" },
-  { label: "Equipment", value: "4" },
-  { label: "Environment", value: "5" },
-];
+import MemberBottomDrawer from "./MemberBottomDrawer";
+
 const MemberReport_Issue = () => {
   const [category,setCategory]=useState("");
   const [issue, setIssue] = useState("");
@@ -53,129 +45,134 @@ const MemberReport_Issue = () => {
   
   return (
     <NativeBaseProvider>
-      <ScrollView>
-        <Center>
-          <Container mt={30} maxWidth="800">
-            <Center>
-              <Box width={300} mt={4}>
-                <Select
-                  bgColor="#e7f3fb"
-                  selectedValue={category}
-                  fontSize={16}
-                  accessibilityLabel="select category"
-                  placeholder="select category"
-                  _selectedItem={{
-                    bg: "teal.600",
-                    endIcon: <CheckIcon size="3" />,
-                  }}
-                  _light={{
-                    bg: "coolGray.100",
-                    _hover: {
-                      bg: "coolGray.200",
-                    },
-                    _focus: {
-                      bg: "coolGray.200:alpha.70",
-                    },
-                  }}
-                  _dark={{
-                    bg: "coolGray.800",
-                    _hover: {
-                      bg: "coolGray.900",
-                    },
-                    _focus: {
-                      bg: "coolGray.900:alpha.70",
-                    },
-                  }}
-                  mt={1}
-                  onValueChange={(itemValue) => setCategory(itemValue)}
-                >
-                  <Select.Item
-                    shadow={2}
-                    label="Member"
-                    value={"Member"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Trainer"
-                    value={"Trainer"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Equipment"
-                    value={"Equipment"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Management"
-                    value={"Management"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                  <Select.Item
-                    shadow={2}
-                    label="Environment"
-                    value={"Environment"}
-                    onChangeText={(text) => setCategory(text)}
-                  />
-                </Select>
-              </Box>
-
-              <Text mt={5} fontSize={18}>
-                Enter Your Issue
-              </Text>
-              <Box alignItems="center" mt={5}>
-                <TextArea
-                  fontSize={16}
-                  bgColor="#e7f3fb"
-                  h={40}
-                  maxW="300"
-                  placeholder="Enter your Issue "
-                  value={issue}
-                  onChangeText={(text) => setIssue(text)}
-                />
-              </Box>
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                maxW="300"
-                placeholder="Enter branch ID"
-                value={branch}
-                onChangeText={(id) => setBranch(id)}
-              />
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                maxW="300"
-                placeholder="Enter created by"
-                value={created_by}
-                onChangeText={(id) => setCreatedBy(id)}
-              />
+      <KeyboardAvoidingView
+        behavior="height"
+        style={[{ justifyContent: "center",height:670 }]}>
+        <ScrollView>
+          <Center>
+            <Container mt={30} maxWidth="800">
               <Center>
-                <Button
-                  mt={20}
-                  mb={20}
-                  textAlign={"center"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  width={300}
-                  height={50}
-                  borderRadius={8}
-                  bgColor={"#4CAF50"}
-                  onPress={postData}
-                >
-                  <Text fontSize={18} textAlign={"center"} color={"white"}>
-                    Submit
-                  </Text>
-                </Button>
+                <Box width={300} mt={4}>
+                  <Select
+                    bgColor="#e7f3fb"
+                    selectedValue={category}
+                    fontSize={16}
+                    accessibilityLabel="select category"
+                    placeholder="select category"
+                    _selectedItem={{
+                      bg: "teal.600",
+                      endIcon: <CheckIcon size="3" />,
+                    }}
+                    _light={{
+                      bg: "coolGray.100",
+                      _hover: {
+                        bg: "coolGray.200",
+                      },
+                      _focus: {
+                        bg: "coolGray.200:alpha.70",
+                      },
+                    }}
+                    _dark={{
+                      bg: "coolGray.800",
+                      _hover: {
+                        bg: "coolGray.900",
+                      },
+                      _focus: {
+                        bg: "coolGray.900:alpha.70",
+                      },
+                    }}
+                    mt={1}
+                    onValueChange={(itemValue) => setCategory(itemValue)}
+                  >
+                    <Select.Item
+                      shadow={2}
+                      label="Member"
+                      value={"Member"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Trainer"
+                      value={"Trainer"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Equipment"
+                      value={"Equipment"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Management"
+                      value={"Management"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                    <Select.Item
+                      shadow={2}
+                      label="Environment"
+                      value={"Environment"}
+                      onChangeText={(text) => setCategory(text)}
+                    />
+                  </Select>
+                </Box>
+
+                <Text mt={5} fontSize={18}>
+                  Enter Your Issue
+                </Text>
+                <Box alignItems="center" mt={5}>
+                  <TextArea
+                    fontSize={16}
+                    bgColor="#e7f3fb"
+                    h={40}
+                    maxW="300"
+                    placeholder="Enter your Issue "
+                    value={issue}
+                    onChangeText={(text) => setIssue(text)}
+                  />
+                </Box>
+                <Input
+                  mt={5}
+                  fontSize={16}
+                  bgColor="#e7f3fb"
+                  maxW="300"
+                  placeholder="Enter branch ID"
+                  value={branch}
+                  onChangeText={(id) => setBranch(id)}
+                />
+                <Input
+                  mt={5}
+                  fontSize={16}
+                  bgColor="#e7f3fb"
+                  maxW="300"
+                  placeholder="Enter created by"
+                  value={created_by}
+                  onChangeText={(id) => setCreatedBy(id)}
+                />
+                <Center>
+                  <Button
+                    mt={20}
+                    mb={20}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    width={300}
+                    height={50}
+                    borderRadius={8}
+                    bgColor={"#4CAF50"}
+                    onPress={postData}
+                  >
+                    <Text fontSize={18} textAlign={"center"} color={"white"}>
+                      Submit
+                    </Text>
+                  </Button>
+                </Center>
               </Center>
-            </Center>
-          </Container>
-        </Center>
-      </ScrollView>
+            </Container>
+          </Center>
+        </ScrollView>
+        <MemberBottomDrawer/>
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };

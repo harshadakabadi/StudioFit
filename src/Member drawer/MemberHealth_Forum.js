@@ -11,11 +11,12 @@ import {
   Input,
   Icon,
   Card,
-  NativeBaseProvider
+  NativeBaseProvider,
+  KeyboardAvoidingView
 } from "native-base";
 import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
-import axios from "axios";
+import MemberBottomDrawer from "./MemberBottomDrawer";
 
 
 const MemberHealth_Forum = () => {
@@ -29,17 +30,6 @@ const MemberHealth_Forum = () => {
    const [blog, setBlog] = useState([]);
    const [loading, setLoading] = useState(true);
   
-  //  axios
-  //    .get("http://127.0.0.1:8000/api/blog_api/?format=json")
-  //    .then((response) => {
-  //      setBlog(response.data);
-  //    })
-  //    .catch(function (error) {
-  //      // handle error
-  //      setBlog(null);
-  //      alert(error.message);
-  //    });
- 
   const getData = async () => {
     try {
     const data = await fetch(
@@ -62,28 +52,35 @@ useEffect(()=>{
 
   return (
     <NativeBaseProvider>
-      <ScrollView>
-        <Center>
-        { loading ?
-      <ActivityIndicator size="medium"/> :
-          <Box mt={4}>
-            {blog &&
-              blog.map((object) => (
-                <Card bgColor="#e7f3fb" key={object.id}>
-                  <Heading>{object.title}</Heading>
-                  <Text mt={2} fontWeight={"semibold"} fontSize={17}>
-                    {object.category}
-                  </Text>
-                  <Text mt={1}>{object.content}</Text>
-                  <Text fontSize={12} mt={1} color={"gray.400"}>
-                    posted on : {new Date(object.updated_at).toGMTString()}
-                  </Text>
-                </Card>
-              ))}
-          </Box>
-        }
-        </Center>
-      </ScrollView>
+      <KeyboardAvoidingView
+        behavior="height"
+        style={[{ justifyContent: "center", height: 670 }]}
+      >
+        <ScrollView>
+          <Center>
+            {loading ? (
+              <ActivityIndicator size="medium" />
+            ) : (
+              <Box mt={4}>
+                {blog &&
+                  blog.map((object) => (
+                    <Card bgColor="#e7f3fb" key={object.id}>
+                      <Heading>{object.title}</Heading>
+                      <Text mt={2} fontWeight={"semibold"} fontSize={17}>
+                        {object.category}
+                      </Text>
+                      <Text mt={1}>{object.content}</Text>
+                      <Text fontSize={12} mt={1} color={"gray.400"}>
+                        posted on : {new Date(object.updated_at).toGMTString()}
+                      </Text>
+                    </Card>
+                  ))}
+              </Box>
+            )}
+          </Center>
+        </ScrollView>
+        <MemberBottomDrawer/>
+      </KeyboardAvoidingView>
     </NativeBaseProvider>
   );
 };

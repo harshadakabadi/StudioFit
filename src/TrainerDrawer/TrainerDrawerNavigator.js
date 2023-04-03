@@ -155,6 +155,7 @@ function MyDrawer() {
           name="Logout"
           component={TrainerLogin}
           options={{
+            headerShown: false,
             headerStyle: {
               backgroundColor: "#85C1E9",
             },
@@ -169,7 +170,6 @@ const TrainerDrawerNavigator = () => {
   return (
     <>
       <MyDrawer />
-      <TrainerBottomDrawer/>
     </>
   );
 };
