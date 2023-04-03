@@ -188,7 +188,6 @@ const MemberDrawerNavigator = () => {
   return (
     <>
       <MyDrawer />
-      <MemberBottomDrawer />
     </>
   );
 };

@@ -22,7 +22,7 @@ const TrainerProfile = () => {
  const [Userprofile, setUserProfile] = React.useState(null);
  const getDataMember = async () => {
    try {
-     const data = await fetch("http://192.168.1.5:8000/api/member_api/1");
+     const data = await fetch("http://192.168.0.101:8000/api/member_api/1");
      const profile = await data.json();
      console.log(profile);
      setProfile(profile);
@@ -34,7 +34,7 @@ const TrainerProfile = () => {
  };
  const getDataUser = async () => {
    try {
-     const data = await fetch(`http://192.168.1.5:8000/api/user_api/2`);
+     const data = await fetch(`http://192.168.0.101:8000/api/user_api/2`);
      const profile = await data.json();
      console.log(profile);
      setUserProfile(profile);

@@ -2,28 +2,19 @@ import { View,StyleSheet } from 'react-native'
 import * as React from 'react'
 import {
   NativeBaseProvider,
-  VStack,
-  Box,
   Image,
   Center,
   Text,
   HStack,
-  Icon,
   Container,
   Button,
-  NumberInput,
 } from "native-base";
 import { TextInput } from "react-native-paper";
-
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   MaterialIcons,
-  MaterialCommunityIcons,
-  Foundation,
 } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
-import NumericInput from "react-native-numeric-input";
 import { profile1 } from '../../assets';
 
 const MemberProfile = () => {
@@ -32,7 +23,7 @@ const MemberProfile = () => {
   const [Userprofile, setUserProfile] = React.useState(null);
   const getDataMember = async () => {
       try {
-        const data = await fetch("http://192.168.1.5:8000/api/member_api/1");
+        const data = await fetch("http://192.168.0.101:8000/api/member_api/");
         const profile = await data.json();
         console.log(profile);
         setProfile(profile);
@@ -44,7 +35,7 @@ const MemberProfile = () => {
     };
     const getDataUser = async () => {
       try {
-        const data = await fetch(`http://192.168.1.5:8000/api/user_api/2`);
+        const data = await fetch(`http://192.168.0.101:8000/api/user_api/`);
         const profile = await data.json();
         console.log(profile);
         setUserProfile(profile);
@@ -69,7 +60,7 @@ const MemberProfile = () => {
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               mt={63}
-              source={profile1}
+              source={profile && profile.profile_picture}
               alt="Alternate Text"
               bottom={10}
             />
@@ -111,7 +102,8 @@ const MemberProfile = () => {
                 <TextInput
                   width={310}
                   mode="outlined"
-                  type="number"
+                  inputMode="tel"
+                  keyboardType="numeric"
                   label="Contact No"
                   value={profile && profile.mobile}
                   textColor="grey"

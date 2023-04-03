@@ -29,102 +29,202 @@ const TrainerHealth_Forum = () => {
       headerShown: true,
     });
   }, []);
-  const [isLoading, setIsLoading] = useState(false);
-  const [category, setCategory] = React.useState("");
+  openAlert = () => {
+    alert("Successfull");
+  };
+
   const [blog, setBlog] = useState([]);
 
-  // const getData = async () => {
-  axios
-    .get("http://192.168.0.103:8000/api/blog_api/")
-    .then((response) => {
-      setBlog(response.data);
-    })
-    .catch(function (error) {
-      // handle error
-      setBlog(null);
-      alert(error.message);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = React.useState("");
+  const [content, setContent] = useState("");
+  const [created_by, setCreatedBy] = useState("");
+  const [updated_by, setUpdatedBy] = useState("");
+
+  const getData = async () => {
+    try {
+      const data = await fetch(
+        "http://192.168.0.102:8000/api/blog_api/"
+      );
+      const blog = await data.json();
+      console.log(blog);
+      setBlog(blog);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      console.log("done");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+const postData = async () => {
+  try {
+    let result = await fetch("http://192.168.0.102:8000/api/blog_api/", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        category,
+        content,
+        created_by,
+        updated_by,
+      }),
     });
 
-  // const getData = async () => {
-  //   try {
-  //     const data = await fetch("http://192.168.0.103:8000/api/blog_api/");
-  //     const blog = await data.json();
-  //     console.log(blog);
-  //     setBlog(blog);
-  //   } catch (e) {
-  //     alert({ e });
-  //   } finally {
-  //     console.log("done");
-  //   }
-  // };
-  //useEffect(() => {
-    //getData();
-  //}, []);
+    console.log("Data saved");
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("Done");
+  }
+};
+  
+  
 
   return (
     <NativeBaseProvider>
       <Center>
         <Card width={"300"} height={"350"}>
-          <Center>
-            <Box>
-              <Input
-                bgColor="#e7f3fb"
-                mt={5}
-                fontSize={13}
-                minWidth="200"
-                placeholder="Title of Forum"
-              />
-            </Box>
-            <Box mt={5}>
-              <Select
-                bgColor="#e7f3fb"
-                selectedValue={category}
-                minWidth="200"
-                fontSize={13}
-                accessibilityLabel="Select Forum category"
-                placeholder="Select Forum category"
-                _selectedItem={{
-                  endIcon: <CheckIcon size="1" />,
-                }}
-                mt={1}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
-                <Select.Item label="Positive" value="positive" />
-                <Select.Item label="Negative" value="negative" />
-                <Select.Item label="None" value="None" />
-              </Select>
-            </Box>
+          <ScrollView>
             <Center>
               <Box>
-                <TextArea
+                <Input
                   bgColor="#e7f3fb"
                   mt={5}
                   fontSize={13}
-                  placeholder="Enter Your Content"
                   minWidth="200"
+                  placeholder="Title of Forum"
+                  value={title}
+                  onChangeText={(text) => setTitle(text)}
                 />
               </Box>
-            </Center>
-            <View>
-              <Center>
-                <Button
-                  mt={5}
-                  textAlign={"center"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  width={"100%"}
-                  height={45}
-                  borderRadius={8}
-                  bgColor={"#4CAF50"}
-                  mb={0}
+              <Box maxW="300" mt={4}>
+                <Select
+                  bgColor="#e7f3fb"
+                  selectedValue={category}
+                  minWidth="200"
+                  accessibilityLabel="select category"
+                  placeholder="select category"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="3" />,
+                  }}
+                  _light={{
+                    bg: "coolGray.100",
+                    _hover: {
+                      bg: "coolGray.200",
+                    },
+                    _focus: {
+                      bg: "coolGray.200:alpha.70",
+                    },
+                  }}
+                  _dark={{
+                    bg: "coolGray.800",
+                    _hover: {
+                      bg: "coolGray.900",
+                    },
+                    _focus: {
+                      bg: "coolGray.900:alpha.70",
+                    },
+                  }}
+                  mt={1}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
                 >
-                  <Text fontSize={15} textAlign={"center"} color={"white"}>
-                    Post
-                  </Text>
-                </Button>
+                  <Select.Item
+                    shadow={2}
+                    label="Health"
+                    value={"Health"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Diet"
+                    value={"Diet"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Motivation"
+                    value={"Motivation"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Workout"
+                    value={"Workout"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Clothing"
+                    value={"Clothing"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Body building"
+                    value={"Body building"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                </Select>
+              </Box>
+              <Center>
+                <Box>
+                  <TextArea
+                    bgColor="#e7f3fb"
+                    mt={5}
+                    fontSize={13}
+                    placeholder="Enter Your Content"
+                    minWidth="200"
+                    value={content}
+                    onChangeText={(text) => setContent(text)}
+                  />
+                </Box>
               </Center>
-            </View>
-          </Center>
+              <Input
+                mt={5}
+                fontSize={16}
+                bgColor="#e7f3fb"
+                maxW="300"
+                placeholder="Enter branch ID"
+                value={created_by}
+                onChangeText={(id) => setCreatedBy(id)}
+              />
+              <Input
+                mt={5}
+                fontSize={16}
+                bgColor="#e7f3fb"
+                maxW="300"
+                placeholder="Enter created by"
+                value={updated_by}
+                onChangeText={(id) => setUpdatedBy(id)}
+              />
+              <View>
+                <Center>
+                  <Button
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    width={"100%"}
+                    height={45}
+                    borderRadius={8}
+                    bgColor={"#4CAF50"}
+                    mb={0}
+                    onPress={postData}
+                  >
+                    <Text fontSize={15} textAlign={"center"} color={"white"}>
+                      Post
+                    </Text>
+                  </Button>
+                </Center>
+              </View>
+            </Center>
+          </ScrollView>
         </Card>
       </Center>
       <ScrollView>

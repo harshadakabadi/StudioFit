@@ -13,6 +13,7 @@ import {
   Card,
   NativeBaseProvider
 } from "native-base";
+import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 
@@ -26,6 +27,7 @@ const MemberHealth_Forum = () => {
   }, []);
 
    const [blog, setBlog] = useState([]);
+   const [loading, setLoading] = useState(true);
   
   //  axios
   //    .get("http://127.0.0.1:8000/api/blog_api/?format=json")
@@ -40,10 +42,13 @@ const MemberHealth_Forum = () => {
  
   const getData = async () => {
     try {
-    const data = await fetch("http://192.168.0.103:8000/api/blog_api/");
+    const data = await fetch(
+      "http://192.168.0.102:8000/api/blog_api/"
+    );
     const blog = await data.json();
     console.log(blog);
     setBlog(blog);
+    setLoading(false);
     }
     catch(e){
       console.log({e})
@@ -59,6 +64,8 @@ useEffect(()=>{
     <NativeBaseProvider>
       <ScrollView>
         <Center>
+        { loading ?
+      <ActivityIndicator size="medium"/> :
           <Box mt={4}>
             {blog &&
               blog.map((object) => (
@@ -74,6 +81,7 @@ useEffect(()=>{
                 </Card>
               ))}
           </Box>
+        }
         </Center>
       </ScrollView>
     </NativeBaseProvider>

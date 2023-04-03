@@ -43,7 +43,7 @@ const description = [
     <NativeBaseProvider>
       <ScrollView>
         <Center>
-          <Container maxWidth="1000">
+          <Container maxWidth="1000" mb={10}>
             {type.map((element, index) => (
               <Card
                 key={element}

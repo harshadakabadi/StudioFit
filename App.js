@@ -50,12 +50,18 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
         />
         <Stack.Screen
           name="Contact Us"
           component={Contact}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
         />
         <Stack.Screen
           name="ForgotPassword"

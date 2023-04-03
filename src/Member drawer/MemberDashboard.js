@@ -17,7 +17,9 @@ const MemberDashboard = () => {
   const [notification, setNotification] = useState([]);
   const getData = async () => {
     try {
-      const data = await fetch("http://192.168.1.5:8000/api/notification_api/");
+      const data = await fetch(
+        "http://192.168.0.102:8000/api/notification_api/"
+      );
       const notification = await data.json();
       console.log(notification);
       setNotification(notification);

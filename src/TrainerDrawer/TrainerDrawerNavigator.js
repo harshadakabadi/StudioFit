@@ -18,12 +18,13 @@ import {
   Icon,
 } from "native-base";
 
-import { profile, profile1 } from "../../assets";
+import { profile1 } from "../../assets";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import TrainerDashboard from "./TrainerDashboard";
 import TrainerHealth_Forum from "./TrainerHealth_Forum";
 import TrainerReport_Issue from "./TrainerReport_Issue";
 import TrainerLogin from "../screens/TrainerLogin";
+
 
 
 

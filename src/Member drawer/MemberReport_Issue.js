@@ -1,54 +1,128 @@
-import { View } from "react-native";
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+ import { Dropdown } from "react-native-element-dropdown";
+ import { View } from "native-base";
 import {
-  Select,
-  Box,
-  Center,
-  CheckIcon,
-  Text,
-  TextArea,
   Button,
+  Center,
   NativeBaseProvider,
-  Container
+  Text,
+  Icon,
+  TextArea,Box,Input, ScrollView, Container,Select,CheckIcon
 } from "native-base";
-
-import { ScrollView } from "react-native-gesture-handler";
+import AntDesign from "@expo/vector-icons/AntDesign";
+const data = [
+  { label: "Member", value: "1" },
+  { label: "Trainer", value: "2" },
+  { label: "Management", value: "3" },
+  { label: "Equipment", value: "4" },
+  { label: "Environment", value: "5" },
+];
 const MemberReport_Issue = () => {
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-    });
-  }, []);
-  const [category, setCategory] = React.useState("");
+  const [category,setCategory]=useState("");
+  const [issue, setIssue] = useState("");
+  const [branch, setBranch] = useState("");
+  const [created_by, setCreatedBy] = useState("");
 
+  const postData = async()=>{
+    try{
+        let result = await fetch(
+          "http://192.168.0.102:8000/api/reported_issue_api/",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              category,
+              issue,
+              branch,
+              created_by,
+            }),
+          }
+        );
+   
+    console.log("Data saved");
+    }
+    catch(error){
+      console.log(error);
+    }
+    finally{
+      console.log("Done");
+    } 
+  }
+  
   return (
     <NativeBaseProvider>
       <ScrollView>
         <Center>
-          <Container mt={15} maxWidth="800">
+          <Container mt={30} maxWidth="800">
             <Center>
-              <Box maxW="500" mt={50}>
+              <Box width={300} mt={4}>
                 <Select
-                  selectedValue={category}
-                  minWidth="329"
-                  fontSize={16}
                   bgColor="#e7f3fb"
-                  accessibilityLabel="Select By Issue category"
-                  placeholder="Select By Issue category"
+                  selectedValue={category}
+                  fontSize={16}
+                  accessibilityLabel="select category"
+                  placeholder="select category"
                   _selectedItem={{
-                    endIcon: <CheckIcon size="1" />,
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="3" />,
+                  }}
+                  _light={{
+                    bg: "coolGray.100",
+                    _hover: {
+                      bg: "coolGray.200",
+                    },
+                    _focus: {
+                      bg: "coolGray.200:alpha.70",
+                    },
+                  }}
+                  _dark={{
+                    bg: "coolGray.800",
+                    _hover: {
+                      bg: "coolGray.900",
+                    },
+                    _focus: {
+                      bg: "coolGray.900:alpha.70",
+                    },
                   }}
                   mt={1}
                   onValueChange={(itemValue) => setCategory(itemValue)}
                 >
-                  <Select.Item label="management" value="management" />
-                  <Select.Item label="staff" value="staff" />
-                  <Select.Item label="None" value="None" />
+                  <Select.Item
+                    shadow={2}
+                    label="Member"
+                    value={"Member"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Trainer"
+                    value={"Trainer"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Equipment"
+                    value={"Equipment"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Management"
+                    value={"Management"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Environment"
+                    value={"Environment"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
                 </Select>
               </Box>
-              <Text mt={30} fontSize={18}>
+
+              <Text mt={5} fontSize={18}>
                 Enter Your Issue
               </Text>
               <Box alignItems="center" mt={5}>
@@ -56,14 +130,34 @@ const MemberReport_Issue = () => {
                   fontSize={16}
                   bgColor="#e7f3fb"
                   h={40}
-                  placeholder="Enter Your Issue"
-                  maxW="329"
+                  maxW="300"
+                  placeholder="Enter your Issue "
+                  value={issue}
+                  onChangeText={(text) => setIssue(text)}
                 />
               </Box>
-
+              <Input
+                mt={5}
+                fontSize={16}
+                bgColor="#e7f3fb"
+                maxW="300"
+                placeholder="Enter branch ID"
+                value={branch}
+                onChangeText={(id) => setBranch(id)}
+              />
+              <Input
+                mt={5}
+                fontSize={16}
+                bgColor="#e7f3fb"
+                maxW="300"
+                placeholder="Enter created by"
+                value={created_by}
+                onChangeText={(id) => setCreatedBy(id)}
+              />
               <Center>
                 <Button
                   mt={20}
+                  mb={20}
                   textAlign={"center"}
                   justifyContent={"center"}
                   alignItems={"center"}
@@ -71,6 +165,7 @@ const MemberReport_Issue = () => {
                   height={50}
                   borderRadius={8}
                   bgColor={"#4CAF50"}
+                  onPress={postData}
                 >
                   <Text fontSize={18} textAlign={"center"} color={"white"}>
                     Submit
