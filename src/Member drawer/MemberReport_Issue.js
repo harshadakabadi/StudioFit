@@ -15,27 +15,29 @@ const MemberReport_Issue = () => {
   const [branch, setBranch] = useState("");
   const [created_by, setCreatedBy] = useState("");
 
+  openAlert = () => {
+    alert("Successfully submitted");
+  };
+
   const postData = async()=>{
     try{
-        let result = await fetch(
-          "http://192.168.0.102:8000/api/reported_issue_api/",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              category,
-              issue,
-              branch,
-              created_by,
-            }),
-          }
-        );
-   
+        let result = await fetch(`http://${global.MyVar}/reported_issue_api/`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            category,
+            issue,
+            branch: 1,
+            created_by:1,
+          }),
+        });
+    alert("Submitted successfully..");
     console.log("Data saved");
     }
     catch(error){
+      alert("Something Wrong");
       console.log(error);
     }
     finally{
@@ -131,24 +133,6 @@ const MemberReport_Issue = () => {
                     onChangeText={(text) => setIssue(text)}
                   />
                 </Box>
-                <Input
-                  mt={5}
-                  fontSize={16}
-                  bgColor="#e7f3fb"
-                  maxW="300"
-                  placeholder="Enter branch ID"
-                  value={branch}
-                  onChangeText={(id) => setBranch(id)}
-                />
-                <Input
-                  mt={5}
-                  fontSize={16}
-                  bgColor="#e7f3fb"
-                  maxW="300"
-                  placeholder="Enter created by"
-                  value={created_by}
-                  onChangeText={(id) => setCreatedBy(id)}
-                />
                 <Center>
                   <Button
                     mt={20}

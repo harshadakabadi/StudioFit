@@ -8,22 +8,30 @@ import {
   HStack,
   Container,
   Button,
+  Input
 } from "native-base";
 import { TextInput } from "react-native-paper";
 import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import axios from 'axios';
-import { profile1 } from '../../assets';
+import { useNavigation } from "@react-navigation/native";
+
+
 
 const MemberProfile = () => {
+ const navigation = useNavigation();
+ const [changeColor, setChangeColor] = React.useState("blue:400");
+ const handleButtonClick = () => {
+   const newColor = changeColor === "blue:100" ? "red" : "blue:100";
+   setChangeColor(newColor);
+ };
 
   const [profile, setProfile] = React.useState(null);
   const [Userprofile, setUserProfile] = React.useState(null);
   const getDataMember = async () => {
       try {
-        const data = await fetch("http://192.168.0.101:8000/api/member_api/");
+        const data = await fetch(`http://${global.MyVar}/api/member_api/1`);
         const profile = await data.json();
         console.log(profile);
         setProfile(profile);
@@ -35,7 +43,7 @@ const MemberProfile = () => {
     };
     const getDataUser = async () => {
       try {
-        const data = await fetch(`http://192.168.0.101:8000/api/user_api/`);
+        const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
         const profile = await data.json();
         console.log(profile);
         setUserProfile(profile);
@@ -67,10 +75,12 @@ const MemberProfile = () => {
             <Button
               mt={49}
               borderColor="black"
-              bgColor="blue.100"
               variant="outline"
               width="40%"
               height="30%"
+              color={changeColor}
+              onPressIn={handleButtonClick}
+              onPress={() => navigation.navigate("Edit Member Profile")}
             >
               <HStack space={1}>
                 <MaterialIcons name="edit" size={18} color="black" />
@@ -87,6 +97,7 @@ const MemberProfile = () => {
                   label="Full Name"
                   value={Userprofile && Userprofile.first_name}
                   textColor="grey"
+                  editable={false}
                 />
               </HStack>
               <HStack mt={3}>
@@ -96,17 +107,19 @@ const MemberProfile = () => {
                   label="E-mail"
                   value={Userprofile && Userprofile.email}
                   textColor="grey"
+                  editable={false}
                 />
               </HStack>
               <HStack mt={3}>
                 <TextInput
                   width={310}
                   mode="outlined"
-                  inputMode="tel"
                   keyboardType="numeric"
                   label="Contact No"
-                  value={profile && profile.mobile}
+                  type="number"
+                  value={profile && profile.mobile.toString()}
                   textColor="grey"
+                  editable={false}
                 />
               </HStack>
               <HStack mt={3}>
@@ -116,6 +129,7 @@ const MemberProfile = () => {
                   label="Address"
                   value={profile && profile.address}
                   textColor="grey"
+                  editable={false}
                 />
                 <Text></Text>
               </HStack>
@@ -126,6 +140,7 @@ const MemberProfile = () => {
                   label="City"
                   value={profile && profile.city}
                   textColor="grey"
+                  editable={false}
                 />
                 <TextInput
                   width={150}
@@ -133,6 +148,7 @@ const MemberProfile = () => {
                   label="State"
                   value={profile && profile.state}
                   textColor="grey"
+                  editable={false}
                 />
               </HStack>
               <HStack space="2" mt={3}>
@@ -140,8 +156,9 @@ const MemberProfile = () => {
                   width={150}
                   mode="outlined"
                   label="Pin Code"
-                  value={profile && profile.pincode}
+                  value={profile && profile.pincode.toString()}
                   textColor="grey"
+                  editable={false}
                 />
                 <TextInput
                   width={150}
@@ -149,6 +166,7 @@ const MemberProfile = () => {
                   label="Gender"
                   value={profile && profile.gender}
                   textColor="grey"
+                  editable={false}
                 />
               </HStack>
             </Center>

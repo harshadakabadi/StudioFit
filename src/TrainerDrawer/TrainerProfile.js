@@ -10,6 +10,7 @@ import {
   HStack,
   Icon,Container,Button
 } from "native-base";
+import { useNavigation } from '@react-navigation/native';
 import { TextInput } from "react-native-paper";
 import {
   MaterialIcons,
@@ -18,11 +19,14 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { profile1 } from '../../assets';
 
 const TrainerProfile = () => {
+  const navigation = useNavigation();
  const [profile, setProfile] = React.useState(null);
  const [Userprofile, setUserProfile] = React.useState(null);
  const getDataMember = async () => {
    try {
-     const data = await fetch("http://192.168.0.101:8000/api/member_api/1");
+     const data = await fetch(
+       `http://${global.MyVar}/api/member_api/1`
+     );
      const profile = await data.json();
      console.log(profile);
      setProfile(profile);
@@ -34,7 +38,7 @@ const TrainerProfile = () => {
  };
  const getDataUser = async () => {
    try {
-     const data = await fetch(`http://192.168.0.101:8000/api/user_api/2`);
+     const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
      const profile = await data.json();
      console.log(profile);
      setUserProfile(profile);
@@ -70,6 +74,7 @@ const TrainerProfile = () => {
              variant="outline"
              width="40%"
              height="30%"
+             onPress={() => navigation.navigate("Edit Trainer Profile")}
            >
              <HStack space={1}>
                <MaterialIcons name="edit" size={18} color="black" />
@@ -103,7 +108,7 @@ const TrainerProfile = () => {
                  mode="outlined"
                  type="number"
                  label="Contact No"
-                 value={profile && profile.mobile}
+                 value={profile && profile.mobile.toString()}
                  textColor="grey"
                />
              </HStack>
@@ -138,7 +143,7 @@ const TrainerProfile = () => {
                  width={150}
                  mode="outlined"
                  label="Pin Code"
-                 value={profile && profile.pincode}
+                 value={profile && profile.pincode.toString()}
                  textColor="grey"
                />
                <TextInput

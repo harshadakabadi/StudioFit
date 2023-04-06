@@ -33,7 +33,7 @@ const MemberHealth_Forum = () => {
   const getData = async () => {
     try {
     const data = await fetch(
-      "http://192.168.0.102:8000/api/blog_api/"
+      `http://${global.MyVar}/api/blog_api/`
     );
     const blog = await data.json();
     console.log(blog);
@@ -59,7 +59,7 @@ useEffect(()=>{
         <ScrollView>
           <Center>
             {loading ? (
-              <ActivityIndicator size="medium" />
+              <ActivityIndicator size="small" />
             ) : (
               <Box mt={4}>
                 {blog &&

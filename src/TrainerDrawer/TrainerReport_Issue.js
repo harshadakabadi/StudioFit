@@ -4,7 +4,6 @@ import {
   Center,
   NativeBaseProvider,
   Text,
-  Icon,
   TextArea,
   Box,
   Input,
@@ -21,10 +20,11 @@ const TrainerReport_Issue = () => {
   const [branch, setBranch] = useState("");
   const [created_by, setCreatedBy] = useState("");
 
+
   const postData = async () => {
     try {
       let result = await fetch(
-        "http://192.168.0.102:8000/api/reported_issue_api/",
+        `http://${global.MyVar}/api/reported_issue_api/`,
         {
           method: "POST",
           headers: {
@@ -33,12 +33,12 @@ const TrainerReport_Issue = () => {
           body: JSON.stringify({
             category,
             issue,
-            branch,
-            created_by,
+            branch:1,
+            created_by:1,
           }),
         }
       );
-
+      alert("Successfully submitted");
       console.log("Data saved");
     } catch (error) {
       console.log(error);
@@ -134,26 +134,6 @@ const TrainerReport_Issue = () => {
                     onChangeText={(text) => setIssue(text)}
                   />
                 </Box>
-                <Input
-                  mt={5}
-                  fontSize={16}
-                  bgColor="#e7f3fb"
-                  maxW="300"
-                  placeholder="Enter branch ID"
-                  value={branch}
-                  keyboardType={"number-pad"}
-                  onChangeText={(id) => setBranch(id)}
-                />
-                <Input
-                  mt={5}
-                  fontSize={16}
-                  bgColor="#e7f3fb"
-                  maxW="300"
-                  placeholder="Enter created by"
-                  keyboardType={"number-pad"}
-                  value={created_by}
-                  onChangeText={(id) => setCreatedBy(id)}
-                />
                 <Center>
                   <Button
                     mt={20}

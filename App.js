@@ -15,10 +15,13 @@ import MemberProfile from './src/Member drawer/MemberProfile';
 import Payment from './src/Member drawer/Payment';
 import TrainerBottomDrawer from './src/TrainerDrawer/TrainerBottomDrawer';
 import MemberBottomDrawer from './src/Member drawer/MemberBottomDrawer';
+import EditProfile from './src/Member drawer/EditProfile';
+import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
 
 
 const Stack = createNativeStackNavigator();
 const App = () => {
+  global.MyVar = "192.168.1.20:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -60,6 +63,20 @@ const App = () => {
           component={Contact}
           options={{
             headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
+        />
+        <Stack.Screen
+          name="Edit Member Profile"
+          component={EditProfile}
+          options={{
+            headerStyle: { backgroundColor: "#85C1E9" },
+          }}
+        />
+        <Stack.Screen
+          name="Edit Trainer Profile"
+          component={EditTrainerProfile}
+          options={{
             headerStyle: { backgroundColor: "#85C1E9" },
           }}
         />

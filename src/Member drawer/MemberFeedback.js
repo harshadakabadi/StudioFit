@@ -20,9 +20,11 @@ const MemberFeedback = () => {
   const [branch, setBranch] = useState("");
   const [created_by, setCreatedBy] = useState("");
 
+  
+
   const postData = async () => {
     try {
-      let result = await fetch("http://192.168.0.102:8000/api/feedback_api/", {
+      let result = await fetch(`http://${global.MyVar}/api/feedback_api/`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -31,24 +33,19 @@ const MemberFeedback = () => {
           category,
           feedback,
           rating,
-          branch,
-          created_by,
+          branch:1,
+          created_by:1,
         }),
       });
-
+      alert("Submitted successfully..");
       console.log("Data saved");
     } catch (error) {
+      alert("Something Wrong");
       console.log(error);
     } finally {
       console.log("Done");
     }
   };
-
-  
-  openAlert=()=>{
-    alert('Submitted Successfully');
-  }
-  
 
   return (
     <NativeBaseProvider>
@@ -143,24 +140,7 @@ const MemberFeedback = () => {
                   />
                 </Center>
               </View>
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                width={300}
-                placeholder="Enter branch ID"
-                value={branch}
-                onChangeText={(id) => setBranch(id)}
-              />
-              <Input
-                mt={5}
-                fontSize={16}
-                bgColor="#e7f3fb"
-                width={300}
-                placeholder="Enter created by"
-                value={created_by}
-                onChangeText={(id) => setCreatedBy(id)}
-              />
+             
               <View>
                 <Center>
                   <Button

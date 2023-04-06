@@ -39,7 +39,7 @@ const getIcon = (screenName) => {
       return "report-problem";
     case "Health Forum":
       return "amp-stories";
-    case "Renew Membership":
+    case "Subscription Plans":
       return "wallet-membership";
     case "Logout":
       return "logout";
@@ -162,7 +162,7 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Renew Membership"
+          name="Subscription Plans"
           component={Renew_Membership}
           options={{
             headerStyle: {
