@@ -10,6 +10,7 @@ import {
   HStack,
   Icon,Container,Button
 } from "native-base";
+import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from "react-native-paper";
 import {
@@ -20,16 +21,18 @@ import { profile1 } from '../../assets';
 
 const TrainerProfile = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = React.useState(true);
  const [profile, setProfile] = React.useState(null);
  const [Userprofile, setUserProfile] = React.useState(null);
  const getDataMember = async () => {
    try {
      const data = await fetch(
-       `http://${global.MyVar}/api/member_api/1`
+       `http://${global.MyVar}/api/member_api/2`
      );
      const profile = await data.json();
      console.log(profile);
      setProfile(profile);
+     setLoading(false);
    } catch (e) {
      console.log({ e });
    } finally {
@@ -38,10 +41,11 @@ const TrainerProfile = () => {
  };
  const getDataUser = async () => {
    try {
-     const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
+     const data = await fetch(`http://${global.MyVar}/api/user_api/4`);
      const profile = await data.json();
      console.log(profile);
      setUserProfile(profile);
+     setLoading(false);
    } catch (e) {
      console.log({ e });
    } finally {
@@ -57,6 +61,9 @@ const TrainerProfile = () => {
  return (
    <NativeBaseProvider>
      <ScrollView>
+     {loading ? (
+              <ActivityIndicator size="small"/>
+            ) : (
        <Container ml={4} width={1000}>
          <HStack space={99}>
            <Image
@@ -157,6 +164,7 @@ const TrainerProfile = () => {
            </Center>
          </View>
        </Container>
+            )}
      </ScrollView>
    </NativeBaseProvider>
  );

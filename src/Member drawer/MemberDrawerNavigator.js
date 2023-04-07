@@ -17,7 +17,7 @@ import {
   Icon,
  
 } from "native-base";
-import { profile, profile1 } from "../../assets";
+import { profile, profile1, Trainer1 } from "../../assets";
 import Renew_Membership from "./Renew_Membership";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import MemberDashboard from "./MemberDashboard";
@@ -49,6 +49,24 @@ const getIcon = (screenName) => {
 };
 
 function CustomDrawerContent(props) {
+  const [profile,setProfile]= React.useState(null)
+  const getDataUser = async () => {
+    try {
+      const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
+      const profile = await data.json();
+      console.log(profile);
+      setProfile(profile);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      console.log("done");
+    }
+  };
+
+  React.useEffect(() => {
+    getDataUser();
+  }, []);
+
   const navigation= useNavigation();
   return (
     <DrawerContentScrollView {...props} safeArea>
@@ -59,16 +77,16 @@ function CustomDrawerContent(props) {
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               left={50}
-              source={profile1}
+              source={Trainer1}
               alt="Alternate Text"
               bottom={10}
             />
           </View>
-          <Text left={10} bold color="gray.700">
-            Harshada Kabadi
+          <Text left={12} bold color="gray.700">
+            {profile && profile.first_name}
           </Text>
           <Button
-            mr={10}
+            mr={12}
             bgColor={"#85C1E9"}
             onPress={() => navigation.navigate("Member Profile")}
           >

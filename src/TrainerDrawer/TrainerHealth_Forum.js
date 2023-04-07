@@ -36,8 +36,6 @@ const TrainerHealth_Forum = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = React.useState("");
   const [content, setContent] = useState("");
-  const [created_by, setCreatedBy] = useState("");
-  const [updated_by, setUpdatedBy] = useState("");
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 import {
   Button,
   Center,
@@ -10,15 +11,10 @@ import {
 import MemberBottomDrawer from "./MemberBottomDrawer";
 
 const MemberReport_Issue = () => {
+  const navigation = useNavigation();
   const [category,setCategory]=useState("");
   const [issue, setIssue] = useState("");
-  const [branch, setBranch] = useState("");
-  const [created_by, setCreatedBy] = useState("");
-
-  openAlert = () => {
-    alert("Successfully submitted");
-  };
-
+  
   const postData = async()=>{
     try{
         let result = await fetch(`http://${global.MyVar}/reported_issue_api/`, {
@@ -49,7 +45,8 @@ const MemberReport_Issue = () => {
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center",height:670 }]}>
+        style={[{ justifyContent: "center", height: 670 }]}
+      >
         <ScrollView>
           <Center>
             <Container mt={30} maxWidth="800">
@@ -145,6 +142,7 @@ const MemberReport_Issue = () => {
                     borderRadius={8}
                     bgColor={"#4CAF50"}
                     onPress={postData}
+                    onPressIn={() => navigation.navigate("Dashboard")}
                   >
                     <Text fontSize={18} textAlign={"center"} color={"white"}>
                       Submit
@@ -155,7 +153,7 @@ const MemberReport_Issue = () => {
             </Container>
           </Center>
         </ScrollView>
-        <MemberBottomDrawer/>
+        <MemberBottomDrawer />
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );

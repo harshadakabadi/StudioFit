@@ -13,14 +13,13 @@ import {
   CheckIcon,KeyboardAvoidingView
 } from "native-base";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
+import { useNavigation } from "@react-navigation/native";
 
 const TrainerReport_Issue = () => {
+  const navigation = useNavigation();
   const [category, setCategory] = useState("");
   const [issue, setIssue] = useState("");
-  const [branch, setBranch] = useState("");
-  const [created_by, setCreatedBy] = useState("");
-
-
+  
   const postData = async () => {
     try {
       let result = await fetch(
@@ -146,6 +145,7 @@ const TrainerReport_Issue = () => {
                     borderRadius={8}
                     bgColor={"#4CAF50"}
                     onPress={postData}
+                    onPressIn={() => navigation.navigate("Dashboard")}
                   >
                     <Text fontSize={18} textAlign={"center"} color={"white"}>
                       Submit
@@ -156,7 +156,7 @@ const TrainerReport_Issue = () => {
             </Container>
           </Center>
         </ScrollView>
-        <TrainerBottomDrawer/>
+        <TrainerBottomDrawer />
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );

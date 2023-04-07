@@ -48,6 +48,23 @@ const getIcon = (screenName) => {
 };
 
 function CustomDrawerContent(props) {
+  const [profile, setProfile] = React.useState(null);
+  const getDataUser = async () => {
+    try {
+      const data = await fetch(`http://${global.MyVar}/api/user_api/4`);
+      const profile = await data.json();
+      console.log(profile);
+      setProfile(profile);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      console.log("done");
+    }
+  };
+
+  React.useEffect(() => {
+    getDataUser();
+  }, []);
   const navigation= useNavigation();
   return (
     <DrawerContentScrollView {...props} safeArea>
@@ -64,7 +81,7 @@ function CustomDrawerContent(props) {
             />
           </View>
           <Text left={10} bold color="gray.700">
-            Harshada Kabadi
+            {profile && profile.first_name}
           </Text>
           <Button
             mr={10}
@@ -123,6 +140,11 @@ function MyDrawer() {
         drawerContent={(props) => (
           <CustomDrawerContent {...props} backgroundColor={"#85C1E9"} />
         )}
+        screenOptions={{
+          headerStyle: {
+            height: 10,
+          },
+        }}
       >
         <Drawer.Screen
           name="Dashboard"

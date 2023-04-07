@@ -16,12 +16,15 @@ import {
 } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native-paper";
+import { Trainer1 } from '../../assets';
 
 
 
 const MemberProfile = () => {
  const navigation = useNavigation();
  const [changeColor, setChangeColor] = React.useState("blue:400");
+ const [loading, setLoading] = React.useState(true);
  const handleButtonClick = () => {
    const newColor = changeColor === "blue:100" ? "red" : "blue:100";
    setChangeColor(newColor);
@@ -35,6 +38,7 @@ const MemberProfile = () => {
         const profile = await data.json();
         console.log(profile);
         setProfile(profile);
+        setLoading(false);
       } catch (e) {
         console.log({ e });
       } finally {
@@ -47,6 +51,7 @@ const MemberProfile = () => {
         const profile = await data.json();
         console.log(profile);
         setUserProfile(profile);
+        setLoading(false);
       } catch (e) {
         console.log({ e });
       } finally {
@@ -62,13 +67,17 @@ const MemberProfile = () => {
   return (
     <NativeBaseProvider>
       <ScrollView>
+      {loading ? (
+              <ActivityIndicator size="small"/>
+            ) : (
         <Container ml={4} width={1000}>
           <HStack space={99}>
             <Image
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               mt={63}
-              source={profile && profile.profile_picture}
+              //source={profile && profile.profile_picture}
+              source={Trainer1}
               alt="Alternate Text"
               bottom={10}
             />
@@ -172,6 +181,7 @@ const MemberProfile = () => {
             </Center>
           </View>
         </Container>
+            )}
       </ScrollView>
     </NativeBaseProvider>
   );

@@ -2,7 +2,7 @@ import { View} from "react-native";
 import * as React from "react";
 import {
   NativeBaseProvider,
-  
+
   Image,
   Center,
   Text,
@@ -10,11 +10,14 @@ import {
   Container,
   Button,
 } from "native-base";
+import { ActivityIndicator } from "react-native-paper";
 import { TextInput } from "react-native-paper";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { profile1, Trainer1 } from "../../assets";
 
 const EditMemberProfile = () => {
   const [changeColor, setChangeColor] = React.useState("blue:100");
+  const [loading, setLoading] = React.useState(true);
   const handleButtonClick = () => {
     const newColor = changeColor === "blue:100" ? "red" : "blue:100";
     setChangeColor(newColor);
@@ -39,6 +42,7 @@ const EditMemberProfile = () => {
       const profile = await data.json();
      // console.log(profile);
       setProfile(profile);
+      setLoading(false);
     } catch (e) {
       console.log({ e });
     } finally {
@@ -51,6 +55,7 @@ const EditMemberProfile = () => {
       const profile = await data.json();
       //console.log(profile);
       setUserProfile(profile);
+      setLoading(false);
     } catch (e) {
       console.log({ e });
     } finally {
@@ -115,17 +120,21 @@ const UpdateDataMember = () => {
   return (
     <NativeBaseProvider>
       <ScrollView>
+      {loading ? (
+              <ActivityIndicator size="small" />
+            ) : (
         <Container ml={4} width={1000}>
-          <HStack space={99}>
+          <Center ml={100}>
             <Image
-              style={{ width: 90, height: 90 }}
+              style={{ width: 120, height: 120 }}
               borderRadius={100}
               mt={63}
-              source={profile && profile.profile_picture}
+              //source={profile && profile.profile_picture}
+              source={Trainer1}
               alt="Alternate Text"
               bottom={10}
             />
-          </HStack>
+          </Center>
           <View>
             <Center>
               <HStack>
@@ -237,6 +246,7 @@ const UpdateDataMember = () => {
             </TouchableOpacity>
           </View>
         </Container>
+         )}
       </ScrollView>
     </NativeBaseProvider>
   );

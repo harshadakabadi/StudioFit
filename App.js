@@ -21,7 +21,7 @@ import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "192.168.1.20:8000";
+  global.MyVar = "192.168.43.111:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>

@@ -83,7 +83,7 @@ const MemberLogin = () => {
             mb={16}
             fontWeight={"bold"}
           >
-            Login in to continue
+            Member Login 
           </Text>
           <Input
             w={{

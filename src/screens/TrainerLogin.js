@@ -83,7 +83,7 @@ const TrainerLogin = () => {
             mb={16}
             fontWeight={"bold"}
           >
-            Login in to continue
+           Trainer Login
           </Text>
           <Input
             w={{

@@ -17,9 +17,6 @@ const MemberFeedback = () => {
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [branch, setBranch] = useState("");
-  const [created_by, setCreatedBy] = useState("");
-
   
 
   const postData = async () => {
@@ -140,7 +137,7 @@ const MemberFeedback = () => {
                   />
                 </Center>
               </View>
-             
+
               <View>
                 <Center>
                   <Button
@@ -153,6 +150,7 @@ const MemberFeedback = () => {
                     borderRadius={8}
                     bgColor={"#4CAF50"}
                     onPress={postData}
+                    onPressIn={() => navigation.navigate("Dashboard")}
                   >
                     <Text fontSize={18} textAlign={"center"} color={"white"}>
                       Submit
