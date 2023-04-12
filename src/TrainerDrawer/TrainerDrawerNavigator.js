@@ -18,7 +18,7 @@ import {
   Icon,
 } from "native-base";
 
-import { profile1 } from "../../assets";
+import { profile1, Trainer1 } from "../../assets";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import TrainerDashboard from "./TrainerDashboard";
 import TrainerHealth_Forum from "./TrainerHealth_Forum";
@@ -51,7 +51,7 @@ function CustomDrawerContent(props) {
   const [profile, setProfile] = React.useState(null);
   const getDataUser = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/user_api/4`);
+      const data = await fetch(`http://${global.MyVar}/api/staff_api/6`);
       const profile = await data.json();
       console.log(profile);
       setProfile(profile);
@@ -68,19 +68,19 @@ function CustomDrawerContent(props) {
   const navigation= useNavigation();
   return (
     <DrawerContentScrollView {...props} safeArea>
-      <VStack space="6" my="2" mx="1" >
+      <VStack space="6" my="2" mx="1">
         <Box px="4" left={30}>
           <View>
             <Image
               style={{ width: 90, height: 90 }}
               borderRadius={100}
               left={50}
-              source={profile1}
+              source={Trainer1}
               alt="Alternate Text"
               bottom={10}
             />
           </View>
-          <Text left={10} bold color="gray.700">
+          <Text left={10} bold color="gray.700" fontSize={16}>
             {profile && profile.first_name}
           </Text>
           <Button
@@ -88,7 +88,9 @@ function CustomDrawerContent(props) {
             bgColor={"#85C1E9"}
             onPress={() => navigation.navigate("Trainer Profile")}
           >
-            <Text fontWeight={"bold"}>View Profile</Text>
+            <Text fontWeight={"bold"} fontSize={16} right={2}>
+              View Profile
+            </Text>
           </Button>
         </Box>
         <VStack divider={<Divider />} space="4">
@@ -99,28 +101,21 @@ function CustomDrawerContent(props) {
                 px="5"
                 py="3"
                 rounded="md"
-                bg={
-                  index === props.state.index
-                    ? "rgba(6, 182, 212, 0.1)"
-                    : "transparent"
-                }
+                bg={index === props.state.index ? "#1aa7ec" : "transparent"}
                 onPress={() => {
                   props.navigation.navigate(name);
                 }}
               >
                 <HStack space="7" alignItems="center">
                   <Icon
-                    color={
-                      index === props.state.index ? "primary.500" : "gray.500"
-                    }
-                    size="5"
+                    color={index === props.state.index ? "black" : "gray.500"}
+                    size="25"
                     as={<MaterialIcons name={getIcon(name)} />}
                   />
                   <Text
                     fontWeight="500"
-                    color={
-                      index === props.state.index ? "primary.500" : "gray.700"
-                    }
+                    fontSize={16}
+                    color={index === props.state.index ? "black" : "gray.700"}
                   >
                     {name}
                   </Text>
@@ -152,6 +147,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -161,6 +160,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -170,6 +173,11 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
+              alignItems: "center",
             },
           }}
         />

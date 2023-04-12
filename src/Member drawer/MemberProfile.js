@@ -8,7 +8,6 @@ import {
   HStack,
   Container,
   Button,
-  Input
 } from "native-base";
 import { TextInput } from "react-native-paper";
 import {
@@ -31,10 +30,10 @@ const MemberProfile = () => {
  };
 
   const [profile, setProfile] = React.useState(null);
-  const [Userprofile, setUserProfile] = React.useState(null);
+ 
   const getDataMember = async () => {
       try {
-        const data = await fetch(`http://${global.MyVar}/api/member_api/1`);
+        const data = await fetch(`http://${global.MyVar}/api/member_api/7/`);
         const profile = await data.json();
         console.log(profile);
         setProfile(profile);
@@ -45,23 +44,9 @@ const MemberProfile = () => {
         console.log("done");
       }
     };
-    const getDataUser = async () => {
-      try {
-        const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
-        const profile = await data.json();
-        console.log(profile);
-        setUserProfile(profile);
-        setLoading(false);
-      } catch (e) {
-        console.log({ e });
-      } finally {
-        console.log("done");
-      }
-    };
-
+    
     React.useEffect(() => {
       getDataMember();
-      getDataUser();
     }, []);
 
   return (
@@ -71,7 +56,7 @@ const MemberProfile = () => {
               <ActivityIndicator size="small"/>
             ) : (
         <Container ml={4} width={1000}>
-          <HStack space={99}>
+          <HStack space={99} ml={3}>
             <Image
               style={{ width: 90, height: 90 }}
               borderRadius={100}
@@ -104,7 +89,7 @@ const MemberProfile = () => {
                   width={310}
                   mode="outlined"
                   label="Full Name"
-                  value={Userprofile && Userprofile.first_name}
+                  value={profile && profile.first_name}
                   textColor="grey"
                   editable={false}
                 />
@@ -114,7 +99,7 @@ const MemberProfile = () => {
                   width={310}
                   mode="outlined"
                   label="E-mail"
-                  value={Userprofile && Userprofile.email}
+                  value={profile && profile.email}
                   textColor="grey"
                   editable={false}
                 />

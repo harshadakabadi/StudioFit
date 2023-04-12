@@ -6,7 +6,6 @@ import {
   Text,
   TextArea,
   Box,
-  Input,
   ScrollView,
   Container,
   Select,
@@ -33,10 +32,11 @@ const TrainerReport_Issue = () => {
             category,
             issue,
             branch:1,
-            created_by:1,
+            created_by:6,
           }),
         }
       );
+      handleClick();
       alert("Successfully submitted");
       console.log("Data saved");
     } catch (error) {
@@ -45,11 +45,15 @@ const TrainerReport_Issue = () => {
       console.log("Done");
     }
   };
+  const handleClick = () => {
+    setCategory("");
+    setIssue("");
+  };
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>

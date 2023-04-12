@@ -31,9 +31,7 @@ const Renew_Membership = () => {
   
   const getData = async () => {
     try {
-    const data = await fetch(
-      `http://${global.MyVar}/api/Subscription_api/`
-    );
+    const data = await fetch(`http://${global.MyVar}/api/subscription_api/`);
     const subscription = await data.json();
     console.log(subscription);
     setSubscription(subscription);
@@ -53,7 +51,7 @@ useEffect(() => {
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>
@@ -104,7 +102,7 @@ useEffect(() => {
                               }
                             />
                             <Text fontSize={17} fontWeight="bold" mt={15}>
-                            {object.plan_amount}
+                              {object.plan_amount}
                             </Text>
                           </HStack>
                           <Text fontSize={17} fontWeight="bold" mt={15}>

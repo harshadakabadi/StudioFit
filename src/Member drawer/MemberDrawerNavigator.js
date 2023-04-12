@@ -52,7 +52,7 @@ function CustomDrawerContent(props) {
   const [profile,setProfile]= React.useState(null)
   const getDataUser = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/user_api/2`);
+      const data = await fetch(`http://${global.MyVar}/api/member_api/7`);
       const profile = await data.json();
       console.log(profile);
       setProfile(profile);
@@ -82,7 +82,7 @@ function CustomDrawerContent(props) {
               bottom={10}
             />
           </View>
-          <Text left={12} bold color="gray.700">
+          <Text left={10} bold color="gray.700" fontSize={16}>
             {profile && profile.first_name}
           </Text>
           <Button
@@ -90,7 +90,9 @@ function CustomDrawerContent(props) {
             bgColor={"#85C1E9"}
             onPress={() => navigation.navigate("Member Profile")}
           >
-            <Text fontWeight={"bold"}>View Profile</Text>
+            <Text fontWeight={"bold"} fontSize={16}>
+              View Profile
+            </Text>
           </Button>
         </Box>
         <VStack divider={<Divider />} space="4">
@@ -101,28 +103,23 @@ function CustomDrawerContent(props) {
                 px="5"
                 py="3"
                 rounded="md"
-                bg={
-                  index === props.state.index
-                    ? "rgba(6, 182, 212, 0.1)"
-                    : "transparent"
-                }
+                bg={index === props.state.index ? "#1aa7ec" : "transparent"}
                 onPress={() => {
                   props.navigation.navigate(name);
                 }}
               >
                 <HStack space="7" alignItems="center">
                   <Icon
-                    color={
-                      index === props.state.index ? "primary.500" : "gray.500"
-                    }
-                    size="5"
+                    color={index === props.state.index ? "black" : "gray.500"}
+                    size="25"
                     as={<MaterialIcons name={getIcon(name)} />}
                   />
                   <Text
                     fontWeight="500"
                     color={
-                      index === props.state.index ? "primary.500" : "gray.700"
+                      index === props.state.index ? "black" : "gray.700"
                     }
+                    fontSize={16}
                   >
                     {name}
                   </Text>
@@ -149,6 +146,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -158,6 +159,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -167,6 +172,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -176,6 +185,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -185,6 +198,10 @@ function MyDrawer() {
           options={{
             headerStyle: {
               backgroundColor: "#85C1E9",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
             },
           }}
         />
@@ -192,10 +209,7 @@ function MyDrawer() {
           name="Logout"
           component={MemberLogin}
           options={{
-            headerShown:false,
-            headerStyle: {
-              backgroundColor: "#85C1E9",
-            },
+            headerShown: false,
           }}
         />
       </Drawer.Navigator>

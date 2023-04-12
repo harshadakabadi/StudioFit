@@ -40,7 +40,7 @@ const TrainerDashboard = () => {
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           {loading ? (

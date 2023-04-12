@@ -54,7 +54,7 @@ useEffect(()=>{
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>
@@ -64,7 +64,7 @@ useEffect(()=>{
               <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id}>
+                    <Card bgColor="#e7f3fb" key={object.id} width={350}>
                       <Heading>{object.title}</Heading>
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}
@@ -79,7 +79,7 @@ useEffect(()=>{
             )}
           </Center>
         </ScrollView>
-        <MemberBottomDrawer/>
+        <MemberBottomDrawer />
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );

@@ -17,7 +17,7 @@ const MemberReport_Issue = () => {
   
   const postData = async()=>{
     try{
-        let result = await fetch(`http://${global.MyVar}/reported_issue_api/`, {
+        let result = await fetch(`http://${global.MyVar}/api/reported_issue_api/`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -26,11 +26,12 @@ const MemberReport_Issue = () => {
             category,
             issue,
             branch: 1,
-            created_by:1,
+            created_by:3,
           }),
         });
-    alert("Submitted successfully..");
-    console.log("Data saved");
+        handleClick();
+        alert("Submitted successfully..");
+        console.log("Data saved");
     }
     catch(error){
       alert("Something Wrong");
@@ -39,13 +40,17 @@ const MemberReport_Issue = () => {
     finally{
       console.log("Done");
     } 
-  }
+  };
+  const handleClick = () => {
+    setCategory("");
+    setIssue("");
+  };
   
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>

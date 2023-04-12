@@ -14,45 +14,46 @@ import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
-const baseUrl = "https://reqres.in";
 const MemberLogin = () => {
   const navigation = useNavigation();
-  const [show, setShow] = React.useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
-  const onChangePasswordHandler = (password) => {
-    setPassword(password);
+  const [username, setUsername] = useState("");
+  const [email, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
-  const onLoginFormHandler = async (event) => {
-    if (!email.trim() || !password.trim()) {
-      alert("Name or Email is invalid");
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${baseUrl}/api/users`, {
-        email,
-        password,
+  const submitHandler = (event) => {
+    event.preventDefault();
+    axios
+      .post(
+        `http://${global.MyVar}/login`,
+        {
+          'username': username,
+          'email': email,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        if (response.status === 200) {
+          updateAuthentication(JSON.stringify(response.data));
+          localStorage.setItem("user", JSON.stringify(response.data));
+          alert("Login Successfully");
+          navigate("Member HomeScreen");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Something is wrong Username or Password !!!");
       });
-      if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setEmail("");
-        setPassword("");
-      } else {
-        throw new Error("An error has occurred");
-      }
-    } catch (error) {
-      alert("An error has occurred");
-      setIsLoading(false);
-    }
   };
+
 
   return (
     <NativeBaseProvider>
@@ -66,6 +67,7 @@ const MemberLogin = () => {
         >
           <View width={"100%"}>
             <Text
+              mt={70}
               fontSize={42}
               textAlign={"center"}
               fontWeight={"bold"}
@@ -83,7 +85,7 @@ const MemberLogin = () => {
             mb={16}
             fontWeight={"bold"}
           >
-            Member Login 
+            Login to Continue
           </Text>
           <Input
             w={{
@@ -101,10 +103,9 @@ const MemberLogin = () => {
                 color="muted.400"
               />
             }
-            placeholder="Email"
-            value={email}
-            editable={!isLoading}
-            onChangeText={onChangeEmailHandler}
+            placeholder="Username"
+            value={username}
+            onChange={(event) => setUsername(event.target.username)}
           />
           <Input
             borderRadius={15}
@@ -129,9 +130,9 @@ const MemberLogin = () => {
               </Pressable>
             }
             placeholder="Password"
-            value={password}
-            editable={!isLoading}
-            onChangeText={onChangePasswordHandler}
+            onMouseDown={handleMouseDownPassword}
+            value={email}
+            onChange={(event) => setPassword(event.target.email)}
           />
 
           <View
@@ -156,8 +157,7 @@ const MemberLogin = () => {
                   height={50}
                   mt={10}
                   borderRadius={17}
-                  onPressOut={onLoginFormHandler}
-                  disabled={isLoading}
+                  //onPress={(event) => submitHandler(event)}
                   onPress={() => navigation.navigate("Member HomeScreen")}
                 >
                   <Text>Log In</Text>
@@ -171,7 +171,7 @@ const MemberLogin = () => {
                 ml={200}
                 bgColor={"white.100"}
                 borderColor={"black"}
-                onPress={() => navigation.navigate("Forgot Password")}
+                onPress={() => navigation.navigate("ForgotPassword")}
               >
                 <Text color={"black"} textAlign={"center"}>
                   Forgot Password?
@@ -186,8 +186,8 @@ const MemberLogin = () => {
                 borderColor={"black"}
                 onPress={() => navigation.navigate("Trainer Login")}
               >
-                <Text color={"black"} textAlign={"center"} >
-                  Trainer Login 
+                <Text color={"black"} textAlign={"center"}>
+                  Trainer Login
                 </Text>
               </Button>
             </Center>

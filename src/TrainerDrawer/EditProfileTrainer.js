@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import * as React from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   NativeBaseProvider,
   Image,
@@ -15,6 +16,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { profile1, Trainer1 } from "../../assets";
 
 const EditTrainerProfile = () => {
+  const navigation = useNavigation();
   const [changeColor, setChangeColor] = React.useState("blue:100");
   const [loading, setLoading] = React.useState(true);
   const handleButtonClick = () => {
@@ -22,6 +24,8 @@ const EditTrainerProfile = () => {
     setChangeColor(newColor);
   };
   const [profile, setProfile] = React.useState({
+    first_name: "",
+    email: "",
     mobile: 0,
     address: "",
     address: "",
@@ -29,14 +33,10 @@ const EditTrainerProfile = () => {
     state: "",
     pincode: 0,
   });
-  const [Userprofile, setUserProfile] = React.useState({
-    first_name: "",
-    email: "",
-  });
 
   const getDataMember = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/member_api/2`);
+      const data = await fetch(`http://${global.MyVar}/api/staff_api/6`);
       const profile = await data.json();
       // console.log(profile);
       setProfile(profile);
@@ -47,47 +47,14 @@ const EditTrainerProfile = () => {
       // console.log("done");
     }
   };
-  const getDataUser = async () => {
-    try {
-      const data = await fetch(`http://${global.MyVar}/api/user_api/4`);
-      const profile = await data.json();
-      //console.log(profile);
-      setUserProfile(profile);
-      setLoading(false);
-    } catch (e) {
-      console.log({ e });
-    } finally {
-      // console.log("done");
-    }
-  };
 
   React.useEffect(() => {
-    getDataUser();
     getDataMember();
   }, []);
 
-  const UpdateDataUser = () => {
-    fetch(`http://${global.MyVar}/api/user_api/4/`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "PATCH",
-      body: JSON.stringify({
-        first_name: Userprofile.first_name,
-        email: Userprofile.email,
-      }),
-    })
-      .then(function (response) {
-        UpdateDataMember();
-        return response.json();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  
   const UpdateDataMember = () => {
-    fetch(`http://${global.MyVar}/api/member_api/2/`, {
+    fetch(`http://${global.MyVar}/api/staff_api/6/`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -95,6 +62,8 @@ const EditTrainerProfile = () => {
       method: "PATCH",
 
       body: JSON.stringify({
+        first_name: profile.first_name,
+        email: profile.email,
         mobile: profile.mobile,
         address: profile.address,
         city: profile.city,
@@ -126,7 +95,7 @@ const EditTrainerProfile = () => {
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
                 mt={63}
-                source={profile1}
+                source={Trainer1}
                 //source={profile && profile.profile_picture}
                 alt="Alternate Text"
                 bottom={10}
@@ -139,10 +108,10 @@ const EditTrainerProfile = () => {
                     width={310}
                     mode="outlined"
                     label="Full Name"
-                    value={Userprofile && Userprofile.first_name}
+                    value={profile && profile.first_name}
                     textColor="grey"
                     onChangeText={(text) =>
-                      setUserProfile({ ...Userprofile, first_name: text })
+                      setProfile({ ...profile, first_name: text })
                     }
                   />
                 </HStack>
@@ -151,10 +120,10 @@ const EditTrainerProfile = () => {
                     width={310}
                     mode="outlined"
                     label="E-mail"
-                    value={Userprofile && Userprofile.email}
+                    value={profile && profile.email}
                     textColor="grey"
                     onChangeText={(text) =>
-                      setUserProfile({ ...Userprofile, email: text })
+                      setProfile({ ...profile, email: text })
                     }
                   />
                 </HStack>
@@ -183,7 +152,6 @@ const EditTrainerProfile = () => {
                       setProfile({ ...profile, address: text })
                     }
                   />
-                  <Text></Text>
                 </HStack>
                 <HStack space="2" mt={3}>
                   <TextInput
@@ -236,7 +204,8 @@ const EditTrainerProfile = () => {
                   borderColor="black"
                   color={changeColor}
                   onPressIn={handleButtonClick}
-                  onPress={UpdateDataUser}
+                  onPress={UpdateDataMember}
+                 // onPressOut={() => navigation.navigate("Trainer Profile")}
                 >
                   <Text>Save</Text>
                 </Button>

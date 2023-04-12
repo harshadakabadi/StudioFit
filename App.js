@@ -17,11 +17,13 @@ import TrainerBottomDrawer from './src/TrainerDrawer/TrainerBottomDrawer';
 import MemberBottomDrawer from './src/Member drawer/MemberBottomDrawer';
 import EditProfile from './src/Member drawer/EditProfile';
 import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
+import EditForum from './src/TrainerDrawer/EditForum';
+import EditModal from './src/TrainerDrawer/EditForum1';
 
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "192.168.43.111:8000";
+  global.MyVar = "192.168.0.106:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -56,6 +58,13 @@ const App = () => {
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: "#85C1E9" },
+          }}
+        />
+        <Stack.Screen
+          name="Edit Forum"
+          component={EditModal}
+          options={{
+            headerShown: false,
           }}
         />
         <Stack.Screen

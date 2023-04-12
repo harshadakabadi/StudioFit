@@ -83,7 +83,7 @@ const TrainerLogin = () => {
             mb={16}
             fontWeight={"bold"}
           >
-           Trainer Login
+            Trainer Login
           </Text>
           <Input
             w={{
@@ -171,7 +171,7 @@ const TrainerLogin = () => {
                 ml={200}
                 bgColor={"white.100"}
                 borderColor={"black"}
-                onPress={() => navigation.navigate("Forgot Password")}
+                onPress={() => navigation.navigate("ForgotPassword")}
               >
                 <Text color={"black"} textAlign={"center"}>
                   Forgot Password?

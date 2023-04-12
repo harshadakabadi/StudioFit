@@ -3,7 +3,6 @@ import {
   Box,
   Center,
   View,
-  ScrollView,
   Text,
   NativeBaseProvider,
   Card,
@@ -15,16 +14,16 @@ import axios from "axios";
 import { Divider } from "@rneui/themed";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
+import { ScrollView } from "react-native";
 
 
 const MemberDashboard = () => {
   const [notification, setNotification] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fitness,setFitness] = useState('');
   const getData = async () => {
     try {
-      const data = await fetch(
-        `http://${global.MyVar}/api/notification_api/`
-      );
+      const data = await fetch(`http://${global.MyVar}/api/notification_api`);
       const notification = await data.json();
       console.log(notification);
       setNotification(notification);
@@ -35,19 +34,33 @@ const MemberDashboard = () => {
       console.log("done");
     }
   };
+  const getDataMember = async () => {
+    try {
+      const data = await fetch(`http://${global.MyVar}/api/user_fitness_api/1`);
+      const fitness = await data.json();
+      // console.log(profile);
+      setFitness(fitness);
+      setLoading(false);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      // console.log("done");
+    }
+  };
   useEffect(() => {
     getData();
+    getDataMember();
   }, []);
 
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: 670 ,}]}
       >
         <ScrollView>
           <Center>
-            <View mt={10}>
+            <View mt={5}>
               <HStack space={2}>
                 <Card bgColor="#e7f3fb" height={100} width={170}>
                   <Center>
@@ -60,7 +73,7 @@ const MemberDashboard = () => {
                       Calories Burnt
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      2000
+                      {fitness.calories_burnt}
                     </Text>
                   </Center>
                 </Card>
@@ -75,7 +88,7 @@ const MemberDashboard = () => {
                       Steps Walked
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      2000
+                      {fitness.steps_walked}
                     </Text>
                   </Center>
                 </Card>
@@ -92,7 +105,7 @@ const MemberDashboard = () => {
                       BMI
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      40
+                      {fitness.bmi}
                     </Text>
                   </Center>
                 </Card>
@@ -107,46 +120,41 @@ const MemberDashboard = () => {
                       Fat percentage
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      20%
+                      {fitness.fat_percent}
                     </Text>
                   </Center>
                 </Card>
               </HStack>
             </View>
           </Center>
-          <Center>
-            <Card bgColor="#e7f3fb" mt={4} style={{ width: 350, height: 500 }}>
-              <ScrollView>
-                {loading ? (
-                  <ActivityIndicator size="small" />
-                ) : (
-                  <View>
+          <ScrollView>
+            {loading ? (
+              <ActivityIndicator size="small" />
+            ) : (
+              <Center>
+                <Card bgColor="#e7f3fb" mt={4} style={{ width: 350 }}>
+                  <ScrollView>
                     <Center>
-                      <Heading >Notifications</Heading>
+                      <Heading>Notifications</Heading>
                     </Center>
-                    <Center>
-                      <View>
-                        {notification &&
-                          notification.map((object) => (
-                            <Box mt={10} key={object.id}>
-                              <Heading color={"#7d5fff"}>
-                                {object.title}
-                              </Heading>
-                              <Text fontSize={20} mt={3}>
-                                {object.description}
-                              </Text>
-                              <Box mt={3}>
-                                <Divider />
-                              </Box>
-                            </Box>
-                          ))}
-                      </View>
-                    </Center>
-                  </View>
-                )}
-              </ScrollView>
-            </Card>
-          </Center>
+
+                    {notification &&
+                      notification.map((object) => (
+                        <Box mt={10} key={object.id}>
+                          <Heading color={"#7d5fff"}>{object.title}</Heading>
+                          <Text fontSize={20} mt={3}>
+                            {object.description}
+                          </Text>
+                          <Box mt={3}>
+                            <Divider />
+                          </Box>
+                        </Box>
+                      ))}
+                  </ScrollView>
+                </Card>
+              </Center>
+            )}
+          </ScrollView>
         </ScrollView>
         <MemberBottomDrawer />
       </KeyboardAvoidingView>

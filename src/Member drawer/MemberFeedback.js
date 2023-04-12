@@ -5,6 +5,7 @@ import { Select, Box, Center,View,CheckIcon,ScrollView,KeyboardAvoidingView,Inpu
 import { RatingInput } from "react-native-stock-star-rating";
 import { useState } from 'react';
 import MemberBottomDrawer from "./MemberBottomDrawer";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MemberFeedback = () => {
   const navigation = useNavigation();
@@ -31,9 +32,10 @@ const MemberFeedback = () => {
           feedback,
           rating,
           branch:1,
-          created_by:1,
+          created_by:3,
         }),
       });
+      handleClick();
       alert("Submitted successfully..");
       console.log("Data saved");
     } catch (error) {
@@ -43,12 +45,17 @@ const MemberFeedback = () => {
       console.log("Done");
     }
   };
+  const handleClick = () => {
+    setCategory("");
+    setFeedback("");
+    setRating("");
+  };
 
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Container alignItems={"center"} m={10} width={"800"}>
@@ -109,15 +116,13 @@ const MemberFeedback = () => {
               <Text mt={30} fontSize={18}>
                 Enter Your Feedback
               </Text>
-              <Box>
+              <Box alignItems="center" mt={5}>
                 <TextArea
+                  fontSize={16}
                   bgColor="#e7f3fb"
-                  mt={15}
-                  height={40}
-                  fontSize={15}
-                  placeholder="Enter Your Feedback"
-                  width={300}
-                  maxW="329"
+                  h={40}
+                  maxW="300"
+                  placeholder="Enter your feedback "
                   value={feedback}
                   onChangeText={(text) => setFeedback(text)}
                 />

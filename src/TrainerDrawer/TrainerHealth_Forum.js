@@ -1,12 +1,13 @@
-import { View } from "react-native";
+import { View,Modal } from "react-native";
 import React, { useLayoutEffect,useState,useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import {
   Box,
   Center,
-  VStack,
+  HStack,
   CheckIcon,
   Text,
   Button,
@@ -37,7 +38,7 @@ const TrainerHealth_Forum = () => {
   const [category, setCategory] = React.useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
-
+  
   const getData = async () => {
     try {
       const data = await fetch(`http://${global.MyVar}/api/blog_api/`);
@@ -66,12 +67,13 @@ const postData = async () => {
         title,
         category,
         content,
-        created_by:1,
-        updated_by:1,
+        created_by:6,
+        updated_by:6,
       }),
     });
     getData();
     alert("Submitted Successfully..");
+    handleClick();
     console.log("Data saved");
   } catch (error) {
     alert("Something wrong!");
@@ -80,11 +82,18 @@ const postData = async () => {
     console.log("Done");
   }
 };
+const handleClick = () => {
+  setContent("");
+  setTitle("");
+  setCategory("");
+  setBlog("");
+};
+
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 }]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>
@@ -221,7 +230,12 @@ const postData = async () => {
                 {blog &&
                   blog.map((object) => (
                     <Card bgColor="#e7f3fb" key={object.id} width={"350"}>
-                      <Heading color={"#7d5fff"}>{object.title}</Heading>
+                      <HStack space={4}>
+                        <Heading color={"#7d5fff"}>{object.title}</Heading>
+                        <Link to={"/Edit Forum/"+object.id}>
+                          <MaterialIcons name="edit" size={18} color="black" />
+                        </Link>
+                      </HStack>
                       <Text fontSize={20} mt={2} fontWeight={"semibold"}>
                         {object.category}
                       </Text>
