@@ -179,6 +179,19 @@ const TrainerLogin = () => {
               </Button>
             </Center>
           </TouchableOpacity>
+          <TouchableOpacity>
+            <Center mt={78}>
+              <Button
+                bgColor={"white.100"}
+                borderColor={"black"}
+                onPress={() => navigation.navigate("Member Login")}
+              >
+                <Text color={"black"} textAlign={"center"}>
+                  Member Login
+                </Text>
+              </Button>
+            </Center>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </NativeBaseProvider>
