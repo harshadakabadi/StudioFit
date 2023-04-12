@@ -90,7 +90,7 @@ const EditTrainerProfile = () => {
           <ActivityIndicator size="small" />
         ) : (
           <Container ml={4} width={1000}>
-            <Center ml={100}>
+            <Center ml={120}>
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
@@ -102,10 +102,10 @@ const EditTrainerProfile = () => {
               />
             </Center>
             <View>
-              <Center>
+              <Center ml={18}>
                 <HStack>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="Full Name"
                     value={profile && profile.first_name}
@@ -115,9 +115,9 @@ const EditTrainerProfile = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="E-mail"
                     value={profile && profile.email}
@@ -127,9 +127,9 @@ const EditTrainerProfile = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     keyboardType="numeric"
                     label="Contact No"
@@ -141,9 +141,9 @@ const EditTrainerProfile = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="Address"
                     value={profile && profile.address}
@@ -153,9 +153,9 @@ const EditTrainerProfile = () => {
                     }
                   />
                 </HStack>
-                <HStack space="2" mt={3}>
+                <HStack space="2" mt={5}>
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="City"
                     value={profile && profile.city}
@@ -165,7 +165,7 @@ const EditTrainerProfile = () => {
                     }
                   />
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="State"
                     value={profile && profile.state}
@@ -175,9 +175,9 @@ const EditTrainerProfile = () => {
                     }
                   />
                 </HStack>
-                <HStack space="2" mt={3}>
+                <HStack space="2" mt={5}>
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="Pin Code"
                     keyboardType="numeric"
@@ -189,7 +189,7 @@ const EditTrainerProfile = () => {
                     }
                   />
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="Gender"
                     value={profile && profile.gender}
@@ -197,19 +197,21 @@ const EditTrainerProfile = () => {
                     editable={false}
                   />
                 </HStack>
+
+                <TouchableOpacity>
+                  <Button
+                    mt={45}
+                    width="100%"
+                    borderColor="black"
+                    color={changeColor}
+                    onPressIn={handleButtonClick}
+                    onPress={UpdateDataMember}
+                    // onPressOut={() => navigation.navigate("Trainer Profile")}
+                  >
+                    <Text>Save</Text>
+                  </Button>
+                </TouchableOpacity>
               </Center>
-              <TouchableOpacity>
-                <Button
-                  mt={45}
-                  borderColor="black"
-                  color={changeColor}
-                  onPressIn={handleButtonClick}
-                  onPress={UpdateDataMember}
-                 // onPressOut={() => navigation.navigate("Trainer Profile")}
-                >
-                  <Text>Save</Text>
-                </Button>
-              </TouchableOpacity>
             </View>
           </Container>
         )}

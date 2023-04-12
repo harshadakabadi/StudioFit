@@ -56,13 +56,13 @@ const MemberDashboard = () => {
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 670 ,}]}
+        style={[{ justifyContent: "center", height: 740 ,}]}
       >
         <ScrollView>
           <Center>
             <View mt={5}>
               <HStack space={2}>
-                <Card bgColor="#e7f3fb" height={100} width={170}>
+                <Card bgColor="#e7f3fb" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
@@ -77,7 +77,7 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#e7f3fb" height={100} width={170}>
+                <Card bgColor="#e7f3fb" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
@@ -94,7 +94,7 @@ const MemberDashboard = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#e7f3fb" height={100} width={170}>
+                <Card bgColor="#e7f3fb" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
@@ -109,7 +109,7 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#e7f3fb" height={100} width={170}>
+                <Card bgColor="#e7f3fb" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
@@ -132,7 +132,7 @@ const MemberDashboard = () => {
               <ActivityIndicator size="small" />
             ) : (
               <Center>
-                <Card bgColor="#e7f3fb" mt={4} style={{ width: 350 }}>
+                <Card bgColor="#e7f3fb" mt={4} style={{ width: 400, height:400 }}>
                   <ScrollView>
                     <Center>
                       <Heading>Notifications</Heading>

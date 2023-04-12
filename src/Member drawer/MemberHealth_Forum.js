@@ -64,7 +64,7 @@ useEffect(()=>{
               <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id} width={350}>
+                    <Card bgColor="#e7f3fb" key={object.id} width={400}>
                       <Heading>{object.title}</Heading>
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}

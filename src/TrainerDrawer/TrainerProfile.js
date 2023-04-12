@@ -51,9 +51,9 @@ const TrainerProfile = () => {
          <ActivityIndicator size="small" />
        ) : (
          <Container ml={4} width={1000}>
-           <HStack space={99} ml={3}>
+           <HStack space={99} ml={7}>
              <Image
-               style={{ width: 90, height: 90 }}
+               style={{ width: 100, height: 100 }}
                borderRadius={100}
                mt={63}
                source={Trainer1}
@@ -75,80 +75,82 @@ const TrainerProfile = () => {
                </HStack>
              </Button>
            </HStack>
-           <View>
-             <Center>
-               <HStack>
-                 <TextInput
-                   width={310}
-                   mode="outlined"
-                   label="Full Name"
-                   value={profile && profile.first_name}
-                   textColor="grey"
-                 />
-               </HStack>
-               <HStack mt={3}>
-                 <TextInput
-                   width={310}
-                   mode="outlined"
-                   label="E-mail"
-                   value={profile && profile.email}
-                   textColor="grey"
-                 />
-               </HStack>
-               <HStack mt={3}>
-                 <TextInput
-                   width={310}
-                   mode="outlined"
-                   type="number"
-                   label="Contact No"
-                   value={profile && profile.mobile.toString()}
-                   textColor="grey"
-                 />
-               </HStack>
-               <HStack mt={3}>
-                 <TextInput
-                   width={310}
-                   mode="outlined"
-                   label="Address"
-                   value={profile && profile.address}
-                   textColor="grey"
-                 />
-                 <Text></Text>
-               </HStack>
-               <HStack space="2" mt={3}>
-                 <TextInput
-                   width={150}
-                   mode="outlined"
-                   label="City"
-                   value={profile && profile.city}
-                   textColor="grey"
-                 />
-                 <TextInput
-                   width={150}
-                   mode="outlined"
-                   label="State"
-                   value={profile && profile.state}
-                   textColor="grey"
-                 />
-               </HStack>
-               <HStack space="2" mt={3}>
-                 <TextInput
-                   width={150}
-                   mode="outlined"
-                   label="Pin Code"
-                   value={profile && profile.pincode.toString()}
-                   textColor="grey"
-                 />
-                 <TextInput
-                   width={150}
-                   mode="outlined"
-                   label="Gender"
-                   value={profile && profile.gender}
-                   textColor="grey"
-                 />
-               </HStack>
-             </Center>
-           </View>
+           <Container ml={4}>
+             <View>
+               <Center>
+                 <HStack>
+                   <TextInput
+                     width={340}
+                     mode="outlined"
+                     label="Full Name"
+                     value={profile && profile.first_name}
+                     textColor="grey"
+                   />
+                 </HStack>
+                 <HStack mt={5}>
+                   <TextInput
+                     width={340}
+                     mode="outlined"
+                     label="E-mail"
+                     value={profile && profile.email}
+                     textColor="grey"
+                   />
+                 </HStack>
+                 <HStack mt={5}>
+                   <TextInput
+                     width={340}
+                     mode="outlined"
+                     type="number"
+                     label="Contact No"
+                     value={profile && profile.mobile.toString()}
+                     textColor="grey"
+                   />
+                 </HStack>
+                 <HStack mt={5}>
+                   <TextInput
+                     width={340}
+                     mode="outlined"
+                     label="Address"
+                     value={profile && profile.address}
+                     textColor="grey"
+                   />
+                   <Text></Text>
+                 </HStack>
+                 <HStack space="2" mt={5}>
+                   <TextInput
+                     width={170}
+                     mode="outlined"
+                     label="City"
+                     value={profile && profile.city}
+                     textColor="grey"
+                   />
+                   <TextInput
+                     width={170}
+                     mode="outlined"
+                     label="State"
+                     value={profile && profile.state}
+                     textColor="grey"
+                   />
+                 </HStack>
+                 <HStack space="2" mt={5}>
+                   <TextInput
+                     width={170}
+                     mode="outlined"
+                     label="Pin Code"
+                     value={profile && profile.pincode.toString()}
+                     textColor="grey"
+                   />
+                   <TextInput
+                     width={170}
+                     mode="outlined"
+                     label="Gender"
+                     value={profile && profile.gender}
+                     textColor="grey"
+                   />
+                 </HStack>
+               </Center>
+             </View>
+           </Container>
          </Container>
        )}
      </ScrollView>

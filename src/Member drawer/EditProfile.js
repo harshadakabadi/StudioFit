@@ -92,7 +92,7 @@ const UpdateDataMember = () => {
           <ActivityIndicator size="small" />
         ) : (
           <Container ml={4} width={1000}>
-            <Center ml={100}>
+            <Center ml={120}>
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
@@ -104,10 +104,10 @@ const UpdateDataMember = () => {
               />
             </Center>
             <View>
-              <Center>
+              <Center ml={18}>
                 <HStack>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="Full Name"
                     value={profile && profile.first_name}
@@ -117,9 +117,9 @@ const UpdateDataMember = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="E-mail"
                     value={profile && profile.email}
@@ -129,9 +129,9 @@ const UpdateDataMember = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     keyboardType="numeric"
                     label="Contact No"
@@ -143,9 +143,9 @@ const UpdateDataMember = () => {
                     }
                   />
                 </HStack>
-                <HStack mt={3}>
+                <HStack mt={5}>
                   <TextInput
-                    width={310}
+                    width={340}
                     mode="outlined"
                     label="Address"
                     value={profile && profile.address}
@@ -156,9 +156,9 @@ const UpdateDataMember = () => {
                   />
                   <Text></Text>
                 </HStack>
-                <HStack space="2" mt={3}>
+                <HStack space="2" mt={5}>
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="City"
                     value={profile && profile.city}
@@ -168,7 +168,7 @@ const UpdateDataMember = () => {
                     }
                   />
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="State"
                     value={profile && profile.state}
@@ -178,9 +178,9 @@ const UpdateDataMember = () => {
                     }
                   />
                 </HStack>
-                <HStack space="2" mt={3}>
+                <HStack space="2" mt={5}>
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="Pin Code"
                     keyboardType="numeric"
@@ -192,7 +192,7 @@ const UpdateDataMember = () => {
                     }
                   />
                   <TextInput
-                    width={150}
+                    width={170}
                     mode="outlined"
                     label="Gender"
                     value={profile && profile.gender}
@@ -200,19 +200,23 @@ const UpdateDataMember = () => {
                     editable={false}
                   />
                 </HStack>
+
+                <View ml={12}>
+                  <TouchableOpacity>
+                    <Button
+                      width={"100%"}
+                      mt={45}
+                      borderColor="black"
+                      color={changeColor}
+                      onPressIn={handleButtonClick}
+                      onPress={UpdateDataMember}
+                      onPressOut={() => navigation.navigate("Member Profile")}
+                    >
+                      <Text>Save</Text>
+                    </Button>
+                  </TouchableOpacity>
+                </View>
               </Center>
-              <TouchableOpacity>
-                <Button
-                  mt={45}
-                  borderColor="black"
-                  color={changeColor}
-                  onPressIn={handleButtonClick}
-                  onPress={UpdateDataMember}
-                  onPressOut={() => navigation.navigate("Member Profile")}
-                >
-                  <Text>Save</Text>
-                </Button>
-              </TouchableOpacity>
             </View>
           </Container>
         )}

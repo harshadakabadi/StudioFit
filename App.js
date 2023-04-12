@@ -23,7 +23,7 @@ import EditModal from './src/TrainerDrawer/EditForum1';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "192.168.0.106:8000";
+  global.MyVar = "192.168.1.17:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>

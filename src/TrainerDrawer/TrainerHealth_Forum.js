@@ -97,7 +97,7 @@ const handleClick = () => {
       >
         <ScrollView>
           <Center>
-            <Card width={"300"} height={"350"}>
+            <Card width={"400"} height={"350"}>
               <ScrollView>
                 <Center>
                   <Box>
@@ -105,7 +105,7 @@ const handleClick = () => {
                       bgColor="#e7f3fb"
                       mt={5}
                       fontSize={13}
-                      minWidth="200"
+                      minWidth="250"
                       placeholder="Title of Forum"
                       value={title}
                       onChangeText={(text) => setTitle(text)}
@@ -115,7 +115,7 @@ const handleClick = () => {
                     <Select
                       bgColor="#e7f3fb"
                       selectedValue={category}
-                      minWidth="200"
+                      minWidth="250"
                       accessibilityLabel="select category"
                       placeholder="select category"
                       _selectedItem={{
@@ -188,7 +188,7 @@ const handleClick = () => {
                         mt={5}
                         fontSize={13}
                         placeholder="Enter Your Content"
-                        minWidth="200"
+                        minWidth="250"
                         value={content}
                         onChangeText={(text) => setContent(text)}
                       />
@@ -229,7 +229,7 @@ const handleClick = () => {
               <Box mt={3}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id} width={"350"}>
+                    <Card bgColor="#e7f3fb" key={object.id} width={"400"}>
                       <HStack space={4}>
                         <Heading color={"#7d5fff"}>{object.title}</Heading>
                         <Link to={"/Edit Forum/"+object.id}>

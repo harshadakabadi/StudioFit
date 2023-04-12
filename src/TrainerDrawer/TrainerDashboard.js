@@ -47,7 +47,7 @@ const TrainerDashboard = () => {
             <ActivityIndicator size="small" />
           ) : (
             <Center>
-              <Card bgColor="#e7f3fb" mt={4} style={{ width: 350 }}>
+              <Card bgColor="#e7f3fb" mt={4} style={{ width: 400 }}>
                 <ScrollView>
                   <Center>
                     <Heading>Notifications</Heading>

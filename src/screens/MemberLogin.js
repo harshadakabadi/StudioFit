@@ -17,7 +17,7 @@ import axios from "axios";
 const MemberLogin = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
-  const [email, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   
   const handleMouseDownPassword = (event) => {
@@ -30,8 +30,8 @@ const MemberLogin = () => {
       .post(
         `http://${global.MyVar}/login`,
         {
-          'username': username,
-          'email': email,
+          username: username,
+          password: password,
         },
         {
           headers: {
@@ -131,8 +131,8 @@ const MemberLogin = () => {
             }
             placeholder="Password"
             onMouseDown={handleMouseDownPassword}
-            value={email}
-            onChange={(event) => setPassword(event.target.email)}
+            value={password}
+            onChange={(event) => setPassword(event.target.password)}
           />
 
           <View
@@ -157,7 +157,7 @@ const MemberLogin = () => {
                   height={50}
                   mt={10}
                   borderRadius={17}
-                  //onPress={(event) => submitHandler(event)}
+                 // onPress={(event) => submitHandler(event)}
                   onPress={() => navigation.navigate("Member HomeScreen")}
                 >
                   <Text>Log In</Text>

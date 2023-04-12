@@ -57,9 +57,9 @@ const TrainerReport_Issue = () => {
       >
         <ScrollView>
           <Center>
-            <Container mt={30} maxWidth="800">
+            <Container mt={39} maxWidth="800">
               <Center>
-                <Box width={300} mt={4}>
+                <Box width={300} mt={7}>
                   <Select
                     bgColor="#e7f3fb"
                     selectedValue={category}
@@ -123,10 +123,10 @@ const TrainerReport_Issue = () => {
                     />
                   </Select>
                 </Box>
-                <Text mt={5} fontSize={18}>
+                <Text mt={7} fontSize={18}>
                   Enter Your Issue
                 </Text>
-                <Box alignItems="center" mt={5}>
+                <Box alignItems="center" mt={7}>
                   <TextArea
                     fontSize={16}
                     bgColor="#e7f3fb"
