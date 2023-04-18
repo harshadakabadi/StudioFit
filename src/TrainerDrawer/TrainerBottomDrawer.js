@@ -33,7 +33,7 @@ export default function TrainerBottomDrawer() {
             color="white"
             size="sm"
           />
-          <Text color="white" fontSize="12">
+          <Text color="white" fontSize="14">
             Home
           </Text>
         </Center>
@@ -53,7 +53,7 @@ export default function TrainerBottomDrawer() {
             color="white"
             size="sm"
           />
-          <Text color="white" fontSize="12">
+          <Text color="white" fontSize="14">
             Contact
           </Text>
         </Center>

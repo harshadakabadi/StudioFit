@@ -24,11 +24,7 @@ import TrainerDashboard from "./TrainerDashboard";
 import TrainerHealth_Forum from "./TrainerHealth_Forum";
 import TrainerReport_Issue from "./TrainerReport_Issue";
 import TrainerLogin from "../screens/TrainerLogin";
-
-
-
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Drawer = createDrawerNavigator();
 
@@ -50,8 +46,10 @@ const getIcon = (screenName) => {
 function CustomDrawerContent(props) {
   const [profile, setProfile] = React.useState(null);
   const getDataUser = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    console.log("I have :"+userId);
     try {
-      const data = await fetch(`http://${global.MyVar}/api/staff_api/6`);
+      const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
       const profile = await data.json();
       console.log(profile);
       setProfile(profile);

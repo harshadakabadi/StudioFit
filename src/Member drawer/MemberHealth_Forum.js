@@ -1,15 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { EvilIcons } from "@expo/vector-icons"; 
+import { Pressable } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 import {
+  View,
   Box,
   Center,
   Text,
-  VStack,
-  Divider,
   Heading,
-  Input,
-  Icon,
   Card,
   NativeBaseProvider,
   KeyboardAvoidingView
@@ -26,14 +24,14 @@ const MemberHealth_Forum = () => {
       headerShown: true,
     });
   }, []);
-
+   const [liked, setLiked] = useState(false);
    const [blog, setBlog] = useState([]);
    const [loading, setLoading] = useState(true);
   
   const getData = async () => {
     try {
     const data = await fetch(
-      `http://${global.MyVar}/api/blog_api/`
+      `${global.MyVar}/api/blog_api/`
     );
     const blog = await data.json();
     console.log(blog);
@@ -64,15 +62,26 @@ useEffect(()=>{
               <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id} width={400}>
-                      <Heading>{object.title}</Heading>
+                    <Card bgColor="#E8E8E8" key={object.id} width={400}>
+                      <Heading color="#282828">{object.title}</Heading>
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}
                       </Text>
                       <Text mt={1}>{object.content}</Text>
-                      <Text fontSize={12} mt={1} color={"gray.400"}>
+                      <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
                         posted on : {new Date(object.updated_at).toGMTString()}
                       </Text>
+                      <View ml={300}>
+                        <Pressable
+                          onPress={() => setLiked((isLiked) => !isLiked)}
+                        >
+                          <Entypo
+                            name={liked ? "heart" : "heart-outlined"}
+                            size={30}
+                            color={liked ? "red" : "black"}
+                          />
+                        </Pressable>
+                      </View>
                     </Card>
                   ))}
               </Box>

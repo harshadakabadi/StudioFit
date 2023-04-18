@@ -1,56 +1,53 @@
 import { Pressable, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  Box,
   Button,
   Center,
   NativeBaseProvider,
   Text,
-  Input,
   Icon,
+  Input,
 } from "native-base";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
-const baseUrl = "https://reqres.in";
 const TrainerLogin = () => {
   const navigation = useNavigation();
-  const [show, setShow] = React.useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
 
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
-  const onChangePasswordHandler = (password) => {
-    setPassword(password);
-  };
-
-  const onLoginFormHandler = async (event) => {
-    if (!email.trim() || !password.trim()) {
-      alert("Name or Email is invalid");
-      return;
-    }
-    setIsLoading(true);
+  const handleLogin = async () => {
+    console.log("password:" + password);
+    console.log("username:" + username);
     try {
-      const response = await axios.post(`${baseUrl}/api/users`, {
-        email,
-        password,
+      const response = await fetch(`${global.MyVar}/api/login_api/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       });
-      if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setEmail("");
-        setPassword("");
+      console.log("reaponse:" + JSON.stringify(response));
+      if (response.status === 200) {
+        const data = await response.json();
+        await AsyncStorage.setItem("user", JSON.stringify(data));
+        console.log("User data stored:", data);
+        const userId = JSON.stringify(data.id);
+        await AsyncStorage.setItem("userId", userId);
+        navigation.navigate("Trainer HomeScreen");
       } else {
-        throw new Error("An error has occurred");
+        alert("Check your Password or username again!! ");
       }
     } catch (error) {
-      alert("An error has occurred");
-      setIsLoading(false);
+      console.error("Error catch:", error);
     }
   };
 
@@ -66,6 +63,7 @@ const TrainerLogin = () => {
         >
           <View width={"100%"}>
             <Text
+              mt={70}
               fontSize={42}
               textAlign={"center"}
               fontWeight={"bold"}
@@ -83,7 +81,7 @@ const TrainerLogin = () => {
             mb={16}
             fontWeight={"bold"}
           >
-            Trainer Login
+            Login to Continue
           </Text>
           <Input
             w={{
@@ -101,10 +99,11 @@ const TrainerLogin = () => {
                 color="muted.400"
               />
             }
-            placeholder="Email"
-            value={email}
-            editable={!isLoading}
-            onChangeText={onChangeEmailHandler}
+            placeholder="Username"
+            fontSize={16}
+            value={username}
+            textColor="grey"
+            onChangeText={(value) => setUsername(value)}
           />
           <Input
             borderRadius={15}
@@ -130,8 +129,9 @@ const TrainerLogin = () => {
             }
             placeholder="Password"
             value={password}
-            editable={!isLoading}
-            onChangeText={onChangePasswordHandler}
+            fontSize={16}
+            textColor="grey"
+            onChangeText={(value) => setPassword(value)}
           />
 
           <View
@@ -156,16 +156,17 @@ const TrainerLogin = () => {
                   height={50}
                   mt={10}
                   borderRadius={17}
-                  onPressOut={onLoginFormHandler}
-                  disabled={isLoading}
-                  onPress={() => navigation.navigate("Trainer HomeScreen")}
+                  onPress={handleLogin}
+                  //onPress={() => navigation.navigate("Member HomeScreen")}
                 >
-                  <Text>Log In</Text>
+                  <Text fontSize={20} fontWeight={"bold"} color={"#282828"}>
+                    Log In
+                  </Text>
                 </Button>
               </Center>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          {/*  <TouchableOpacity>
             <Center mt={78}>
               <Button
                 ml={200}
@@ -179,6 +180,7 @@ const TrainerLogin = () => {
               </Button>
             </Center>
           </TouchableOpacity>
+          */}
           <TouchableOpacity>
             <Center mt={78}>
               <Button
@@ -186,7 +188,12 @@ const TrainerLogin = () => {
                 borderColor={"black"}
                 onPress={() => navigation.navigate("Member Login")}
               >
-                <Text color={"black"} textAlign={"center"}>
+                <Text
+                  color={"black"}
+                  fontWeight={"bold"}
+                  textAlign={"center"}
+                  fontSize={16}
+                >
                   Member Login
                 </Text>
               </Button>

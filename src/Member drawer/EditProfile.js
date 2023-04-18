@@ -15,6 +15,8 @@ import { TextInput } from "react-native-paper";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { profile1, Trainer1 } from "../../assets";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const EditMemberProfile = () => {
   const navigation = useNavigation();
@@ -36,8 +38,9 @@ const EditMemberProfile = () => {
   });
   
   const getDataMember = async () => {
+    const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`http://${global.MyVar}/api/member_api/7`);
+      const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
       const profile = await data.json();
      // console.log(profile);
       setProfile(profile);
@@ -54,8 +57,9 @@ const EditMemberProfile = () => {
   }, []);
 
 
-const UpdateDataMember = () => {
-  fetch(`http://${global.MyVar}/api/member_api/7/`, {
+const UpdateDataMember = async() => {
+  const userId = await AsyncStorage.getItem("userId");
+  fetch(`${global.MyVar}/api/member_api/${userId}/`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

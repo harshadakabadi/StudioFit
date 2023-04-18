@@ -17,6 +17,7 @@ import {
   Icon,
  
 } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { profile, profile1, Trainer1 } from "../../assets";
 import Renew_Membership from "./Renew_Membership";
 import MemberBottomDrawer from "./MemberBottomDrawer";
@@ -25,6 +26,7 @@ import MemberFeedback from "./MemberFeedback";
 import MemberHealth_Forum from "./MemberHealth_Forum";
 import MemberReport_Issue from "./MemberReport_Issue";
 import MemberLogin from "../screens/MemberLogin"
+import FitnessTracker from "./FitnessTracker";
 
 global.__reanimatedWorkletInit = () => {};
 const Drawer = createDrawerNavigator();
@@ -41,6 +43,8 @@ const getIcon = (screenName) => {
       return "amp-stories";
     case "Subscription Plans":
       return "wallet-membership";
+    case "Fitness Tracker":
+      return "fitness-center";
     case "Logout":
       return "logout";
     default:
@@ -51,8 +55,9 @@ const getIcon = (screenName) => {
 function CustomDrawerContent(props) {
   const [profile,setProfile]= React.useState(null)
   const getDataUser = async () => {
+    const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`http://${global.MyVar}/api/member_api/7`);
+      const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
       const profile = await data.json();
       console.log(profile);
       setProfile(profile);
@@ -87,7 +92,7 @@ function CustomDrawerContent(props) {
           </Text>
           <Button
             mr={12}
-            bgColor={"#85C1E9"}
+            bgColor={"#FF92A5"}
             onPress={() => navigation.navigate("Member Profile")}
           >
             <Text fontWeight={"bold"} fontSize={16}>
@@ -103,7 +108,7 @@ function CustomDrawerContent(props) {
                 px="5"
                 py="3"
                 rounded="md"
-                bg={index === props.state.index ? "#1aa7ec" : "transparent"}
+                bg={index === props.state.index ? "#FF647F" : "transparent"}
                 onPress={() => {
                   props.navigation.navigate(name);
                 }}
@@ -116,9 +121,7 @@ function CustomDrawerContent(props) {
                   />
                   <Text
                     fontWeight="500"
-                    color={
-                      index === props.state.index ? "black" : "gray.700"
-                    }
+                    color={index === props.state.index ? "black" : "gray.700"}
                     fontSize={16}
                   >
                     {name}
@@ -136,8 +139,9 @@ function MyDrawer() {
   return (
     <Box safeArea flex={1}>
       <Drawer.Navigator
+      
         drawerContent={(props) => (
-          <CustomDrawerContent {...props} backgroundColor={"#85C1E9"} />
+          <CustomDrawerContent {...props} backgroundColor={"#FF92A5"} />
         )}
       >
         <Drawer.Screen
@@ -145,7 +149,7 @@ function MyDrawer() {
           component={MemberDashboard}
           options={{
             headerStyle: {
-              backgroundColor: "#85C1E9",
+              backgroundColor: "#FF92A5",
               height: 80,
             },
             headerTitleStyle: {
@@ -158,7 +162,7 @@ function MyDrawer() {
           component={MemberFeedback}
           options={{
             headerStyle: {
-              backgroundColor: "#85C1E9",
+              backgroundColor: "#FF92A5",
               height: 80,
             },
             headerTitleStyle: {
@@ -171,7 +175,7 @@ function MyDrawer() {
           component={MemberReport_Issue}
           options={{
             headerStyle: {
-              backgroundColor: "#85C1E9",
+              backgroundColor: "#FF92A5",
               height: 80,
             },
             headerTitleStyle: {
@@ -184,7 +188,7 @@ function MyDrawer() {
           component={MemberHealth_Forum}
           options={{
             headerStyle: {
-              backgroundColor: "#85C1E9",
+              backgroundColor: "#FF92A5",
               height: 80,
             },
             headerTitleStyle: {
@@ -197,7 +201,20 @@ function MyDrawer() {
           component={Renew_Membership}
           options={{
             headerStyle: {
-              backgroundColor: "#85C1E9",
+              backgroundColor: "#FF92A5",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="Fitness Tracker"
+          component={FitnessTracker}
+          options={{
+            headerStyle: {
+              backgroundColor: "#FF92A5",
               height: 80,
             },
             headerTitleStyle: {

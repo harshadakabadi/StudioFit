@@ -20,7 +20,7 @@ const TrainerDashboard = () => {
    const getData = async () => {
      try {
        const data = await fetch(
-         `http://${global.MyVar}/api/notification_api`
+         `${global.MyVar}/api/notification_api`
        );
        const notification = await data.json();
        console.log(notification);

@@ -18,12 +18,12 @@ import MemberBottomDrawer from './src/Member drawer/MemberBottomDrawer';
 import EditProfile from './src/Member drawer/EditProfile';
 import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
 import EditForum from './src/TrainerDrawer/EditForum';
-import EditModal from './src/TrainerDrawer/EditForum1';
-
+import HomeMember from './src/bottom/HomeMember';
+import ContactMember from './src/bottom/ContactMember';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "192.168.1.17:8000";
+  global.MyVar = "http://192.168.0.104:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -61,8 +61,16 @@ const App = () => {
           }}
         />
         <Stack.Screen
+          name="Home "
+          component={HomeMember}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#FF92A5" },
+          }}
+        />
+        <Stack.Screen
           name="Edit Forum"
-          component={EditModal}
+          component={EditForum}
           options={{
             headerShown: false,
           }}
@@ -76,10 +84,18 @@ const App = () => {
           }}
         />
         <Stack.Screen
+          name="Contact Us "
+          component={ContactMember}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#FF92A5" },
+          }}
+        />
+        <Stack.Screen
           name="Edit Member Profile"
           component={EditProfile}
           options={{
-            headerStyle: { backgroundColor: "#85C1E9" },
+            headerStyle: { backgroundColor: "#FF92A5" },
           }}
         />
         <Stack.Screen
@@ -107,7 +123,7 @@ const App = () => {
           component={MemberProfile}
           options={{
             headerShown: true,
-            headerStyle: { backgroundColor: "#85C1E9" },
+            headerStyle: { backgroundColor: "#FF92A5" },
           }}
         />
         <Stack.Screen

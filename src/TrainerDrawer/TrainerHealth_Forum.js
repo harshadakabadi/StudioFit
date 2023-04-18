@@ -1,9 +1,9 @@
-import { View,Modal } from "react-native";
+import {View} from "react-native";
 import React, { useLayoutEffect,useState,useEffect } from "react";
-import { Link, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
-
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Box,
   Center,
@@ -18,10 +18,10 @@ import {
   Select,
   Card,
   Input,
-  KeyboardAvoidingView
-
+  KeyboardAvoidingView,
 } from "native-base";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
+import axios from "axios";
 
 
 const TrainerHealth_Forum = () => {
@@ -41,7 +41,7 @@ const TrainerHealth_Forum = () => {
   
   const getData = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/blog_api/`);
+      const data = await fetch(`${global.MyVar}/api/blog_api/`);
       const blog = await data.json();
       console.log(blog);
       setBlog(blog);
@@ -57,8 +57,9 @@ const TrainerHealth_Forum = () => {
   }, []);
 
 const postData = async () => {
+  const userId = await AsyncStorage.getItem("userId");
   try {
-    let result = await fetch(`http://${global.MyVar}/api/blog_api/`, {
+    let result = await fetch(`${global.MyVar}/api/blog_api/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -67,8 +68,8 @@ const postData = async () => {
         title,
         category,
         content,
-        created_by:6,
-        updated_by:6,
+        created_by: userId,
+        updated_by: userId,
       }),
     });
     getData();
@@ -88,6 +89,19 @@ const handleClick = () => {
   setCategory("");
   setBlog("");
 };
+const handleEditBtn =async (Id) => {
+  console.log(JSON.stringify(Id));
+  await AsyncStorage.setItem("blogId", JSON.stringify(Id));
+  navigation.navigate("Edit Forum")
+};
+const handleDeleteBtn = async (Id) => {
+  try {
+    const res = await axios.delete(`${global.MyVar}/api/blog_api/${Id}/`);
+    console.log("Item successfully deleted.",res.data);
+  } catch (error) {
+    alert(error);
+  }
+};
 
   return (
     <NativeBaseProvider>
@@ -104,7 +118,7 @@ const handleClick = () => {
                     <Input
                       bgColor="#e7f3fb"
                       mt={5}
-                      fontSize={13}
+                      fontSize={14}
                       minWidth="250"
                       placeholder="Title of Forum"
                       value={title}
@@ -116,6 +130,7 @@ const handleClick = () => {
                       bgColor="#e7f3fb"
                       selectedValue={category}
                       minWidth="250"
+                      fontSize={14}
                       accessibilityLabel="select category"
                       placeholder="select category"
                       _selectedItem={{
@@ -186,7 +201,7 @@ const handleClick = () => {
                       <TextArea
                         bgColor="#e7f3fb"
                         mt={5}
-                        fontSize={13}
+                        fontSize={14}
                         placeholder="Enter Your Content"
                         minWidth="250"
                         value={content}
@@ -201,7 +216,7 @@ const handleClick = () => {
                         textAlign={"center"}
                         justifyContent={"center"}
                         alignItems={"center"}
-                        width={"100%"}
+                        width={"80%"}
                         height={45}
                         borderRadius={8}
                         bgColor={"#4CAF50"}
@@ -209,7 +224,8 @@ const handleClick = () => {
                         onPress={postData}
                       >
                         <Text
-                          fontSize={15}
+                          fontSize={20}
+                          fontWeight={"bold"}
                           textAlign={"center"}
                           color={"white"}
                         >
@@ -230,11 +246,30 @@ const handleClick = () => {
                 {blog &&
                   blog.map((object) => (
                     <Card bgColor="#e7f3fb" key={object.id} width={"400"}>
-                      <HStack space={4}>
+                      <HStack space={6}>
                         <Heading color={"#7d5fff"}>{object.title}</Heading>
-                        <Link to={"/Edit Forum/"+object.id}>
-                          <MaterialIcons name="edit" size={18} color="black" />
-                        </Link>
+                        <HStack>
+                          <Button
+                            bgColor={"#e7f3fb"}
+                            onPress={() => handleEditBtn(object.id)}
+                          >
+                            <MaterialIcons
+                              name="edit"
+                              size={20}
+                              color="black"
+                            />
+                          </Button>
+                          <Button
+                            bgColor={"#e7f3fb"}
+                            onPress={() => handleDeleteBtn(object.id)}
+                          >
+                            <MaterialIcons
+                              name="delete"
+                              size={20}
+                              color="black"
+                            />
+                          </Button>
+                        </HStack>
                       </HStack>
                       <Text fontSize={20} mt={2} fontWeight={"semibold"}>
                         {object.category}
@@ -242,7 +277,7 @@ const handleClick = () => {
                       <Text fontSize={18} mt={1}>
                         {object.content}
                       </Text>
-                      <Text fontSize={12} mt={1} color={"gray.400"}>
+                      <Text fontSize={13} mt={1} color={"gray.400"}>
                         posted on : {new Date(object.created_at).toGMTString()}
                       </Text>
                     </Card>

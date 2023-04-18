@@ -23,7 +23,7 @@ const MemberDashboard = () => {
   const [fitness,setFitness] = useState('');
   const getData = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/notification_api`);
+      const data = await fetch(`${global.MyVar}/api/notification_api`);
       const notification = await data.json();
       console.log(notification);
       setNotification(notification);
@@ -36,7 +36,7 @@ const MemberDashboard = () => {
   };
   const getDataMember = async () => {
     try {
-      const data = await fetch(`http://${global.MyVar}/api/user_fitness_api/1`);
+      const data = await fetch(`${global.MyVar}/api/user_fitness_api/1`);
       const fitness = await data.json();
       // console.log(profile);
       setFitness(fitness);
@@ -56,18 +56,18 @@ const MemberDashboard = () => {
     <NativeBaseProvider>
       <KeyboardAvoidingView
         behavior="height"
-        style={[{ justifyContent: "center", height: 740 ,}]}
+        style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
           <Center>
             <View mt={5}>
               <HStack space={2}>
-                <Card bgColor="#e7f3fb" height={100} width={190}>
+                <Card bgColor="#E8E8E8" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
                       fontWeight={"bold"}
-                      color={"#7d5fff"}
+                      color={"#282828"}
                       opacity={0.9}
                     >
                       Calories Burnt
@@ -77,12 +77,12 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#e7f3fb" height={100} width={190}>
+                <Card bgColor="#E8E8E8" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
                       fontWeight={"bold"}
-                      color={"#7d5fff"}
+                      color={"#282828"}
                       opacity={0.9}
                     >
                       Steps Walked
@@ -94,12 +94,12 @@ const MemberDashboard = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#e7f3fb" height={100} width={190}>
+                <Card bgColor="#E8E8E8" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
                       fontWeight={"bold"}
-                      color={"#7d5fff"}
+                      color={"#282828"}
                       opacity={0.9}
                     >
                       BMI
@@ -109,12 +109,12 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#e7f3fb" height={100} width={190}>
+                <Card bgColor="#E8E8E8" height={100} width={190}>
                   <Center>
                     <Text
                       fontSize={18}
                       fontWeight={"bold"}
-                      color={"#7d5fff"}
+                      color={"#282828"}
                       opacity={0.9}
                     >
                       Fat percentage
@@ -132,7 +132,11 @@ const MemberDashboard = () => {
               <ActivityIndicator size="small" />
             ) : (
               <Center>
-                <Card bgColor="#e7f3fb" mt={4} style={{ width: 400, height:400 }}>
+                <Card
+                  bgColor="#E8E8E8"
+                  mt={4}
+                  style={{ width: 400, height: 400 }}
+                >
                   <ScrollView>
                     <Center>
                       <Heading>Notifications</Heading>
@@ -141,7 +145,7 @@ const MemberDashboard = () => {
                     {notification &&
                       notification.map((object) => (
                         <Box mt={10} key={object.id}>
-                          <Heading color={"#7d5fff"}>{object.title}</Heading>
+                          <Heading color={"#282828"}>{object.title}</Heading>
                           <Text fontSize={20} mt={3}>
                             {object.description}
                           </Text>

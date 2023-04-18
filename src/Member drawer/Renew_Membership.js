@@ -31,7 +31,7 @@ const Renew_Membership = () => {
   
   const getData = async () => {
     try {
-    const data = await fetch(`http://${global.MyVar}/api/subscription_api/`);
+    const data = await fetch(`${global.MyVar}/api/subscription_api/`);
     const subscription = await data.json();
     console.log(subscription);
     setSubscription(subscription);
@@ -65,7 +65,7 @@ useEffect(() => {
                       <Card
                         key={object.id}
                         style={{ height: 250, width: 250 }}
-                        bgColor={"#e9f4fb"}
+                        bgColor={"#E8E8E8"}
                         mt={10}
                         styles={{ boxShadow: "2px 2px 2px grey" }}
                       >

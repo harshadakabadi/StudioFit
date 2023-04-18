@@ -9,6 +9,8 @@ import {
   TextArea,Box,Input, ScrollView, Container,Select,CheckIcon
 } from "native-base";
 import MemberBottomDrawer from "./MemberBottomDrawer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const MemberReport_Issue = () => {
   const navigation = useNavigation();
@@ -16,8 +18,9 @@ const MemberReport_Issue = () => {
   const [issue, setIssue] = useState("");
   
   const postData = async()=>{
+    const userId = await AsyncStorage.getItem("userId");
     try{
-        let result = await fetch(`http://${global.MyVar}/api/reported_issue_api/`, {
+        let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -26,7 +29,7 @@ const MemberReport_Issue = () => {
             category,
             issue,
             branch: 1,
-            created_by:3,
+            created_by:userId,
           }),
         });
         handleClick();
@@ -56,9 +59,12 @@ const MemberReport_Issue = () => {
           <Center>
             <Container mt={30} maxWidth="800">
               <Center>
+                <Text mt={5} fontSize={18} ml={-159}>
+                  Report Issue for :
+                </Text>
                 <Box width={300} mt={4}>
                   <Select
-                    bgColor="#e7f3fb"
+                    bgColor="#E8E8E8"
                     selectedValue={category}
                     fontSize={16}
                     accessibilityLabel="select category"
@@ -121,14 +127,14 @@ const MemberReport_Issue = () => {
                   </Select>
                 </Box>
 
-                <Text mt={5} fontSize={18}>
-                  Enter Your Issue
+                <Text mt={5} fontSize={18} ml={-159}>
+                  Enter Your Issue :
                 </Text>
                 <Box alignItems="center" mt={5}>
                   <TextArea
                     fontSize={16}
-                    bgColor="#e7f3fb"
-                    h={40}
+                    bgColor="#E8E8E8"
+                    h={120}
                     maxW="300"
                     placeholder="Enter your Issue "
                     value={issue}
@@ -142,14 +148,19 @@ const MemberReport_Issue = () => {
                     textAlign={"center"}
                     justifyContent={"center"}
                     alignItems={"center"}
-                    width={300}
+                    width={200}
                     height={50}
                     borderRadius={8}
-                    bgColor={"#4CAF50"}
+                    bgColor={"#FF647F"}
                     onPress={postData}
                     onPressIn={() => navigation.navigate("Dashboard")}
                   >
-                    <Text fontSize={18} textAlign={"center"} color={"white"}>
+                    <Text
+                      textAlign={"center"}
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      color={"white"}
+                    >
                       Submit
                     </Text>
                   </Button>

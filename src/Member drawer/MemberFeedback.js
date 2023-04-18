@@ -6,6 +6,8 @@ import { RatingInput } from "react-native-stock-star-rating";
 import { useState } from 'react';
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const MemberFeedback = () => {
   const navigation = useNavigation();
@@ -21,8 +23,9 @@ const MemberFeedback = () => {
   
 
   const postData = async () => {
+    const userId = await AsyncStorage.getItem("userId");
     try {
-      let result = await fetch(`http://${global.MyVar}/api/feedback_api/`, {
+      let result = await fetch(`${global.MyVar}/api/feedback_api/`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -31,8 +34,8 @@ const MemberFeedback = () => {
           category,
           feedback,
           rating,
-          branch:1,
-          created_by:3,
+          branch: userId,
+          created_by: userId,
         }),
       });
       handleClick();
@@ -59,9 +62,12 @@ const MemberFeedback = () => {
       >
         <ScrollView>
           <Container alignItems={"center"} m={10} width={"800"}>
-            <Box width={300} mt={4}>
+            <Text fontSize={18} ml={-119}>
+              Enter feedback for :
+            </Text>
+            <Box width={280} mt={4}>
               <Select
-                bgColor="#e7f3fb"
+                bgColor="#E8E8E8"
                 selectedValue={category}
                 fontSize={16}
                 accessibilityLabel="select category"
@@ -113,14 +119,14 @@ const MemberFeedback = () => {
             </Box>
 
             <Center>
-              <Text mt={30} fontSize={18}>
+              <Text mt={30} ml={-119} fontSize={18}>
                 Enter Your Feedback
               </Text>
               <Box alignItems="center" mt={5}>
                 <TextArea
                   fontSize={16}
-                  bgColor="#e7f3fb"
-                  h={40}
+                  bgColor="#E8E8E8"
+                  h={130}
                   maxW="300"
                   placeholder="Enter your feedback "
                   value={feedback}
@@ -146,18 +152,23 @@ const MemberFeedback = () => {
               <View>
                 <Center>
                   <Button
-                    mt={20}
+                    mt={10}
                     textAlign={"center"}
                     justifyContent={"center"}
                     alignItems={"center"}
-                    width={300}
+                    width={200}
                     height={50}
                     borderRadius={8}
-                    bgColor={"#4CAF50"}
+                    bgColor={"#FF647F"}
                     onPress={postData}
                     onPressIn={() => navigation.navigate("Dashboard")}
                   >
-                    <Text fontSize={18} textAlign={"center"} color={"white"}>
+                    <Text
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      color={"white"}
+                      textAlign={"center"}
+                    >
                       Submit
                     </Text>
                   </Button>

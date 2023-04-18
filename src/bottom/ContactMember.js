@@ -3,12 +3,15 @@ import React from "react";
 import {
   NativeBaseProvider,
   ScrollView,
+  Center,
+  HStack,
+  Card,
   Text,
   Box,
 } from "native-base";
 import { Divider } from "@rneui/themed";
 
-const Contact = () => {
+const ContactMember = () => {
   return (
     <NativeBaseProvider>
       <ScrollView mt={50}>
@@ -59,4 +62,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactMember;

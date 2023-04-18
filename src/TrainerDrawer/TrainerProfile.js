@@ -10,6 +10,7 @@ import {
   HStack,
   Icon,Container,Button
 } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from "react-native-paper";
@@ -26,8 +27,10 @@ const TrainerProfile = () => {
  
 
  const getDataMember = async () => {
+  const userId = await AsyncStorage.getItem("userId");
+  console.log("I have :" + userId);
    try {
-     const data = await fetch(`http://${global.MyVar}/api/staff_api/6`);
+     const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
      const profile = await data.json();
      console.log(profile);
      setProfile(profile);

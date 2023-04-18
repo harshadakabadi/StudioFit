@@ -1,16 +1,17 @@
 import { Pressable, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  Box,
   Button,
   Center,
   NativeBaseProvider,
   Text,
-  Input,
   Icon,
+  Input
 } from "native-base";
+
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -20,40 +21,35 @@ const MemberLogin = () => {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    axios
-      .post(
-        `http://${global.MyVar}/login`,
-        {
-          username: username,
-          password: password,
+ const handleLogin = async () => {
+  console.log("password:"+password);
+  console.log("username:"+username);
+    try {
+      const response = await fetch(`${global.MyVar}/api/login_api/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        if (response.status === 200) {
-          updateAuthentication(JSON.stringify(response.data));
-          localStorage.setItem("user", JSON.stringify(response.data));
-          alert("Login Successfully");
-          navigate("Member HomeScreen");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert("Something is wrong Username or Password !!!");
-      });
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });  
+      console.log("reaponse:"+JSON.stringify(response))
+      if (response.status === 200) {
+        const data = await response.json();
+        await AsyncStorage.setItem('user', JSON.stringify(data));
+        console.log('User data stored:', data);
+        const userId = JSON.stringify(data.id);
+        await AsyncStorage.setItem("userId", userId);
+        navigation.navigate("Member HomeScreen");  
+      } else {
+        alert("Check your Password or username again!! ");  
+      }
+    } catch (error) {
+      console.error('Error catch:', error);
+    }
   };
-
 
   return (
     <NativeBaseProvider>
@@ -71,7 +67,7 @@ const MemberLogin = () => {
               fontSize={42}
               textAlign={"center"}
               fontWeight={"bold"}
-              color={"#7d5fff"}
+              color={"#FF92A5"}
               opacity={0.9}
             >
               STUDIOFIT
@@ -104,8 +100,10 @@ const MemberLogin = () => {
               />
             }
             placeholder="Username"
+            fontSize={16}
             value={username}
-            onChange={(event) => setUsername(event.target.username)}
+            textColor="grey"
+            onChangeText={(value) => setUsername(value)}
           />
           <Input
             borderRadius={15}
@@ -130,9 +128,10 @@ const MemberLogin = () => {
               </Pressable>
             }
             placeholder="Password"
-            onMouseDown={handleMouseDownPassword}
+            fontSize={16}
             value={password}
-            onChange={(event) => setPassword(event.target.password)}
+            textColor="grey"
+            onChangeText={(value) => setPassword(value)}
           />
 
           <View
@@ -156,16 +155,19 @@ const MemberLogin = () => {
                   width={"75%"}
                   height={50}
                   mt={10}
+                  bgColor={"#FF647F"}
                   borderRadius={17}
-                 // onPress={(event) => submitHandler(event)}
-                  onPress={() => navigation.navigate("Member HomeScreen")}
+                  onPress={handleLogin}
+                  //onPress={() => navigation.navigate("Member HomeScreen")}
                 >
-                  <Text>Log In</Text>
+                  <Text fontSize={20} fontWeight={"bold"} color={"white"}>
+                    Log In
+                  </Text>
                 </Button>
               </Center>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          {/*  <TouchableOpacity>
             <Center mt={78}>
               <Button
                 ml={200}
@@ -179,14 +181,20 @@ const MemberLogin = () => {
               </Button>
             </Center>
           </TouchableOpacity>
+          */}
           <TouchableOpacity>
-            <Center mt={78}>
+            <Center mt={90}>
               <Button
                 bgColor={"white.100"}
                 borderColor={"black"}
                 onPress={() => navigation.navigate("Trainer Login")}
               >
-                <Text color={"black"} textAlign={"center"}>
+                <Text
+                  color={"black"}
+                  fontWeight={"bold"}
+                  textAlign={"center"}
+                  fontSize={16}
+                >
                   Trainer Login
                 </Text>
               </Button>

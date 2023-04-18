@@ -15,14 +15,14 @@ export default function MemberBottomDrawer() {
   const [selected, setSelected] = React.useState(1);
   const navigation = useNavigation();
   return (
-    <HStack bg="#85C1E9" alignItems="center" pb={3}>
+    <HStack bg="#FF92A5" alignItems="center" pb={3}>
       <Pressable
         cursor="pointer"
         opacity={selected === 0 ? 1 : 0.5}
         py="3"
         flex={1}
         onPressOut={() => setSelected(0)}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Home ")}
       >
         <Center>
           <Icon
@@ -46,7 +46,7 @@ export default function MemberBottomDrawer() {
         py="2"
         flex={1}
         onPressOut={() => setSelected(1)}
-        onPress={() => navigation.navigate("Contact Us")}
+        onPress={() => navigation.navigate("Contact Us ")}
       >
         <Center>
           <Icon

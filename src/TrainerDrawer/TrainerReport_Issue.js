@@ -13,6 +13,8 @@ import {
 } from "native-base";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const TrainerReport_Issue = () => {
   const navigation = useNavigation();
@@ -20,9 +22,10 @@ const TrainerReport_Issue = () => {
   const [issue, setIssue] = useState("");
   
   const postData = async () => {
+    const userId = await AsyncStorage.getItem("userId");
     try {
       let result = await fetch(
-        `http://${global.MyVar}/api/reported_issue_api/`,
+        `${global.MyVar}/api/reported_issue_api/`,
         {
           method: "POST",
           headers: {
@@ -32,7 +35,7 @@ const TrainerReport_Issue = () => {
             category,
             issue,
             branch:1,
-            created_by:6,
+            created_by:userId,
           }),
         }
       );
@@ -59,6 +62,9 @@ const TrainerReport_Issue = () => {
           <Center>
             <Container mt={39} maxWidth="800">
               <Center>
+                <Text mt={5} fontSize={18} ml={-159}>
+                  Report Issue for :
+                </Text>
                 <Box width={300} mt={7}>
                   <Select
                     bgColor="#e7f3fb"
@@ -123,7 +129,7 @@ const TrainerReport_Issue = () => {
                     />
                   </Select>
                 </Box>
-                <Text mt={7} fontSize={18}>
+                <Text mt={7} fontSize={18} ml={-159}>
                   Enter Your Issue
                 </Text>
                 <Box alignItems="center" mt={7}>
@@ -144,14 +150,14 @@ const TrainerReport_Issue = () => {
                     textAlign={"center"}
                     justifyContent={"center"}
                     alignItems={"center"}
-                    width={300}
+                    width={200}
                     height={50}
                     borderRadius={8}
                     bgColor={"#4CAF50"}
                     onPress={postData}
                     onPressIn={() => navigation.navigate("Dashboard")}
                   >
-                    <Text fontSize={18} textAlign={"center"} color={"white"}>
+                    <Text fontSize={20} fontWeight={"bold"} textAlign={"center"} color={"white"}>
                       Submit
                     </Text>
                   </Button>

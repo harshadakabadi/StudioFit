@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {
   Card,
   Center,
@@ -9,14 +9,12 @@ import {
   Text,
 } from "native-base";
 import { ImageBackground } from "react-native";
-import { Divider } from "@rneui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Gym } from "../../assets";
-import { useState } from "react";
 
 
-const Home = () => {
-  const [home, setHome] = useState("");
+const HomeMember = () => {
+  const [home , setHome] = useState('');
   const getData = async () => {
     try {
       const data = await fetch(`${global.MyVar}/HomePage/`);
@@ -45,7 +43,7 @@ const Home = () => {
                       <Card
                         mt={20}
                         width="100"
-                        height="100"s
+                        height="100"
                         bgColor="#e99265"
                         borderRadius={100}
                       >
@@ -150,7 +148,7 @@ const Home = () => {
                           Members
                         </Text>
                       </Center>
-                    </View>{" "}
+                    </View>
                     <View>
                       <Center>
                         <Card
@@ -196,4 +194,4 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
 });
-export default Home;
+export default HomeMember;
