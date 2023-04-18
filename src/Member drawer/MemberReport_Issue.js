@@ -17,32 +17,36 @@ const MemberReport_Issue = () => {
   const [category,setCategory]=useState("");
   const [issue, setIssue] = useState("");
   
-  const postData = async()=>{
+
+  const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    try{
-        let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
+    try {
+      let result = await fetch(
+        `http://192.168.0.104:8000/api/reported_issue_api/`,
+        {
           method: "POST",
           headers: {
+            Accept: "application/json",
             "content-type": "application/json",
           },
           body: JSON.stringify({
             category,
             issue,
             branch: 1,
-            created_by:userId,
+            created_by: userId,
+            updated_by: userId,
           }),
-        });
-        handleClick();
-        alert("Submitted successfully..");
-        console.log("Data saved");
-    }
-    catch(error){
-      alert("Something Wrong");
+        }
+      );
+      alert("Submitted Successfully..");
+      handleClick();
+      console.log(result);
+    } catch (error) {
+      alert("Something wrong!");
       console.log(error);
-    }
-    finally{
+    } finally {
       console.log("Done");
-    } 
+    }
   };
   const handleClick = () => {
     setCategory("");

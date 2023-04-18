@@ -34,7 +34,7 @@ const MemberFeedback = () => {
           category,
           feedback,
           rating,
-          branch: userId,
+          branch: 1,
           created_by: userId,
         }),
       });
@@ -99,20 +99,26 @@ const MemberFeedback = () => {
               >
                 <Select.Item
                   shadow={2}
-                  label="staff"
-                  value={"staff"}
+                  label="Staff"
+                  value={"Staff"}
                   onChangeText={(text) => setCategory(text)}
                 />
                 <Select.Item
                   shadow={2}
-                  label="management"
-                  value={"management"}
+                  label="Management"
+                  value={"Management"}
                   onChangeText={(text) => setCategory(text)}
                 />
                 <Select.Item
                   shadow={2}
-                  label="services"
-                  value={"services"}
+                  label="Services"
+                  value={"Services"}
+                  onChangeText={(text) => setCategory(text)}
+                />
+                <Select.Item
+                  shadow={2}
+                  label="Environment"
+                  value={"Environment"}
                   onChangeText={(text) => setCategory(text)}
                 />
               </Select>

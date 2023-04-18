@@ -36,6 +36,7 @@ const TrainerReport_Issue = () => {
             issue,
             branch:1,
             created_by:userId,
+            updated_by:userId,
           }),
         }
       );
