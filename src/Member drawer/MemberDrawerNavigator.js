@@ -27,6 +27,7 @@ import MemberHealth_Forum from "./MemberHealth_Forum";
 import MemberReport_Issue from "./MemberReport_Issue";
 import MemberLogin from "../screens/MemberLogin"
 import FitnessTracker from "./FitnessTracker";
+import FitnessCards from "./DisplayFitness";
 
 global.__reanimatedWorkletInit = () => {};
 const Drawer = createDrawerNavigator();
@@ -39,12 +40,14 @@ const getIcon = (screenName) => {
       return "feedback";
     case "Report Issue":
       return "report-problem";
-    case "Health Forum":
+    case "Fitness Blogs":
       return "amp-stories";
     case "Subscription Plans":
       return "wallet-membership";
     case "Fitness Tracker":
       return "fitness-center";
+    case "Fitness Cards":
+      return "accessibility";
     case "Logout":
       return "logout";
     default:
@@ -139,7 +142,6 @@ function MyDrawer() {
   return (
     <Box safeArea flex={1}>
       <Drawer.Navigator
-      
         drawerContent={(props) => (
           <CustomDrawerContent {...props} backgroundColor={"#FF92A5"} />
         )}
@@ -184,7 +186,7 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Health Forum"
+          name="Fitness Blogs"
           component={MemberHealth_Forum}
           options={{
             headerStyle: {
@@ -212,6 +214,19 @@ function MyDrawer() {
         <Drawer.Screen
           name="Fitness Tracker"
           component={FitnessTracker}
+          options={{
+            headerStyle: {
+              backgroundColor: "#FF92A5",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="Fitness Cards"
+          component={FitnessCards}
           options={{
             headerStyle: {
               backgroundColor: "#FF92A5",

@@ -21,23 +21,20 @@ const MemberReport_Issue = () => {
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      let result = await fetch(
-        `http://192.168.0.104:8000/api/reported_issue_api/`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            category,
-            issue,
-            branch: 1,
-            created_by: userId,
-            updated_by: userId,
-          }),
-        }
-      );
+      let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          category,
+          issue,
+          branch: 1,
+          created_by: userId,
+          updated_by: userId,
+        }),
+      });
       alert("Submitted Successfully..");
       handleClick();
       console.log(result);

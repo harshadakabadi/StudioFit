@@ -19,9 +19,7 @@ const TrainerDashboard = () => {
    const [loading, setLoading] = useState(true);
    const getData = async () => {
      try {
-       const data = await fetch(
-         `${global.MyVar}/api/notification_api`
-       );
+       const data = await fetch(`${global.MyVar}/api/view_notification_api/`);
        const notification = await data.json();
        console.log(notification);
        setNotification(notification);
@@ -55,10 +53,16 @@ const TrainerDashboard = () => {
 
                   {notification &&
                     notification.map((object) => (
-                      <Box mt={10} key={object.id}>
-                        <Heading color={"#7d5fff"}>{object.title}</Heading>
+                      <Box mt={10} key={object.pk}>
+                        <Heading color={"#7d5fff"}>
+                          {object.fields.title}
+                        </Heading>
                         <Text fontSize={20} mt={3}>
-                          {object.description}
+                          {object.fields.description}
+                        </Text>
+                        <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
+                          posted on :{" "}
+                          {new Date(object.fields.updated_at).toGMTString()}
                         </Text>
                         <Box mt={3}>
                           <Divider />

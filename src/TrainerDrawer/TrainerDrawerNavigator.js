@@ -19,7 +19,6 @@ import {
 } from "native-base";
 
 import { profile1, Trainer1 } from "../../assets";
-import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import TrainerDashboard from "./TrainerDashboard";
 import TrainerHealth_Forum from "./TrainerHealth_Forum";
 import TrainerReport_Issue from "./TrainerReport_Issue";
@@ -166,7 +165,7 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Health Forum"
+          name="Fitness Blogs"
           component={TrainerHealth_Forum}
           options={{
             headerStyle: {
