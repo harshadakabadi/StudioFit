@@ -23,7 +23,7 @@ const MemberLogin = () => {
   
  const handleLogin = async () => {
     try {
-      const response = await fetch(`${global.MyVar}/api/login_api/`, {
+      const response = await fetch(`${global.MyVar}/api/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,12 +42,7 @@ const MemberLogin = () => {
         await AsyncStorage.setItem("userId", userId);
         const is_staff = data.is_staff;
         await AsyncStorage.setItem("is_staff", JSON.stringify(is_staff));
-
-        const is_superuser = JSON.stringify(data.is_superuser);
-        await AsyncStorage.setItem("is_superuser", is_superuser);
-       
-        console.log("is_staff : " + typeof(is_staff));
-       
+              
         if (is_staff === false) {
           navigation.navigate("Member HomeScreen");
         } else {

@@ -44,9 +44,9 @@ const getIcon = (screenName) => {
       return "amp-stories";
     case "Subscription Plans":
       return "wallet-membership";
-    case "Fitness Tracker":
+    case "Fitness Form":
       return "fitness-center";
-    case "Fitness Cards":
+    case "Fitness Tracker":
       return "accessibility";
     case "Logout":
       return "logout";
@@ -60,7 +60,7 @@ function CustomDrawerContent(props) {
   const getDataUser = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
+      const data = await fetch(`${global.MyVar}/api/member/${userId}/`);
       const profile = await data.json();
       //console.log(profile);
       setProfile(profile);
@@ -210,7 +210,7 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Fitness Tracker"
+          name="Fitness Form"
           component={FitnessTracker}
           options={{
             headerStyle: {
@@ -223,7 +223,7 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Fitness Cards"
+          name="Fitness Tracker"
           component={FitnessCards}
           options={{
             headerStyle: {

@@ -23,7 +23,7 @@ const MemberDashboard = () => {
   const [fitness,setFitness] = useState('');
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/view_notification_api/`);
+      const data = await fetch(`${global.MyVar}/api/view_notification/`);
       const notification = await data.json();
       console.log(notification);
       setNotification(notification);

@@ -26,7 +26,7 @@ const MemberFeedback = () => {
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
     try {
-      let result = await fetch(`${global.MyVar}/api/feedback_api/`, {
+      let result = await fetch(`${global.MyVar}/api/member_feedback/`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

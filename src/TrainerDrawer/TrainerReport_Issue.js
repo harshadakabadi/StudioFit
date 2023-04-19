@@ -26,7 +26,7 @@ const TrainerReport_Issue = () => {
     const branchId = await AsyncStorage.getItem("branchId");
 
     try {
-      let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
+      let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -34,6 +34,7 @@ const TrainerReport_Issue = () => {
         body: JSON.stringify({
           category,
           issue,
+          comment: "",
           branch: branchId,
           created_by: userId,
           updated_by: userId,

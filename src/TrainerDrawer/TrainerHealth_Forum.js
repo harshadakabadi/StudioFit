@@ -42,7 +42,7 @@ const TrainerHealth_Forum = () => {
   
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/blog_api/`);
+      const data = await fetch(`${global.MyVar}/api/blog/`);
       const blog = await data.json();
       //console.log(blog);
       setBlog(blog);
@@ -62,7 +62,7 @@ const TrainerHealth_Forum = () => {
 const postData = async () => {
   const userId = await AsyncStorage.getItem("userId");
   try {
-    let result = await fetch(`${global.MyVar}/api/blog_api/`, {
+    let result = await fetch(`${global.MyVar}/api/blog/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -98,7 +98,7 @@ const handleEditBtn =async (Id) => {
 };
 const handleDeleteBtn = async (Id) => {
   try {
-    const res = await axios.delete(`${global.MyVar}/api/blog_api/${Id}/`);
+    const res = await axios.delete(`${global.MyVar}/api/blog/${Id}/`);
     console.log("Item successfully deleted.",res.data);
     getData();
   } catch (error) {

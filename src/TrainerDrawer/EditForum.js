@@ -27,7 +27,7 @@ const EditForum = () => {
     const edit =async () => { 
     const blogid = await AsyncStorage.getItem("blogId");
     blogid &&
-      axios.get(`${global.MyVar}/api/blog_api/${blogid}`).then(
+      axios.get(`${global.MyVar}/api/blog/${blogid}`).then(
         (response) => {
           const blog = response.data;
           setTitle(blog.title);
@@ -44,7 +44,7 @@ const EditForum = () => {
     const blogId = await AsyncStorage.getItem("blogId");
       axios
         .patch(
-          `${global.MyVar}/api/blog_api/${blogId}/`,
+          `${global.MyVar}/api/blog/${blogId}/`,
           {
             title: title,
             category: category,

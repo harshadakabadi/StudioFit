@@ -48,7 +48,7 @@ function CustomDrawerContent(props) {
     const userId = await AsyncStorage.getItem("userId");
     console.log("I have :"+userId);
     try {
-      const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
+      const data = await fetch(`${global.MyVar}/api/staff/${userId}`);
       const profile = await data.json();
       console.log(profile);
       setProfile(profile);

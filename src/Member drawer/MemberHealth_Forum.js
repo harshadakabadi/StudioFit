@@ -31,7 +31,7 @@ const MemberHealth_Forum = () => {
   const getData = async () => {
     try {
     const data = await fetch(
-      `${global.MyVar}/api/blog_api/`
+      `${global.MyVar}/api/blog/`
     );
     const blog = await data.json();
     console.log(blog);

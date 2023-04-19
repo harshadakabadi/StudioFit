@@ -35,7 +35,7 @@ const MemberProfile = () => {
   const getDataMember = async () => {
     const userId =await AsyncStorage.getItem("userId");
       try {
-        const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
+        const data = await fetch(`${global.MyVar}/api/member/${userId}/`);
         if (data.status === 200) {
         const profile = await data.json();
         setProfile(profile);

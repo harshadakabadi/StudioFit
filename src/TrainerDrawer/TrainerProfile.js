@@ -28,7 +28,7 @@ const TrainerProfile = () => {
  const getDataMember = async () => {
   const userId = await AsyncStorage.getItem("userId");
    try {
-     const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
+     const data = await fetch(`${global.MyVar}/api/staff/${userId}`);
      if (data.status === 200) {
        const profile = await data.json();
        setProfile(profile);

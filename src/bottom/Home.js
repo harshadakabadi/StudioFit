@@ -19,7 +19,7 @@ const Home = () => {
   const [home, setHome] = useState("");
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/HomePage/`);
+      const data = await fetch(`${global.MyVar}/api/homepage/`);
       const home = await data.json();
       setHome(home);
       setLoading(false);

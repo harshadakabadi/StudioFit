@@ -39,7 +39,7 @@ const EditTrainerProfile = () => {
   const getDataMember = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
+      const data = await fetch(`${global.MyVar}/api/staff/${userId}`);
       const profile = await data.json();
       // console.log(profile);
       setProfile(profile);
@@ -58,7 +58,7 @@ const EditTrainerProfile = () => {
   
   const UpdateDataMember = async() => {
     const userId = await AsyncStorage.getItem("userId");
-    fetch(`${global.MyVar}/api/staff_api/${userId}/`, {
+    fetch(`${global.MyVar}/api/staff/${userId}/`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

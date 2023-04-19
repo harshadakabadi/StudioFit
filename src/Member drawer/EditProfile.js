@@ -40,7 +40,7 @@ const EditMemberProfile = () => {
   const getDataMember = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
+      const data = await fetch(`${global.MyVar}/api/member/${userId}/`);
       const profile = await data.json();
      // console.log(profile);
       setProfile(profile);
@@ -59,7 +59,7 @@ const EditMemberProfile = () => {
 
 const UpdateDataMember = async() => {
   const userId = await AsyncStorage.getItem("userId");
-  fetch(`${global.MyVar}/api/member_api/${userId}/`, {
+  fetch(`${global.MyVar}/api/member/${userId}/`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

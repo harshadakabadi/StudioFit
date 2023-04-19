@@ -31,7 +31,7 @@ const Renew_Membership = () => {
   
   const getData = async () => {
     try {
-    const data = await fetch(`${global.MyVar}/api/subscription_api/`);
+    const data = await fetch(`${global.MyVar}/api/subscription/`);
     const subscription = await data.json();
     console.log(subscription);
     setSubscription(subscription);

@@ -25,7 +25,7 @@ const TrainerLogin = () => {
     console.log("password:" + password);
     console.log("username:" + username);
     try {
-      const response = await fetch(`${global.MyVar}/api/login_api/`, {
+      const response = await fetch(`${global.MyVar}/api/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,9 +42,6 @@ const TrainerLogin = () => {
         //console.log("User data stored:", data);
         const userId = JSON.stringify(data.id);
         await AsyncStorage.setItem("userId", userId);
-        const category = JSON.stringify(data.is_staff);
-        await AsyncStorage.setItem("category", category);
-        console.log("category : " + category);
         navigation.navigate("Trainer HomeScreen");
       } else {
         alert("Check your Password or username again!! ");
