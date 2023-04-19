@@ -38,7 +38,6 @@ const EditTrainerProfile = () => {
 
   const getDataMember = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    console.log("I have :" + userId);
     try {
       const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
       const profile = await data.json();
@@ -57,8 +56,9 @@ const EditTrainerProfile = () => {
   }, []);
 
   
-  const UpdateDataMember = () => {
-    fetch(`${global.MyVar}/api/staff_api/6/`, {
+  const UpdateDataMember = async() => {
+    const userId = await AsyncStorage.getItem("userId");
+    fetch(`${global.MyVar}/api/staff_api/${userId}/`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -81,6 +81,7 @@ const EditTrainerProfile = () => {
       })
       .then(function (data) {
         console.log(data);
+        navigation.navigate("Trainer Profile");
       })
       .catch((error) => {
         alert("Something wrong..");
@@ -210,7 +211,6 @@ const EditTrainerProfile = () => {
                     color={changeColor}
                     onPressIn={handleButtonClick}
                     onPress={UpdateDataMember}
-                    // onPressOut={() => navigation.navigate("Trainer Profile")}
                   >
                     <Text>Save</Text>
                   </Button>

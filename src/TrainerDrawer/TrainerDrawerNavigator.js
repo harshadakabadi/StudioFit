@@ -33,7 +33,7 @@ const getIcon = (screenName) => {
       return "dashboard";
     case "Report Issue":
       return "report-problem";
-    case "Health Forum":
+    case "Fitness Blogs":
       return "amp-stories";
     case "Logout":
       return "logout";

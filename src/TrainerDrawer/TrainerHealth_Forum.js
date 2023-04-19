@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import {
   Box,
   Center,
@@ -43,7 +44,7 @@ const TrainerHealth_Forum = () => {
     try {
       const data = await fetch(`${global.MyVar}/api/blog_api/`);
       const blog = await data.json();
-      console.log(blog);
+      //console.log(blog);
       setBlog(blog);
       setLoading(false);
     } catch (e) {
@@ -52,9 +53,11 @@ const TrainerHealth_Forum = () => {
       console.log("done");
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
 
 const postData = async () => {
   const userId = await AsyncStorage.getItem("userId");
@@ -75,7 +78,6 @@ const postData = async () => {
     getData();
     alert("Submitted Successfully..");
     handleClick();
-    console.log("Data saved");
   } catch (error) {
     alert("Something wrong!");
     console.log(error);
@@ -98,8 +100,9 @@ const handleDeleteBtn = async (Id) => {
   try {
     const res = await axios.delete(`${global.MyVar}/api/blog_api/${Id}/`);
     console.log("Item successfully deleted.",res.data);
+    getData();
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 };
 

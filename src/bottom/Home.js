@@ -29,7 +29,7 @@ const Home = () => {
       // console.log("done");
     }
   };
-  useEffect(() => {
+  React.useEffect(() => {
     getData();
   }, []);
   return (

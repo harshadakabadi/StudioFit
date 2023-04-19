@@ -9,6 +9,7 @@ import {
   Container,Button
 } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from "react-native-paper";
@@ -46,9 +47,11 @@ const TrainerProfile = () => {
  };
  
 
- React.useEffect(() => {
-   getDataMember();
- }, []);
+ useFocusEffect(
+   React.useCallback(() => {
+     getDataMember();
+   }, [])
+ );
 
  return (
    <NativeBaseProvider>

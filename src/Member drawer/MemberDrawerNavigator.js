@@ -62,13 +62,11 @@ function CustomDrawerContent(props) {
     try {
       const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
       const profile = await data.json();
-      console.log(profile);
+      //console.log(profile);
       setProfile(profile);
     } catch (e) {
       console.log({ e });
-    } finally {
-      console.log("done");
-    }
+    } 
   };
 
   React.useEffect(() => {

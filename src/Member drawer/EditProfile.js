@@ -82,6 +82,7 @@ const UpdateDataMember = async() => {
     })
     .then(function (data) {
       console.log(data);
+      navigation.navigate("Member Profile");
     })
     .catch((error) => {
       alert("Something wrong..");
@@ -214,7 +215,6 @@ const UpdateDataMember = async() => {
                       color={changeColor}
                       onPressIn={handleButtonClick}
                       onPress={UpdateDataMember}
-                      onPressOut={() => navigation.navigate("Member Profile")}
                     >
                       <Text>Save</Text>
                     </Button>

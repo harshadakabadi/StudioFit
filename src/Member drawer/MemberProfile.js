@@ -19,6 +19,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { Trainer1 } from '../../assets';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MemberProfile = () => {
  const navigation = useNavigation();
@@ -55,10 +56,9 @@ const MemberProfile = () => {
         console.log("done");
       }
     };
-    
-    React.useEffect(() => {
-      getDataMember();
-    }, []);
+    useFocusEffect(React.useCallback(() => {
+        getDataMember();
+    }, []));
 
   return (
     <NativeBaseProvider>

@@ -57,13 +57,12 @@ const EditForum = () => {
           }
         )
         .then(function (response) {
-          console.log(response);
+          //console.log(response);
           alert("Blog Details Edited Successfully");
-          navigation.navigate("Health Forum");
+          navigation.navigate("Trainer HomeScreen");
         })
         .catch(function (error) {
           console.log(error);
-          navigation.navigate("Health Forum");
         });
       }
     React.useEffect(() => {

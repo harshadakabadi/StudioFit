@@ -22,8 +22,6 @@ const MemberLogin = () => {
   const [show, setShow] = useState(false);
   
  const handleLogin = async () => {
-  console.log("password:"+password);
-  console.log("username:"+username);
     try {
       const response = await fetch(`${global.MyVar}/api/login_api/`, {
         method: "POST",
@@ -35,14 +33,27 @@ const MemberLogin = () => {
           password,
         }),
       });  
-      console.log("reaponse:"+JSON.stringify(response))
+      //console.log("reaponse:"+JSON.stringify(response))
       if (response.status === 200) {
         const data = await response.json();
         await AsyncStorage.setItem('user', JSON.stringify(data));
-        console.log('User data stored:', data);
+        //console.log('User data stored:', data);
         const userId = JSON.stringify(data.id);
         await AsyncStorage.setItem("userId", userId);
-        navigation.navigate("Member HomeScreen");  
+        const is_staff = data.is_staff;
+        await AsyncStorage.setItem("is_staff", JSON.stringify(is_staff));
+
+        const is_superuser = JSON.stringify(data.is_superuser);
+        await AsyncStorage.setItem("is_superuser", is_superuser);
+       
+        console.log("is_staff : " + typeof(is_staff));
+       
+        if (is_staff === false) {
+          navigation.navigate("Member HomeScreen");
+        } else {
+          navigation.navigate("Trainer HomeScreen");
+        }
+          
       } else {
         alert("Check your Password or username again!! ");  
       }
@@ -181,7 +192,7 @@ const MemberLogin = () => {
               </Button>
             </Center>
           </TouchableOpacity>
-          */}
+
           <TouchableOpacity>
             <Center mt={90}>
               <Button
@@ -199,7 +210,7 @@ const MemberLogin = () => {
                 </Text>
               </Button>
             </Center>
-          </TouchableOpacity>
+          </TouchableOpacity>          */}
         </View>
       </SafeAreaView>
     </NativeBaseProvider>

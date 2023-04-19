@@ -35,13 +35,16 @@ const TrainerLogin = () => {
           password,
         }),
       });
-      console.log("reaponse:" + JSON.stringify(response));
+      //console.log("reaponse:" + JSON.stringify(response));
       if (response.status === 200) {
         const data = await response.json();
         await AsyncStorage.setItem("user", JSON.stringify(data));
-        console.log("User data stored:", data);
+        //console.log("User data stored:", data);
         const userId = JSON.stringify(data.id);
         await AsyncStorage.setItem("userId", userId);
+        const category = JSON.stringify(data.is_staff);
+        await AsyncStorage.setItem("category", category);
+        console.log("category : " + category);
         navigation.navigate("Trainer HomeScreen");
       } else {
         alert("Check your Password or username again!! ");
@@ -67,7 +70,7 @@ const TrainerLogin = () => {
               fontSize={42}
               textAlign={"center"}
               fontWeight={"bold"}
-              color={"#7d5fff"}
+              color={"#876fef"}
               opacity={0.9}
             >
               STUDIOFIT
@@ -154,6 +157,7 @@ const TrainerLogin = () => {
                   alignItems={"center"}
                   width={"75%"}
                   height={50}
+                  bgColor={"#7d5fff"}
                   mt={10}
                   borderRadius={17}
                   onPress={handleLogin}
@@ -181,24 +185,22 @@ const TrainerLogin = () => {
             </Center>
           </TouchableOpacity>
           */}
-          <TouchableOpacity>
-            <Center mt={78}>
-              <Button
-                bgColor={"white.100"}
-                borderColor={"black"}
-                onPress={() => navigation.navigate("Member Login")}
+          <Center mt={78}>
+            <Button
+              bgColor={"white.100"}
+              borderColor={"black"}
+              onPress={() => navigation.navigate("Member Login")}
+            >
+              <Text
+                color={"black"}
+                fontWeight={"bold"}
+                textAlign={"center"}
+                fontSize={16}
               >
-                <Text
-                  color={"black"}
-                  fontWeight={"bold"}
-                  textAlign={"center"}
-                  fontSize={16}
-                >
-                  Member Login
-                </Text>
-              </Button>
-            </Center>
-          </TouchableOpacity>
+                Member Login
+              </Text>
+            </Button>
+          </Center>
         </View>
       </SafeAreaView>
     </NativeBaseProvider>
