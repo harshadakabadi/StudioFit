@@ -24,6 +24,7 @@ const MemberFeedback = () => {
 
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
+    const branchId = await AsyncStorage.getItem("branchId");
     try {
       let result = await fetch(`${global.MyVar}/api/feedback_api/`, {
         method: "POST",
@@ -34,7 +35,7 @@ const MemberFeedback = () => {
           category,
           feedback,
           rating,
-          branch: 1,
+          branch: branchId,
           created_by: userId,
         }),
       });

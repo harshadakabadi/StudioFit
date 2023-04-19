@@ -23,23 +23,22 @@ const TrainerReport_Issue = () => {
   
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
+    const branchId = await AsyncStorage.getItem("branchId");
+
     try {
-      let result = await fetch(
-        `${global.MyVar}/api/reported_issue_api/`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            category,
-            issue,
-            branch:1,
-            created_by:userId,
-            updated_by:userId,
-          }),
-        }
-      );
+      let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          category,
+          issue,
+          branch: branchId,
+          created_by: userId,
+          updated_by: userId,
+        }),
+      });
       handleClick();
       alert("Successfully submitted");
       console.log("Data saved");

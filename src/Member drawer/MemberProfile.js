@@ -33,13 +33,22 @@ const MemberProfile = () => {
  
   const getDataMember = async () => {
     const userId =await AsyncStorage.getItem("userId");
-    console.log("You entered:"+userId);
       try {
         const data = await fetch(`${global.MyVar}/api/member_api/${userId}/`);
+        if (data.status === 200) {
         const profile = await data.json();
-        console.log(profile);
         setProfile(profile);
         setLoading(false);
+        await AsyncStorage.setItem("member", JSON.stringify(profile));
+        //console.log("Member data stored:", data);
+        const branchId = JSON.stringify(profile.branch);
+        await AsyncStorage.setItem("branchId", branchId);
+        //console.log("branchId : "+branchId);
+        }
+        else
+        {
+          console.log("something wrong");
+        }
       } catch (e) {
         console.log({ e });
       } finally {
@@ -115,7 +124,7 @@ const MemberProfile = () => {
                         keyboardType="numeric"
                         label="Contact No"
                         type="number"
-                        value={profile && profile.mobile}
+                        value={profile && profile.mobile.toString()}
                         textColor="grey"
                         editable={false}
                       />
@@ -153,7 +162,7 @@ const MemberProfile = () => {
                         width={170}
                         mode="outlined"
                         label="Pin Code"
-                        value={profile && profile.pincode}
+                        value={profile && profile.pincode.toString()}
                         textColor="grey"
                         editable={false}
                       />

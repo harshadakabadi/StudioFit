@@ -20,6 +20,7 @@ const MemberReport_Issue = () => {
 
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
+    const branchId = await AsyncStorage.getItem("branchId");
     try {
       let result = await fetch(`${global.MyVar}/api/reported_issue_api/`, {
         method: "POST",
@@ -30,7 +31,7 @@ const MemberReport_Issue = () => {
         body: JSON.stringify({
           category,
           issue,
-          branch: 1,
+          branch: branchId,
           created_by: userId,
           updated_by: userId,
         }),

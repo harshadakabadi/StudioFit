@@ -2,13 +2,11 @@ import { View,Prompt } from 'react-native'
 import React from 'react'
 import {
   NativeBaseProvider,
-  VStack,
-  Box,
   Image,
   Center,
   Text,
   HStack,
-  Icon,Container,Button
+  Container,Button
 } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native-paper";
@@ -28,13 +26,18 @@ const TrainerProfile = () => {
 
  const getDataMember = async () => {
   const userId = await AsyncStorage.getItem("userId");
-  console.log("I have :" + userId);
    try {
      const data = await fetch(`${global.MyVar}/api/staff_api/${userId}`);
-     const profile = await data.json();
-     console.log(profile);
-     setProfile(profile);
-     setLoading(false);
+     if (data.status === 200) {
+       const profile = await data.json();
+       setProfile(profile);
+       setLoading(false);
+       await AsyncStorage.setItem("trainer", JSON.stringify(profile));
+       const branchId = JSON.stringify(profile.branch);
+       await AsyncStorage.setItem("branchId", branchId[1]);
+     } else {
+       console.log("something wrong");
+     }
    } catch (e) {
      console.log({ e });
    } finally {
