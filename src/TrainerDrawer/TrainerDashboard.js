@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { Divider } from "@rneui/themed";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 
@@ -30,10 +31,12 @@ const TrainerDashboard = () => {
        console.log("done");
      }
    };
-   useEffect(() => {
-     getData();
-   }, []);
-
+  
+useFocusEffect(
+  React.useCallback(() => {
+    getData();
+  }, [])
+);
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView

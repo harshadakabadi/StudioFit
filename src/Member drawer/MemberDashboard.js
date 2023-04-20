@@ -16,6 +16,7 @@ import MemberBottomDrawer from "./MemberBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const MemberDashboard = () => {
@@ -36,8 +37,9 @@ const MemberDashboard = () => {
     }
   };
   const getDataMember = async () => {
+    const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/user_fitness_api/1`);
+      const data = await fetch(`${global.MyVar}/api/general_member_fitness/1/`);
       const fitness = await data.json();
       setFitness(fitness);
       setLoading(false);
@@ -59,94 +61,93 @@ const MemberDashboard = () => {
         behavior="height"
         style={[{ justifyContent: "center", height: "100%" }]}
       >
-        <ScrollView>
-          <Center>
-            <View mt={5}>
-              <HStack space={2}>
-                <Card bgColor="#E8A317" height={100} width={190}>
-                  <Center>
-                    <Text
-                      fontSize={20}
-                      fontWeight={800}
-                      color={"white"}
-                      opacity={0.9}
-                    >
-                      Calories Burnt
-                    </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      {fitness.calories_burnt}
-                    </Text>
-                  </Center>
-                </Card>
-                <Card bgColor="#238C00" height={100} width={190}>
-                  <Center>
-                    <Text
-                      fontSize={20}
-                      fontWeight={800}
-                      color={"white"}
-                      opacity={0.9}
-                    >
-                      Steps Walked
-                    </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      {fitness.steps_walked}
-                    </Text>
-                  </Center>
-                </Card>
-              </HStack>
-              <HStack space={2} mt={3}>
-                <Card bgColor="#17a2b8" height={100} width={190}>
-                  <Center>
-                    <Text
-                      fontSize={20}
-                      fontWeight={800}
-                      color={"white"}
-                      opacity={0.9}
-                    >
-                      BMI
-                    </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      {fitness.bmi}
-                    </Text>
-                  </Center>
-                </Card>
-                <Card bgColor="#dc3545" height={100} width={190}>
-                  <Center>
-                    <Text
-                      fontSize={20}
-                      fontWeight={800}
-                      color={"white"}
-                      opacity={0.9}
-                    >
-                      Fat percentage
-                    </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                      {fitness.fat_percent}
-                    </Text>
-                  </Center>
-                </Card>
-              </HStack>
-            </View>
-          </Center>
+        <Center>
+          <View mt={10}>
+            <HStack space={2} mt={10}>
+              <Card bgColor="#E8A317" height={120} width={190}>
+                <Center>
+                  <Text
+                    fontSize={20}
+                    fontWeight={800}
+                    color={"white"}
+                    opacity={0.9}
+                  >
+                    BMI Status
+                  </Text>
+                  <Text fontSize={17} fontWeight={"bold"} mt={5}>
+                    {fitness.bmi_status}
+                  </Text>
+                </Center>
+              </Card>
+              <Card bgColor="#238C00" height={120} width={190}>
+                <Center>
+                  <Text
+                    fontSize={20}
+                    fontWeight={800}
+                    color={"white"}
+                    opacity={0.9}
+                  >
+                    Fat % Status
+                  </Text>
+                  <Text fontSize={17} fontWeight={"bold"} mt={5}>
+                    {fitness.fat_percentage_status}
+                  </Text>
+                </Center>
+              </Card>
+            </HStack>
+            <HStack space={2} mt={3}>
+              <Card bgColor="#17a2b8" height={120} width={190}>
+                <Center>
+                  <Text
+                    fontSize={20}
+                    fontWeight={800}
+                    color={"white"}
+                    opacity={0.9}
+                  >
+                    Avg Calories Burnt
+                  </Text>
+                  <Text fontSize={17} fontWeight={"bold"} mt={1}>
+                    {fitness.average_calories_burnt}
+                  </Text>
+                </Center>
+              </Card>
+              <Card bgColor="#dc3545" height={120} width={190}>
+                <Center>
+                  <Text
+                    fontSize={20}
+                    fontWeight={800}
+                    color={"white"}
+                    opacity={0.9}
+                  >
+                    Avg Heart rate
+                  </Text>
+                  <Text fontSize={17} fontWeight={"bold"} mt={8}>
+                    {fitness.average_heart_rate}
+                  </Text>
+                </Center>
+              </Card>
+            </HStack>
+          </View>
+        </Center>
+        <View>
           <ScrollView>
-            {loading ? (
-              <ActivityIndicator size="small" />
-            ) : (
-              <Center>
-                <Card
-                  bgColor="#E8E8E8"
-                  mt={4}
-                  style={{ width: 400, height: 400 }}
-                >
+            <Center>
+              <Card
+                bgColor="#E8E8E8"
+                mt={4}
+                style={{ width: 400, height: 400 }}
+              >
+                {loading ? (
+                  <ActivityIndicator size="small" />
+                ) : (
                   <ScrollView>
                     <View bgColor={"black"}>
                       <Center mt={2} mb={3}>
                         <Heading color={"white"}>Notifications</Heading>
                       </Center>
-
                       {notification &&
                         notification.map((object) => (
-                          <Box  key={object.pk} bgColor={"grey"}>
+                          <Box key={object.pk} bgColor={"grey"}>
                             <Heading mt={2} color={"lightblue"}>
                               {object.fields.title}
                             </Heading>
@@ -154,7 +155,7 @@ const MemberDashboard = () => {
                               {object.fields.description}
                             </Text>
                             <Text fontSize={12} mt={1} color={"white"} mb={2}>
-                              posted on :{" "}
+                              posted on :
                               {new Date(object.fields.updated_at).toGMTString()}
                             </Text>
                             <Box mt={3}>
@@ -164,12 +165,14 @@ const MemberDashboard = () => {
                         ))}
                     </View>
                   </ScrollView>
-                </Card>
-              </Center>
-            )}
+                )}
+              </Card>
+            </Center>
           </ScrollView>
-        </ScrollView>
-        <MemberBottomDrawer />
+        </View>
+        <View mb={12}>
+          <MemberBottomDrawer />
+        </View>
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );

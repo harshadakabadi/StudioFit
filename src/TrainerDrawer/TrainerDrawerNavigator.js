@@ -6,6 +6,8 @@ import {
 } from "@react-navigation/drawer";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Image } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+
 import {
   Button,
   Box,
@@ -59,10 +61,11 @@ function CustomDrawerContent(props) {
       console.log("done");
     }
   };
-
-  React.useEffect(() => {
+useFocusEffect(
+  React.useCallback(() => {
     getDataUser();
-  }, []);
+  }, [])
+);
   const navigation= useNavigation();
   return (
     <DrawerContentScrollView {...props} safeArea>
@@ -90,8 +93,8 @@ function CustomDrawerContent(props) {
               View Profile
             </Text>
           </Button>
-          <Text ml={55} bold fontSize={16}>
-            Trainer
+          <Text left={5} fontSize={16}>
+            Logged In As Trainer
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">

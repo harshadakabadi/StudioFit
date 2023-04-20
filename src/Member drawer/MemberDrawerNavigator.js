@@ -17,6 +17,7 @@ import {
   Icon,
  
 } from "native-base";
+import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { profile, profile1, Trainer1 } from "../../assets";
 import Renew_Membership from "./Renew_Membership";
@@ -26,8 +27,10 @@ import MemberFeedback from "./MemberFeedback";
 import MemberHealth_Forum from "./MemberHealth_Forum";
 import MemberReport_Issue from "./MemberReport_Issue";
 import MemberLogin from "../screens/MemberLogin"
-import FitnessTracker from "./FitnessTracker";
+import FitnessTracker from "./DailyTracker";
 import FitnessCards from "./DisplayFitness";
+import DailyTracker from "./DailyTracker";
+import GeneralFitness from "./GeneralFitness";
 
 global.__reanimatedWorkletInit = () => {};
 const Drawer = createDrawerNavigator();
@@ -44,7 +47,9 @@ const getIcon = (screenName) => {
       return "amp-stories";
     case "Subscription Plans":
       return "wallet-membership";
-    case "Fitness Form":
+    case "Daily Fitness":
+      return "fitness-center";
+    case "General Fitness":
       return "fitness-center";
     case "Fitness Tracker":
       return "accessibility";
@@ -68,11 +73,11 @@ function CustomDrawerContent(props) {
       console.log({ e });
     } 
   };
-
-  React.useEffect(() => {
+useFocusEffect(
+  React.useCallback(() => {
     getDataUser();
-  }, []);
-
+  }, [])
+);
   const navigation= useNavigation();
   return (
     <DrawerContentScrollView {...props} safeArea>
@@ -101,8 +106,8 @@ function CustomDrawerContent(props) {
               View Profile
             </Text>
           </Button>
-          <Text ml={55} bold fontSize={16} color={"white"}>
-            Member
+          <Text left={5} fontSize={16} color={"white"}>
+            Logged In As Member
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
@@ -153,7 +158,7 @@ function MyDrawer() {
           component={MemberDashboard}
           options={{
             headerStyle: {
-              backgroundColor: "white",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -214,8 +219,21 @@ function MyDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Fitness Form"
-          component={FitnessTracker}
+          name="Daily Fitness"
+          component={DailyTracker}
+          options={{
+            headerStyle: {
+              backgroundColor: "#E8E8E8",
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="General Fitness"
+          component={GeneralFitness}
           options={{
             headerStyle: {
               backgroundColor: "#E8E8E8",
@@ -239,6 +257,7 @@ function MyDrawer() {
             },
           }}
         />
+
         <Drawer.Screen
           name="Logout"
           component={MemberLogin}
