@@ -17,7 +17,7 @@ const HomeMember = () => {
   const [home , setHome] = useState('');
   const getData = async () => {
     try {
-      const data = await fetch(`http://192.168.1.11:8000/api/homepage/`);
+      const data = await fetch(`${global.MyVar}/api/homepage/`);
       const home = await data.json();
       setHome(home);
       setLoading(false);

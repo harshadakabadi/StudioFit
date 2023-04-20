@@ -45,7 +45,7 @@ const Home = () => {
                       <Card
                         mt={20}
                         width="100"
-                        height="100"s
+                        height="100"
                         bgColor="#e99265"
                         borderRadius={100}
                       >
@@ -150,7 +150,7 @@ const Home = () => {
                           Members
                         </Text>
                       </Center>
-                    </View>{" "}
+                    </View>
                     <View>
                       <Center>
                         <Card

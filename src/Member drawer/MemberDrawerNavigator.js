@@ -88,18 +88,22 @@ function CustomDrawerContent(props) {
               bottom={10}
             />
           </View>
-          <Text left={10} bold color="gray.700" fontSize={16}>
+          <Text left={10} bold color={"white"} fontSize={16}>
             {profile && profile.first_name}
           </Text>
+
           <Button
             mr={12}
-            bgColor={"#FF92A5"}
+            bgColor={"#343a40"}
             onPress={() => navigation.navigate("Member Profile")}
           >
-            <Text fontWeight={"bold"} fontSize={16}>
+            <Text fontWeight={"bold"} fontSize={16} color={"white"}>
               View Profile
             </Text>
           </Button>
+          <Text ml={55} bold fontSize={16} color={"white"}>
+            Member
+          </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
           <VStack space="3">
@@ -109,20 +113,20 @@ function CustomDrawerContent(props) {
                 px="5"
                 py="3"
                 rounded="md"
-                bg={index === props.state.index ? "#FF647F" : "transparent"}
+                bg={index === props.state.index ? "white" : "transparent"}
                 onPress={() => {
                   props.navigation.navigate(name);
                 }}
               >
                 <HStack space="7" alignItems="center">
                   <Icon
-                    color={index === props.state.index ? "black" : "gray.500"}
+                    color={index === props.state.index ? "black" : "white"}
                     size="25"
                     as={<MaterialIcons name={getIcon(name)} />}
                   />
                   <Text
                     fontWeight="500"
-                    color={index === props.state.index ? "black" : "gray.700"}
+                    color={index === props.state.index ? "black" : "white"}
                     fontSize={16}
                   >
                     {name}
@@ -141,7 +145,7 @@ function MyDrawer() {
     <Box safeArea flex={1}>
       <Drawer.Navigator
         drawerContent={(props) => (
-          <CustomDrawerContent {...props} backgroundColor={"#FF92A5"} />
+          <CustomDrawerContent {...props} backgroundColor={"#343a40"} />
         )}
       >
         <Drawer.Screen
@@ -149,7 +153,7 @@ function MyDrawer() {
           component={MemberDashboard}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "white",
               height: 80,
             },
             headerTitleStyle: {
@@ -162,7 +166,7 @@ function MyDrawer() {
           component={MemberFeedback}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -175,7 +179,7 @@ function MyDrawer() {
           component={MemberReport_Issue}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -188,7 +192,7 @@ function MyDrawer() {
           component={MemberHealth_Forum}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -201,7 +205,7 @@ function MyDrawer() {
           component={Renew_Membership}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -214,7 +218,7 @@ function MyDrawer() {
           component={FitnessTracker}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {
@@ -227,7 +231,7 @@ function MyDrawer() {
           component={FitnessCards}
           options={{
             headerStyle: {
-              backgroundColor: "#FF92A5",
+              backgroundColor: "#E8E8E8",
               height: 80,
             },
             headerTitleStyle: {

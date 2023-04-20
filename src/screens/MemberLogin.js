@@ -42,15 +42,16 @@ const MemberLogin = () => {
         await AsyncStorage.setItem("userId", userId);
         const is_staff = data.is_staff;
         await AsyncStorage.setItem("is_staff", JSON.stringify(is_staff));
-              
         if (is_staff === false) {
           navigation.navigate("Member HomeScreen");
         } else {
           navigation.navigate("Trainer HomeScreen");
         }
-          
+        
+       
       } else {
-        alert("Check your Password or username again!! ");  
+        alert("Check your Password or username again!! "); 
+           
       }
     } catch (error) {
       console.error('Error catch:', error);

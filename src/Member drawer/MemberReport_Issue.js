@@ -39,7 +39,6 @@ const MemberReport_Issue = () => {
       });
       alert("Submitted Successfully..");
       handleClick();
-      console.log(result);
     } catch (error) {
       alert("Something wrong!");
       console.log(error);
@@ -154,7 +153,7 @@ const MemberReport_Issue = () => {
                     width={200}
                     height={50}
                     borderRadius={8}
-                    bgColor={"#FF647F"}
+                    bgColor={"#28a745"}
                     onPress={postData}
                     onPressIn={() => navigation.navigate("Dashboard")}
                   >

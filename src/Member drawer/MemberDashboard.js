@@ -8,19 +8,20 @@ import {
   Card,
   HStack,
   Heading,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "native-base";
 import axios from "axios";
 import { Divider } from "@rneui/themed";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 const MemberDashboard = () => {
   const [notification, setNotification] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [fitness,setFitness] = useState('');
+  const [fitness, setFitness] = useState("");
   const getData = async () => {
     try {
       const data = await fetch(`${global.MyVar}/api/view_notification/`);
@@ -45,10 +46,12 @@ const MemberDashboard = () => {
     } finally {
     }
   };
-  useEffect(() => {
-    getData();
-    getDataMember();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+      getDataMember();
+    }, [])
+  );
 
   return (
     <NativeBaseProvider>
@@ -60,12 +63,12 @@ const MemberDashboard = () => {
           <Center>
             <View mt={5}>
               <HStack space={2}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#E8A317" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Calories Burnt
@@ -75,12 +78,12 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#238C00" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Steps Walked
@@ -92,12 +95,12 @@ const MemberDashboard = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#17a2b8" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       BMI
@@ -107,12 +110,12 @@ const MemberDashboard = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#dc3545" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Fat percentage
@@ -136,28 +139,30 @@ const MemberDashboard = () => {
                   style={{ width: 400, height: 400 }}
                 >
                   <ScrollView>
-                    <Center>
-                      <Heading>Notifications</Heading>
-                    </Center>
+                    <View bgColor={"black"}>
+                      <Center mt={2} mb={3}>
+                        <Heading color={"white"}>Notifications</Heading>
+                      </Center>
 
-                    {notification &&
-                      notification.map((object) => (
-                        <Box mt={10} key={object.pk}>
-                          <Heading color={"#282828"}>
-                            {object.fields.title}
-                          </Heading>
-                          <Text fontSize={20} mt={3}>
-                            {object.fields.description}
-                          </Text>
-                          <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
-                            posted on :{" "}
-                            {new Date(object.fields.updated_at).toGMTString()}
-                          </Text>
-                          <Box mt={3}>
-                            <Divider />
+                      {notification &&
+                        notification.map((object) => (
+                          <Box  key={object.pk} bgColor={"grey"}>
+                            <Heading mt={2} color={"lightblue"}>
+                              {object.fields.title}
+                            </Heading>
+                            <Text fontSize={20} mt={3} color={"white"}>
+                              {object.fields.description}
+                            </Text>
+                            <Text fontSize={12} mt={1} color={"white"} mb={2}>
+                              posted on :{" "}
+                              {new Date(object.fields.updated_at).toGMTString()}
+                            </Text>
+                            <Box mt={3}>
+                              <Divider />
+                            </Box>
                           </Box>
-                        </Box>
-                      ))}
+                        ))}
+                    </View>
                   </ScrollView>
                 </Card>
               </Center>

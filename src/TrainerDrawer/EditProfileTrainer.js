@@ -212,7 +212,14 @@ const EditTrainerProfile = () => {
                     onPressIn={handleButtonClick}
                     onPress={UpdateDataMember}
                   >
-                    <Text>Save</Text>
+                    <Text
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      color={"white"}
+                      textAlign={"center"}
+                    >
+                      Save
+                    </Text>
                   </Button>
                 </TouchableOpacity>
               </Center>

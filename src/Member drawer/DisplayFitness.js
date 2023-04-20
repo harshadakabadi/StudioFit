@@ -44,12 +44,12 @@ const FitnessCards = () => {
           <Center>
             <View mt={20}>
               <HStack space={2}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#17a2b8" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Calories Burnt
@@ -59,12 +59,12 @@ const FitnessCards = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#28a745" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Steps Walked
@@ -76,12 +76,12 @@ const FitnessCards = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#ffc107" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"black"}
                       opacity={0.9}
                     >
                       BMI
@@ -91,12 +91,12 @@ const FitnessCards = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#dc3545" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"black"}
                       opacity={0.9}
                     >
                       Fat percentage
@@ -108,12 +108,12 @@ const FitnessCards = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#28a745" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       BMI
@@ -123,12 +123,12 @@ const FitnessCards = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#17a2b8" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"white"}
                       opacity={0.9}
                     >
                       Fat percentage
@@ -140,12 +140,12 @@ const FitnessCards = () => {
                 </Card>
               </HStack>
               <HStack space={2} mt={3}>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#dc3545" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"black"}
                       opacity={0.9}
                     >
                       BMI
@@ -155,12 +155,12 @@ const FitnessCards = () => {
                     </Text>
                   </Center>
                 </Card>
-                <Card bgColor="#E8E8E8" height={100} width={190}>
+                <Card bgColor="#ffc107" height={100} width={190}>
                   <Center>
                     <Text
-                      fontSize={18}
-                      fontWeight={"bold"}
-                      color={"#282828"}
+                      fontSize={20}
+                      fontWeight={800}
+                      color={"black"}
                       opacity={0.9}
                     >
                       Fat percentage

@@ -15,7 +15,7 @@ export default function MemberBottomDrawer() {
   const [selected, setSelected] = React.useState(1);
   const navigation = useNavigation();
   return (
-    <HStack bg="#FF92A5" alignItems="center" pb={3}>
+    <HStack bg="#E8E8E8" alignItems="center" pb={3}>
       <Pressable
         cursor="pointer"
         opacity={selected === 0 ? 1 : 0.5}
@@ -32,10 +32,10 @@ export default function MemberBottomDrawer() {
                 name={selected === 0 ? "home" : "home-outline"}
               />
             }
-            color="white"
+            color="grey"
             size="sm"
           />
-          <Text color="white" fontSize="12">
+          <Text color="grey" fontSize="12">
             Home
           </Text>
         </Center>
@@ -52,10 +52,10 @@ export default function MemberBottomDrawer() {
           <Icon
             mb="1"
             as={<MaterialCommunityIcons name="contacts-outline" />}
-            color="white"
+            color="grey"
             size="sm"
           />
-          <Text color="white" fontSize="12">
+          <Text color="grey" fontSize="12">
             Contact
           </Text>
         </Center>

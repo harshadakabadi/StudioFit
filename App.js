@@ -23,7 +23,7 @@ import ContactMember from './src/bottom/ContactMember';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "http://192.168.1.11:8000";
+  global.MyVar = "http://192.168.0.104:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -65,7 +65,7 @@ const App = () => {
           component={HomeMember}
           options={{
             headerShown: true,
-            headerStyle: { backgroundColor: "#FF92A5" },
+            headerStyle: { backgroundColor: "#E8E8E8" },
           }}
         />
         <Stack.Screen
@@ -88,14 +88,14 @@ const App = () => {
           component={ContactMember}
           options={{
             headerShown: true,
-            headerStyle: { backgroundColor: "#FF92A5" },
+            headerStyle: { backgroundColor: "#E8E8E8" },
           }}
         />
         <Stack.Screen
           name="Edit Member Profile"
           component={EditProfile}
           options={{
-            headerStyle: { backgroundColor: "#FF92A5" },
+            headerStyle: { backgroundColor: "#E8E8E8" },
           }}
         />
         <Stack.Screen
@@ -123,7 +123,7 @@ const App = () => {
           component={MemberProfile}
           options={{
             headerShown: true,
-            headerStyle: { backgroundColor: "#FF92A5" },
+            headerStyle: { backgroundColor: "#E8E8E8" },
           }}
         />
         <Stack.Screen

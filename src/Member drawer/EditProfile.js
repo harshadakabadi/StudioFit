@@ -211,12 +211,22 @@ const UpdateDataMember = async() => {
                     <Button
                       width={"100%"}
                       mt={45}
+                      height={50}
+                      borderRadius={8}
+                      bgColor={"#28a745"}
                       borderColor="black"
                       color={changeColor}
                       onPressIn={handleButtonClick}
                       onPress={UpdateDataMember}
                     >
-                      <Text>Save</Text>
+                      <Text
+                        fontSize={20}
+                        fontWeight={"bold"}
+                        color={"white"}
+                        textAlign={"center"}
+                      >
+                        Save
+                      </Text>
                     </Button>
                   </TouchableOpacity>
                 </View>

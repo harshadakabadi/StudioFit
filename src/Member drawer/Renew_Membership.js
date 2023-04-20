@@ -3,6 +3,8 @@ import React, { useLayoutEffect,useState ,useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
+
 import {
   Center,
   Text,
@@ -43,9 +45,11 @@ const Renew_Membership = () => {
       console.log('done')
     }
   }
-useEffect(() => {
-  getData();
-}, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
 
   return (
     <NativeBaseProvider>
@@ -65,7 +69,7 @@ useEffect(() => {
                       <Card
                         key={object.id}
                         style={{ height: 250, width: 250 }}
-                        bgColor={"#E8E8E8"}
+                        bgColor={"#E8A317"}
                         mt={10}
                         styles={{ boxShadow: "2px 2px 2px grey" }}
                       >

@@ -24,6 +24,7 @@ import TrainerHealth_Forum from "./TrainerHealth_Forum";
 import TrainerReport_Issue from "./TrainerReport_Issue";
 import TrainerLogin from "../screens/TrainerLogin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MemberLogin from "../screens/MemberLogin";
 
 const Drawer = createDrawerNavigator();
 
@@ -89,6 +90,9 @@ function CustomDrawerContent(props) {
               View Profile
             </Text>
           </Button>
+          <Text ml={55} bold fontSize={16}>
+            Trainer
+          </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
           <VStack space="3">
@@ -180,7 +184,7 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Logout"
-          component={TrainerLogin}
+          component={MemberLogin}
           options={{
             headerShown: false,
             headerStyle: {

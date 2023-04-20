@@ -15,6 +15,7 @@ import {
 import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
 import MemberBottomDrawer from "./MemberBottomDrawer";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 const MemberHealth_Forum = () => {
@@ -34,7 +35,7 @@ const MemberHealth_Forum = () => {
       `${global.MyVar}/api/blog/`
     );
     const blog = await data.json();
-    console.log(blog);
+    //console.log(blog);
     setBlog(blog);
     setLoading(false);
     }
@@ -44,9 +45,11 @@ const MemberHealth_Forum = () => {
       console.log('done')
     }
   }
-useEffect(()=>{
-  getData();
-},[])
+useFocusEffect(
+  React.useCallback(() => {
+    getData();
+  }, [])
+);
 
   return (
     <NativeBaseProvider>
@@ -67,11 +70,13 @@ useEffect(()=>{
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}
                       </Text>
-                      <Text mt={1}>{object.content}</Text>
+                      <Text mt={1} fontSize={16}>
+                        {object.content}
+                      </Text>
                       <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
                         posted on : {new Date(object.updated_at).toGMTString()}
                       </Text>
-                      <View ml={300}>
+                      {/* <View ml={300}>
                         <Pressable
                           onPress={() => setLiked((isLiked) => !isLiked)}
                         >
@@ -81,7 +86,7 @@ useEffect(()=>{
                             color={liked ? "red" : "black"}
                           />
                         </Pressable>
-                      </View>
+                      </View>*/}
                     </Card>
                   ))}
               </Box>
