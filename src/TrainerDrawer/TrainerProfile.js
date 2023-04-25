@@ -36,6 +36,7 @@ const TrainerProfile = () => {
        await AsyncStorage.setItem("trainer", JSON.stringify(profile));
        const branchId = JSON.stringify(profile.branch);
        await AsyncStorage.setItem("branchId", branchId[1]);
+      
      } else {
        console.log("something wrong");
      }

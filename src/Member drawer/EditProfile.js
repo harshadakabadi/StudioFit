@@ -16,11 +16,14 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { profile1, Trainer1 } from "../../assets";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialIcons } from "@expo/vector-icons"; 
+
 
 
 const EditMemberProfile = () => {
   const navigation = useNavigation();
   const [changeColor, setChangeColor] = React.useState("blue:100");
+  const [hasStartedTyping, setHasStartedTyping] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const handleButtonClick = () => {
     const newColor = changeColor === "blue:100" ? "red" : "blue:100";
@@ -90,6 +93,14 @@ const UpdateDataMember = async() => {
     });
    
 };
+
+const handleCancel = () => {
+  setHasStartedTyping(false);
+  navigation.navigate("Dashboard");
+};
+const handleInputChange = () => {
+  setHasStartedTyping(true);
+};
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -97,17 +108,31 @@ const UpdateDataMember = async() => {
           <ActivityIndicator size="small" />
         ) : (
           <Container ml={4} width={1000}>
-            <Center ml={120}>
-              <Image
-                style={{ width: 120, height: 120 }}
-                borderRadius={100}
-                mt={63}
-                //source={profile && profile.profile_picture}
-                source={Trainer1}
-                alt="Alternate Text"
-                bottom={10}
-              />
-            </Center>
+            <HStack space={90}>
+              <Center ml={120}>
+                <Image
+                  style={{ width: 120, height: 120 }}
+                  borderRadius={100}
+                  mt={63}
+                  //source={profile && profile.profile_picture}
+                  source={Trainer1}
+                  alt="Alternate Text"
+                  bottom={10}
+                />
+              </Center>
+              {hasStartedTyping && (
+                <Button onPress={handleCancel} bgColor={"transparent"}>
+                  <HStack space={1} mt={3}>
+                    <MaterialIcons
+                      name="cancel-presentation"
+                      size={24}
+                      color="red"
+                    />
+                    <Text>Cancel</Text>
+                  </HStack>
+                </Button>
+              )}
+            </HStack>
             <View>
               <Center ml={18}>
                 <HStack>
@@ -120,6 +145,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, first_name: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -132,6 +158,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, email: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -146,6 +173,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, mobile: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -158,6 +186,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, address: text })
                     }
+                    onChange={handleInputChange}
                   />
                   <Text></Text>
                 </HStack>
@@ -171,6 +200,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, city: text })
                     }
+                    onChange={handleInputChange}
                   />
                   <TextInput
                     width={170}
@@ -181,6 +211,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, state: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack space="2" mt={5}>
@@ -195,6 +226,7 @@ const UpdateDataMember = async() => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, pincode: text })
                     }
+                    onChange={handleInputChange}
                   />
                   <TextInput
                     width={170}
@@ -225,7 +257,7 @@ const UpdateDataMember = async() => {
                         color={"white"}
                         textAlign={"center"}
                       >
-                        Save
+                        Update
                       </Text>
                     </Button>
                   </TouchableOpacity>

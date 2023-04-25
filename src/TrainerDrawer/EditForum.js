@@ -17,12 +17,14 @@ import {
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 const EditForum = () => {
   const navigation = useNavigation();
   const [title, setTitle] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [content, setContent] = React.useState("");
+  const [hasStartedTyping, setHasStartedTyping] = React.useState(false);
   
     const edit =async () => { 
     const blogid = await AsyncStorage.getItem("blogId");
@@ -68,6 +70,14 @@ const EditForum = () => {
     React.useEffect(() => {
       edit();
     }, []);
+    const handleCancel = () => {
+      setHasStartedTyping(false);
+      navigation.navigate("Dashboard");
+      handleClick();
+    };
+    const handleInputChange = () => {
+      setHasStartedTyping(true);
+    };
 
   return (
     <NativeBaseProvider>
@@ -86,6 +96,7 @@ const EditForum = () => {
                         placeholder="Title of Forum"
                         value={title}
                         onChangeText={(text) => setTitle(text)}
+                        onChange={handleInputChange}
                       />
                     </Box>
                     <Box maxW="300" mt={4}>
@@ -169,6 +180,7 @@ const EditForum = () => {
                           minWidth="200"
                           value={content}
                           onChangeText={(text) => setContent(text)}
+                          onChange={handleInputChange}
                         />
                       </Box>
                     </Center>
@@ -192,9 +204,26 @@ const EditForum = () => {
                             textAlign={"center"}
                             color={"white"}
                           >
-                            Post
+                            Update
                           </Text>
                         </Button>
+                        <HStack>
+                          {hasStartedTyping && (
+                            <Button
+                              onPress={handleCancel}
+                              bgColor={"transparent"}
+                            >
+                              <HStack space={1} mt={3}>
+                                <MaterialIcons
+                                  name="cancel-presentation"
+                                  size={24}
+                                  color="red"
+                                />
+                                <Text>Cancel</Text>
+                              </HStack>
+                            </Button>
+                          )}
+                        </HStack>
                       </Center>
                     </View>
                   </Center>

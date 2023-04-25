@@ -10,7 +10,7 @@ import {
   Heading,
   KeyboardAvoidingView,
 } from "native-base";
-import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Divider } from "@rneui/themed";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
@@ -20,9 +20,11 @@ const FitnessCards = () => {
   const [loading, setLoading] = useState(true);
   const [fitness, setFitness] = useState("");
   const [cards ,setCards] = useState("");
+
   const getDataDaily = async () => {
+     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/daily_member_fitness/1/`);
+      const data = await fetch(`${global.MyVar}/api/daily_member_fitness/${userId}/`);
       const cards = await data.json();
       setCards(cards);
       setLoading(false);
@@ -31,8 +33,11 @@ const FitnessCards = () => {
     } 
   };
   const getDataGeneral = async () => {
+     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/general_member_fitness/1/`);
+      const data = await fetch(
+        `${global.MyVar}/api/general_member_fitness/${userId}/`
+      );
       const fitness = await data.json();
       setFitness(fitness);
       setLoading(false);
@@ -44,6 +49,44 @@ const FitnessCards = () => {
     getDataDaily();
     getDataGeneral();
   }, []);
+  const getCardColor_BMI_status = (category) => {
+    switch (category) {
+      case "Healthy":
+        return "green";
+      case "Severly underweight":
+        return "red";
+      case "Underweight":
+        return "#ffa700";
+      case "Overweight":
+        return "#ffa700";
+      case "Obesse (Class I obesity)":
+        return "orange";
+      case "Obesse (Class II obesity)":
+        return "#ff0000";
+      case "Severly obesse (Class III obesity)":
+        return "red";
+      case "Height or weight cannot be zero or negative":
+        return "gray";
+      default:
+        return "gray";
+    }
+  };
+  const getCardColorFat_status = (category) => {
+    switch (category) {
+      case "Dangerously low":
+        return "red";
+      case "Excellent":
+        return "green";
+      case "Good":
+        return "#ffa700";
+      case "Fair":
+        return "orange";
+      case "Poor":
+        return "#ff0000";
+      default:
+        return "gray";
+    }
+  };
 
   return (
     <NativeBaseProvider>
@@ -55,7 +98,7 @@ const FitnessCards = () => {
           {loading ? (
             <ActivityIndicator size="small" />
           ) : (
-            <View>
+            <View mb={10}>
               <View mt={6} pl={20}>
                 <Text fontSize={25}>Daily Member Fitness</Text>
               </View>
@@ -194,50 +237,18 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#dc3545" height={120} width={190}>
+                    <Card bgColor="#ffc107" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
                           fontWeight={800}
-                          color={"white"}
+                          color={"black"}
                           opacity={0.9}
                         >
-                          BMI
+                          Avg Heart Rate
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {parseInt(fitness.bmi)} kg/m2
-                        </Text>
-                      </Center>
-                    </Card>
-                  </HStack>
-                  <HStack space={2} mt={3}>
-                    <Card bgColor="#17a2b8" height={120} width={190}>
-                      <Center>
-                        <Text
-                          fontSize={18}
-                          fontWeight={800}
-                          color={"white"}
-                          opacity={0.9}
-                        >
-                          BMI Status
-                        </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.bmi_status}
-                        </Text>
-                      </Center>
-                    </Card>
-                    <Card bgColor="#28a745" height={120} width={190}>
-                      <Center>
-                        <Text
-                          fontSize={18}
-                          fontWeight={800}
-                          color={"white"}
-                          opacity={0.9}
-                        >
-                          Fat % Status
-                        </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.fat_percentage_status}
+                          {fitness.average_heart_rate} bpm
                         </Text>
                       </Center>
                     </Card>
@@ -307,33 +318,59 @@ const FitnessCards = () => {
                     </Card>
                   </HStack>
                   <HStack space={2} mt={3}>
-                    <Card bgColor="#ffc107" height={120} width={190}>
+                    <Card
+                      height={120}
+                      width={190}
+                      style={[
+                        {
+                          backgroundColor: getCardColorFat_status(
+                            fitness.fat_percentage_status
+                          ),
+                        },
+                      ]}
+                    >
                       <Center>
                         <Text
                           fontSize={18}
                           fontWeight={800}
-                          color={"black"}
-                          opacity={0.9}
-                        >
-                          Avg Heart Rate
-                        </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.average_heart_rate} bpm
-                        </Text>
-                      </Center>
-                    </Card>
-                    <Card bgColor="#dc3545" height={120} width={190}>
-                      <Center>
-                        <Text
-                          fontSize={18}
-                          fontWeight={800}
-                          color={"black"}
+                          color={"white"}
                           opacity={0.9}
                         >
                           Fat percentage
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
                           {parseInt(fitness.fat_percentage)} %
+                        </Text>
+                        <Text fontSize={16} fontWeight={"semibold"}>
+                          {fitness.fat_percentage_status}
+                        </Text>
+                      </Center>
+                    </Card>
+                    <Card
+                      height={120}
+                      width={190}
+                      style={[
+                        {
+                          backgroundColor: getCardColor_BMI_status(
+                            fitness.bmi_status
+                          ),
+                        },
+                      ]}
+                    >
+                      <Center>
+                        <Text
+                          fontSize={18}
+                          fontWeight={800}
+                          color={"white"}
+                          opacity={0.9}
+                        >
+                          BMI
+                        </Text>
+                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
+                          {parseInt(fitness.bmi)} kg/m2
+                        </Text>
+                        <Text fontSize={16} fontWeight={"semibold"} >
+                          {fitness.bmi_status}
                         </Text>
                       </Center>
                     </Card>

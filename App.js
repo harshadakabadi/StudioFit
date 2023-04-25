@@ -20,10 +20,13 @@ import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
 import EditForum from './src/TrainerDrawer/EditForum';
 import HomeMember from './src/bottom/HomeMember';
 import ContactMember from './src/bottom/ContactMember';
+import { Center } from 'native-base';
+import Centers from './src/bottom/Center';
+import CenterTrainer from './src/bottom/CenterTrainer';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "http://192.168.1.11:8000";
+  global.MyVar = "http://192.168.0.104:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -63,6 +66,22 @@ const App = () => {
         <Stack.Screen
           name="Home "
           component={HomeMember}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#E8E8E8" },
+          }}
+        />
+        <Stack.Screen
+          name="Centers "
+          component={Centers}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: "#E8E8E8" },
+          }}
+        />
+        <Stack.Screen
+          name="Centers"
+          component={CenterTrainer}
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: "#E8E8E8" },

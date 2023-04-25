@@ -106,8 +106,8 @@ useFocusEffect(
               View Profile
             </Text>
           </Button>
-          <Text left={5} fontSize={16} color={"white"}>
-            Logged In As Member
+          <Text left={62} fontSize={16} color={"white"}>
+            Member
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">

@@ -49,11 +49,9 @@ function CustomDrawerContent(props) {
   const [profile, setProfile] = React.useState(null);
   const getDataUser = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    console.log("I have :"+userId);
     try {
       const data = await fetch(`${global.MyVar}/api/staff/${userId}`);
       const profile = await data.json();
-      console.log(profile);
       setProfile(profile);
     } catch (e) {
       console.log({ e });
@@ -93,8 +91,8 @@ useFocusEffect(
               View Profile
             </Text>
           </Button>
-          <Text left={5} fontSize={16}>
-            Logged In As Trainer
+          <Text left={62} fontSize={16}>
+            Trainer
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">

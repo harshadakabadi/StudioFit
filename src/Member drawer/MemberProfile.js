@@ -37,14 +37,13 @@ const MemberProfile = () => {
       try {
         const data = await fetch(`${global.MyVar}/api/member/${userId}/`);
         if (data.status === 200) {
-        const profile = await data.json();
-        setProfile(profile);
-        setLoading(false);
-        await AsyncStorage.setItem("member", JSON.stringify(profile));
-        //console.log("Member data stored:", data);
-        const branchId = JSON.stringify(profile.branch);
-        await AsyncStorage.setItem("branchId", branchId);
-        //console.log("branchId : "+branchId);
+          const profile = await data.json();
+          setProfile(profile);
+          setLoading(false);
+          await AsyncStorage.setItem("member", JSON.stringify(profile));
+          const branchId = JSON.stringify(profile.branch);
+          await AsyncStorage.setItem("branchId", branchId);
+          console.log(branchId);
         }
         else
         {

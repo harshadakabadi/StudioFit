@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Foundation } from "@expo/vector-icons";
 import {
   Pressable,
   Text,
@@ -55,6 +55,26 @@ export default function TrainerBottomDrawer() {
           />
           <Text color="white" fontSize="14">
             Contact
+          </Text>
+        </Center>
+      </Pressable>
+      <Pressable
+        cursor="pointer"
+        opacity={selected === 1 ? 1 : 0.5}
+        py="2"
+        flex={1}
+        onPressOut={() => setSelected(1)}
+        onPress={() => navigation.navigate("Centers ")}
+      >
+        <Center>
+          <Icon
+            mb="1"
+            as={<Foundation name="social-game-center" />}
+            color="grey"
+            size="sm"
+          />
+          <Text color="grey" fontSize="12">
+            Centers
           </Text>
         </Center>
       </Pressable>

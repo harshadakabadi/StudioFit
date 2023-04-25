@@ -15,12 +15,14 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native-paper";
 import { profile1, Trainer1 } from "../../assets";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 const EditTrainerProfile = () => {
   const navigation = useNavigation();
   const [changeColor, setChangeColor] = React.useState("blue:100");
   const [loading, setLoading] = React.useState(true);
+  const [hasStartedTyping, setHasStartedTyping] = React.useState(false);
+
   const handleButtonClick = () => {
     const newColor = changeColor === "blue:100" ? "grey.100" : "blue:100";
     setChangeColor(newColor);
@@ -55,7 +57,15 @@ const EditTrainerProfile = () => {
     getDataMember();
   }, []);
 
-  
+  const handleCancel = () => {
+    setHasStartedTyping(false);
+    navigation.navigate("Dashboard");
+    handleClick();
+  };
+  const handleInputChange = () => {
+    setHasStartedTyping(true);
+  };
+
   const UpdateDataMember = async() => {
     const userId = await AsyncStorage.getItem("userId");
     fetch(`${global.MyVar}/api/staff/${userId}/`, {
@@ -96,15 +106,29 @@ const EditTrainerProfile = () => {
         ) : (
           <Container ml={4} width={1000}>
             <Center ml={120}>
-              <Image
-                style={{ width: 120, height: 120 }}
-                borderRadius={100}
-                mt={63}
-                source={Trainer1}
-                //source={profile && profile.profile_picture}
-                alt="Alternate Text"
-                bottom={10}
-              />
+              <HStack>
+                <Image
+                  style={{ width: 120, height: 120 }}
+                  borderRadius={100}
+                  mt={63}
+                  source={Trainer1}
+                  //source={profile && profile.profile_picture}
+                  alt="Alternate Text"
+                  bottom={10}
+                />
+                {hasStartedTyping && (
+                  <Button onPress={handleCancel} bgColor={"transparent"}>
+                    <HStack space={1} mt={3}>
+                      <MaterialIcons
+                        name="cancel-presentation"
+                        size={24}
+                        color="red"
+                      />
+                      <Text>Cancel</Text>
+                    </HStack>
+                  </Button>
+                )}
+              </HStack>
             </Center>
             <View>
               <Center ml={18}>
@@ -118,6 +142,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, first_name: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -130,6 +155,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, email: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -144,6 +170,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, mobile: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack mt={5}>
@@ -156,6 +183,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, address: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack space="2" mt={5}>
@@ -168,6 +196,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, city: text })
                     }
+                    onChange={handleInputChange}
                   />
                   <TextInput
                     width={170}
@@ -178,6 +207,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, state: text })
                     }
+                    onChange={handleInputChange}
                   />
                 </HStack>
                 <HStack space="2" mt={5}>
@@ -192,6 +222,7 @@ const EditTrainerProfile = () => {
                     onChangeText={(text) =>
                       setProfile({ ...profile, pincode: text })
                     }
+                    onChange={handleInputChange}
                   />
                   <TextInput
                     width={170}
@@ -218,7 +249,7 @@ const EditTrainerProfile = () => {
                       color={"white"}
                       textAlign={"center"}
                     >
-                      Save
+                      Update
                     </Text>
                   </Button>
                 </TouchableOpacity>

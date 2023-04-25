@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { Divider } from "@rneui/themed";
 import {
   Button,
   Center,
+  View,
   NativeBaseProvider,
   Text,
   TextArea,
@@ -9,22 +12,47 @@ import {
   ScrollView,
   Container,
   Select,
-  CheckIcon,KeyboardAvoidingView
+  CheckIcon,
+  KeyboardAvoidingView,
+  HStack,
+  Card,Heading
 } from "native-base";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
+import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialIcons } from "@expo/vector-icons"; 
 
 
 const TrainerReport_Issue = () => {
   const navigation = useNavigation();
   const [category, setCategory] = useState("");
   const [issue, setIssue] = useState("");
-  
+  const [hasStartedTyping, setHasStartedTyping] = useState(false);
+const [reported_issue, setReportedIssue] = useState("");
+const [loading, setLoading] = useState(true);
+
+const getData = async () => {
+  const userId = await AsyncStorage.getItem("userId");
+  try {
+    const data = await fetch(`${global.MyVar}/api/reported_issue/`);
+    const reported_issue = await data.json();
+    setReportedIssue(reported_issue);
+    setLoading(false);
+  } catch (e) {
+    console.log({ e });
+  } finally {
+    console.log("done");
+  }
+};
+useFocusEffect(
+  React.useCallback(() => {
+    getData();
+  }, [])
+);
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
-
     try {
       let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
         method: "POST",
@@ -41,8 +69,9 @@ const TrainerReport_Issue = () => {
         }),
       });
       handleClick();
+      getData();
       alert("Successfully submitted");
-      console.log("Data saved");
+      navigation.navigate("Dashboard");
     } catch (error) {
       console.log(error);
     } finally {
@@ -53,6 +82,14 @@ const TrainerReport_Issue = () => {
     setCategory("");
     setIssue("");
   };
+  const handleCancel = () => {
+    setHasStartedTyping(false);
+    navigation.navigate("Dashboard");
+    handleClick();
+  };
+  const handleInputChange = () => {
+    setHasStartedTyping(true);
+  };
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
@@ -61,11 +98,25 @@ const TrainerReport_Issue = () => {
       >
         <ScrollView>
           <Center>
-            <Container mt={39} maxWidth="800">
-              <Center>
-                <Text mt={5} fontSize={18} ml={-159}>
+            <Container mt={30} maxWidth="800">
+              <HStack space={90}>
+                <Text mt={5} fontSize={18} ml={0}>
                   Report Issue for :
                 </Text>
+                {hasStartedTyping && (
+                  <Button onPress={handleCancel} bgColor={"transparent"}>
+                    <HStack space={1} mt={3}>
+                      <MaterialIcons
+                        name="cancel-presentation"
+                        size={24}
+                        color="red"
+                      />
+                      <Text>Cancel</Text>
+                    </HStack>
+                  </Button>
+                )}
+              </HStack>
+              <Center>
                 <Box width={300} mt={7}>
                   <Select
                     bgColor="#e7f3fb"
@@ -97,6 +148,7 @@ const TrainerReport_Issue = () => {
                     }}
                     mt={1}
                     onValueChange={(itemValue) => setCategory(itemValue)}
+                    onChange={handleInputChange}
                   >
                     <Select.Item
                       shadow={2}
@@ -142,11 +194,12 @@ const TrainerReport_Issue = () => {
                     placeholder="Enter your Issue "
                     value={issue}
                     onChangeText={(text) => setIssue(text)}
+                    onChange={handleInputChange}
                   />
                 </Box>
                 <Center>
                   <Button
-                    mt={20}
+                    mt={15}
                     mb={10}
                     textAlign={"center"}
                     justifyContent={"center"}
@@ -156,16 +209,50 @@ const TrainerReport_Issue = () => {
                     borderRadius={8}
                     bgColor={"#4CAF50"}
                     onPress={postData}
-                    onPressIn={() => navigation.navigate("Dashboard")}
                   >
-                    <Text fontSize={20} fontWeight={"bold"} textAlign={"center"} color={"white"}>
+                    <Text
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      textAlign={"center"}
+                      color={"white"}
+                    >
                       Submit
                     </Text>
                   </Button>
                 </Center>
               </Center>
             </Container>
-          </Center>
+            <Center>
+            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }}>
+              {loading ? (
+                <ActivityIndicator size="small" />
+              ) : (
+                <View bgColor={"grey"}>
+                  <Center mt={2} mb={3}>
+                    <Heading>Issues Reported by you</Heading>
+                  </Center>
+                  {reported_issue &&
+                    reported_issue.map((object) => (
+                      <Box key={object.id}>
+                        <Heading mt={2} color={"lightblue"}>
+                          {object.category}
+                        </Heading>
+                        <Text fontSize={20} mt={3} color={"white"}>
+                          {object.issue}
+                        </Text>
+                        <Text fontSize={12} mt={1} color={"white"} mb={2}>
+                          {object.is_resolved}
+                        </Text>
+                        <Box mt={3}>
+                          <Divider />
+                        </Box>
+                      </Box>
+                    ))}
+                </View>
+              )}
+            </Card>
+            </Center>
+          </Center>   
         </ScrollView>
         <TrainerBottomDrawer />
       </KeyboardAvoidingView>

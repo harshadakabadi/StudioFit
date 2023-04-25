@@ -6,39 +6,75 @@ import {
   Center,
   NativeBaseProvider,
   Text,
-  TextArea,Box,Input, ScrollView, Container,Select,CheckIcon
+  TextArea,
+  Box,
+  ScrollView,
+  Container,
+  Select,
+  CheckIcon,
+  HStack,
+  Card,
+  View,
+  Heading,
 } from "native-base";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native-paper";
+import { Divider } from "@rneui/themed";
 
 
 const MemberReport_Issue = () => {
   const navigation = useNavigation();
-  const [category,setCategory]=useState("");
+  const [category, setCategory] = useState("");
   const [issue, setIssue] = useState("");
-  
+  const [hasStartedTyping, setHasStartedTyping] = useState(false);
+  const [reported_issue, setReportedIssue] = useState("");
+  const [loading, setLoading] = useState(true);
 
+  const getData = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    try {
+      const data = await fetch(`${global.MyVar}/api/reported_issue/`);
+      const reported_issue = await data.json();
+      setReportedIssue(reported_issue);
+      setLoading(false);
+    } catch (e) {
+      console.log({ e });
+    } finally {
+      console.log("done");
+    }
+  };
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
+    console.log(branchId);
+
     try {
-      let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          category,
-          issue,
-          comment:"",
-          branch: branchId,
-          created_by: userId,
-          updated_by: userId,
-        }),
-      });
+      let result = await fetch(
+        `http://192.168.0.104:8000/api/reported_issue/`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            category,
+            issue,
+            comment: "",
+            is_resolved: false,
+            branch: branchId,
+            created_by: userId,
+            updated_by: userId,
+          }),
+        }
+      );
       alert("Submitted Successfully..");
       handleClick();
+      getData();
+      navigation.navigate("Dashboard");
     } catch (error) {
       alert("Something wrong!");
       console.log(error);
@@ -46,11 +82,25 @@ const MemberReport_Issue = () => {
       console.log("Done");
     }
   };
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
+
   const handleClick = () => {
     setCategory("");
     setIssue("");
   };
-  
+  const handleCancel = () => {
+    setHasStartedTyping(false);
+    navigation.navigate("Dashboard");
+    handleClick();
+  };
+  const handleInputChange = () => {
+    setHasStartedTyping(true);
+  };
+
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
@@ -60,10 +110,24 @@ const MemberReport_Issue = () => {
         <ScrollView>
           <Center>
             <Container mt={30} maxWidth="800">
-              <Center>
-                <Text mt={5} fontSize={18} ml={-159}>
+              <HStack space={90}>
+                <Text mt={2} fontSize={18} ml={0}>
                   Report Issue for :
                 </Text>
+                {hasStartedTyping && (
+                  <Button onPress={handleCancel} bgColor={"transparent"}>
+                    <HStack space={1} mt={3}>
+                      <MaterialIcons
+                        name="cancel-presentation"
+                        size={24}
+                        color="red"
+                      />
+                      <Text>Cancel</Text>
+                    </HStack>
+                  </Button>
+                )}
+              </HStack>
+              <Center>
                 <Box width={300} mt={4}>
                   <Select
                     bgColor="#E8E8E8"
@@ -141,11 +205,12 @@ const MemberReport_Issue = () => {
                     placeholder="Enter your Issue "
                     value={issue}
                     onChangeText={(text) => setIssue(text)}
+                    onChange={handleInputChange}
                   />
                 </Box>
                 <Center>
                   <Button
-                    mt={20}
+                    mt={10}
                     mb={20}
                     textAlign={"center"}
                     justifyContent={"center"}
@@ -155,7 +220,7 @@ const MemberReport_Issue = () => {
                     borderRadius={8}
                     bgColor={"#28a745"}
                     onPress={postData}
-                    onPressIn={() => navigation.navigate("Dashboard")}
+                    
                   >
                     <Text
                       textAlign={"center"}
@@ -169,6 +234,36 @@ const MemberReport_Issue = () => {
                 </Center>
               </Center>
             </Container>
+          </Center>
+          <Center>
+            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }}>
+              {loading ? (
+                <ActivityIndicator size="small" />
+              ) : (
+                <View bgColor={"grey"}>
+                  <Center mt={2} mb={3}>
+                    <Heading>Issues Reported by you</Heading>
+                  </Center>
+                  {reported_issue &&
+                    reported_issue.map((object) => (
+                      <Box key={object.id}>
+                        <Heading mt={2} color={"lightblue"}>
+                          {object.category}
+                        </Heading>
+                        <Text fontSize={20} mt={3} color={"white"}>
+                          {object.issue}
+                        </Text>
+                        <Text fontSize={12} mt={1} color={"white"} mb={2}>
+                          {object.is_resolved}
+                        </Text>
+                        <Box mt={3}>
+                          <Divider />
+                        </Box>
+                      </Box>
+                    ))}
+                </View>
+              )}
+            </Card>
           </Center>
         </ScrollView>
         <MemberBottomDrawer />

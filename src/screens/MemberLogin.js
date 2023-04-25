@@ -74,7 +74,7 @@ const MemberLogin = () => {
               fontSize={42}
               textAlign={"center"}
               fontWeight={"bold"}
-              color={"#FF92A5"}
+              color={"#6495ED"}
               opacity={0.9}
             >
               STUDIOFIT
@@ -162,7 +162,7 @@ const MemberLogin = () => {
                   width={"75%"}
                   height={50}
                   mt={10}
-                  bgColor={"#FF647F"}
+                  bgColor={"#0096FF"}
                   borderRadius={17}
                   onPress={handleLogin}
                   //onPress={() => navigation.navigate("Member HomeScreen")}

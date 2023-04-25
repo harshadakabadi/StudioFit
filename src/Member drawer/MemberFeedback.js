@@ -1,12 +1,13 @@
 
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Select, Box, Center,View,CheckIcon,ScrollView,KeyboardAvoidingView,Input, Text ,TextArea,Button, NativeBaseProvider, Container} from "native-base";
+import { Select, Box, Center,View,CheckIcon,HStack,ScrollView,KeyboardAvoidingView,Input, Text ,TextArea,Button, NativeBaseProvider, Container} from "native-base";
 import { RatingInput } from "react-native-stock-star-rating";
 import { useState } from 'react';
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialIcons } from "@expo/vector-icons"; 
 
 
 const MemberFeedback = () => {
@@ -20,7 +21,8 @@ const MemberFeedback = () => {
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState("");
   const [feedback, setFeedback] = useState("");
-  
+  const [hasStartedTyping, setHasStartedTyping] = useState(false);
+
 
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
@@ -54,7 +56,15 @@ const MemberFeedback = () => {
     setFeedback("");
     setRating("");
   };
-
+const handleCancel = () => {
+  setHasStartedTyping(false);
+  navigation.navigate("Dashboard");
+  handleClick();
+};
+const handleInputChange = () => {
+  setHasStartedTyping(true);
+};
+  
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
@@ -62,10 +72,24 @@ const MemberFeedback = () => {
         style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
-          <Container alignItems={"center"} m={10} width={"800"}>
-            <Text fontSize={18} ml={-119}>
-              Enter feedback for :
-            </Text>
+          <Container alignItems={"center"} ml={10} width={"800"}>
+            <HStack space={90}>
+              <Text mt={5} fontSize={18}>
+                Enter feedback for :
+              </Text>
+              {hasStartedTyping && (
+                <Button onPress={handleCancel} bgColor={"transparent"}>
+                  <HStack space={1} mt={3}>
+                    <MaterialIcons
+                      name="cancel-presentation"
+                      size={24}
+                      color="red"
+                    />
+                    <Text>Cancel</Text>
+                  </HStack>
+                </Button>
+              )}
+            </HStack>
             <Box width={280} mt={4}>
               <Select
                 bgColor="#E8E8E8"
@@ -138,6 +162,7 @@ const MemberFeedback = () => {
                   placeholder="Enter your feedback "
                   value={feedback}
                   onChangeText={(text) => setFeedback(text)}
+                  onChange={handleInputChange}
                 />
               </Box>
               <Text mt={30} fontSize={18}>

@@ -14,6 +14,7 @@ import {
 import MemberBottomDrawer from './MemberBottomDrawer';
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialIcons } from "@expo/vector-icons"; 
 
 
 const DailyTracker = () => {
@@ -21,6 +22,8 @@ const DailyTracker = () => {
   const [steps_walked, setStepWalked] = useState("");
   const [calories_burnt, setCaloriesBurnt] = useState("");
   const [heart_rate, setHeartRate] = useState("");
+  const [hasStartedTyping, setHasStartedTyping] = useState(false);
+
   
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
@@ -35,6 +38,7 @@ const DailyTracker = () => {
           distance_covered: 0,
           calories_burnt_by_walking: 0,
           calories_burnt,
+          weight_loss:0,
           heart_rate,
           member: userId,
         }),
@@ -54,6 +58,14 @@ const DailyTracker = () => {
      setCaloriesBurnt("");
      setHeartRate("");
    };
+   const handleCancel = () => {
+     setHasStartedTyping(false);
+     navigation.navigate("Dashboard");
+     handleClick();
+   };
+   const handleInputChange = () => {
+     setHasStartedTyping(true);
+   };
 
   
   return (
@@ -63,6 +75,18 @@ const DailyTracker = () => {
         style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
+          {hasStartedTyping && (
+            <Button onPress={handleCancel} bgColor={"transparent"}>
+              <HStack space={1} mt={3}>
+                <MaterialIcons
+                  name="cancel-presentation"
+                  size={24}
+                  color="red"
+                />
+                <Text>Cancel</Text>
+              </HStack>
+            </Button>
+          )}
           <Center mt={60}>
             <Container>
               <HStack space={37} mt={6}>
@@ -76,6 +100,7 @@ const DailyTracker = () => {
                   textAlign={"center"}
                   value={steps_walked}
                   onChangeText={(text) => setStepWalked(text)}
+                  onChange={handleInputChange}
                 />
               </HStack>
               <HStack space={31} mt={6}>
@@ -89,6 +114,7 @@ const DailyTracker = () => {
                   textAlign={"center"}
                   value={calories_burnt}
                   onChangeText={(text) => setCaloriesBurnt(text)}
+                  onChange={handleInputChange}
                 />
               </HStack>
               <HStack space={60} mt={6}>
@@ -102,6 +128,7 @@ const DailyTracker = () => {
                   textAlign={"center"}
                   value={heart_rate}
                   onChangeText={(text) => setHeartRate(text)}
+                  onChange={handleInputChange}
                 />
               </HStack>
               <View>

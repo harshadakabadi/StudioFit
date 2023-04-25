@@ -39,6 +39,8 @@ const TrainerHealth_Forum = () => {
   const [category, setCategory] = React.useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
+    const [hasStartedTyping, setHasStartedTyping] = useState(false);
+
   
   const getData = async () => {
     try {
@@ -105,6 +107,14 @@ const handleDeleteBtn = async (Id) => {
     console.log(error);
   }
 };
+const handleCancel = () => {
+  setHasStartedTyping(false);
+  navigation.navigate("Dashboard");
+  handleClick();
+};
+const handleInputChange = () => {
+  setHasStartedTyping(true);
+};
 
   return (
     <NativeBaseProvider>
@@ -114,18 +124,19 @@ const handleDeleteBtn = async (Id) => {
       >
         <ScrollView>
           <Center>
-            <Card width={"400"} height={"350"}>
+            <Card width={"400"} height={"370"}>
               <ScrollView>
                 <Center>
                   <Box>
                     <Input
                       bgColor="#e7f3fb"
-                      mt={5}
+                      mt={3}
                       fontSize={14}
                       minWidth="250"
                       placeholder="Title of Forum"
                       value={title}
                       onChangeText={(text) => setTitle(text)}
+                      onChange={handleInputChange}
                     />
                   </Box>
                   <Box maxW="300" mt={4}>
@@ -209,6 +220,7 @@ const handleDeleteBtn = async (Id) => {
                         minWidth="250"
                         value={content}
                         onChangeText={(text) => setContent(text)}
+                        onChange={handleInputChange}
                       />
                     </Box>
                   </Center>
@@ -235,6 +247,23 @@ const handleDeleteBtn = async (Id) => {
                           Post
                         </Text>
                       </Button>
+                      <HStack>
+                        {hasStartedTyping && (
+                          <Button
+                            onPress={handleCancel}
+                            bgColor={"transparent"}
+                          >
+                            <HStack space={1} mt={3}>
+                              <MaterialIcons
+                                name="cancel-presentation"
+                                size={24}
+                                color="red"
+                              />
+                              <Text>Cancel</Text>
+                            </HStack>
+                          </Button>
+                        )}
+                      </HStack>
                     </Center>
                   </View>
                 </Center>
