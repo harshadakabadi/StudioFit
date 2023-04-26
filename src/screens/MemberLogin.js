@@ -20,10 +20,13 @@ const MemberLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  
+  const handleClick = () => {
+    setUsername("");
+    setPassword("");
+  };
  const handleLogin = async () => {
     try {
-      const response = await fetch(`${global.MyVar}/api/login/`, {
+      const response = await fetch(`${global.MyVar}/api/user/user_login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,6 +37,7 @@ const MemberLogin = () => {
         }),
       });  
       //console.log("reaponse:"+JSON.stringify(response))
+      handleClick();
       if (response.status === 200) {
         const data = await response.json();
         await AsyncStorage.setItem('user', JSON.stringify(data));

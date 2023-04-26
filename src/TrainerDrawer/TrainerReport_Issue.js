@@ -54,29 +54,34 @@ useFocusEffect(
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
     try {
-      let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          category,
-          issue,
-          comment: "",
-          branch: branchId,
-          created_by: userId,
-          updated_by: userId,
-        }),
-      });
-      handleClick();
-      getData();
-      alert("Successfully submitted");
-      navigation.navigate("Dashboard");
+      if (!category || !issue) {
+        alert("All fields are required");
+      } else {
+        let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            category,
+            issue,
+            comment: "",
+            branch: branchId,
+            created_by: userId,
+            updated_by: userId,
+          }),
+        });
+        handleClick();
+        getData();
+        alert("Successfully submitted");
+        navigation.navigate("Dashboard");
+      }
     } catch (error) {
       console.log(error);
     } finally {
       console.log("Done");
     }
+      
   };
   const handleClick = () => {
     setCategory("");

@@ -28,7 +28,10 @@ const MemberFeedback = () => {
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
     try {
-      let result = await fetch(`${global.MyVar}/api/member_feedback/`, {
+       if ( !category || !feedback || !rating  ) {
+         alert("All fields are required");
+       } else {
+        let result = await fetch(`${global.MyVar}/api/member_feedback/`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -43,7 +46,9 @@ const MemberFeedback = () => {
       });
       handleClick();
       alert("Submitted successfully..");
-      console.log("Data saved");
+      navigation.navigate("Dashboard");
+       }
+      
     } catch (error) {
       alert("Something Wrong");
       console.log(error);
@@ -193,7 +198,7 @@ const handleInputChange = () => {
                     borderRadius={8}
                     bgColor={"#28a745"}
                     onPress={postData}
-                    onPressIn={() => navigation.navigate("Dashboard")}
+                    
                   >
                     <Text
                       fontSize={20}

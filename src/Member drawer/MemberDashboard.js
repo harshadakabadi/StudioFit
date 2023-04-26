@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import StyleSheet from "react-native";
 import {
   Box,
@@ -40,7 +40,9 @@ const MemberDashboard = () => {
   const getDataMember = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/general_member_fitness/${userId}/`);
+      const data = await fetch(
+        `${global.MyVar}/api/general_member_fitness/${userId}/`
+      );
       const fitness = await data.json();
       setFitness(fitness);
       setLoading(false);
@@ -53,16 +55,44 @@ const MemberDashboard = () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
       const data = await fetch(
-        `${global.MyVar}/api/daily_member_fitness/${userId}/`
+        `${global.MyVar}/api/daily_member_fitness/?member=${userId}&ordering=-created_at`
       );
       const dailyfitness = await data.json();
-      setDailyFitness(dailyfitness);
+      //console.log("dailyfitness" + dailyfitness[0]);
+
+      if ((dailyfitness[0] != undefined)) {
+        setDailyFitness(dailyfitness[0]);
+        await AsyncStorage.setItem(
+          "DailyFitness",
+          JSON.stringify(dailyfitness[0])
+        );
+        const created_at = JSON.stringify(dailyfitness[0].created_at);
+        await AsyncStorage.setItem("created_at", created_at);
+      }
+
       setLoading(false);
     } catch (e) {
       console.log({ e });
     } finally {
     }
   };
+  const getDataBranchId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    try {
+      const data = await fetch(`${global.MyVar}/api/member/${userId}/`);
+      if (data.status === 200) {
+        const profile = await data.json();
+        await AsyncStorage.setItem("member", JSON.stringify(profile));
+        const branchId = JSON.stringify(profile.branch);
+        await AsyncStorage.setItem("branchId", branchId);
+      } else {
+        console.log("something wrong");
+      }
+    } catch (e) {
+      console.log({ e });
+    }
+  };
+
   const getCardColor_BMI_status = (category) => {
     switch (category) {
       case "Healthy":
@@ -81,8 +111,8 @@ const MemberDashboard = () => {
         return "red";
       case "Height or weight cannot be zero or negative":
         return "gray";
-        default:
-          return "gray";
+      default:
+        return "gray";
     }
   };
   const getCardColorFat_status = (category) => {
@@ -106,6 +136,7 @@ const MemberDashboard = () => {
       getData();
       getDataMember();
       getDailyFitness();
+      getDataBranchId();
     }, [])
   );
 
@@ -130,7 +161,7 @@ const MemberDashboard = () => {
                       Step Walked
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness.steps_walked}
+                      {dailyfitness && dailyfitness.steps_walked}
                     </Text>
                   </Center>
                 </Card>
@@ -145,7 +176,7 @@ const MemberDashboard = () => {
                       Calories Burnt
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness.calories_burnt}
+                      {dailyfitness && dailyfitness.calories_burnt}
                     </Text>
                   </Center>
                 </Card>
@@ -162,7 +193,7 @@ const MemberDashboard = () => {
                       Heart Rate
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness.heart_rate}
+                      {dailyfitness && dailyfitness.heart_rate}
                     </Text>
                   </Center>
                 </Card>
@@ -177,7 +208,7 @@ const MemberDashboard = () => {
                       Weight Loss
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {Math.round(dailyfitness.weight_loss)}
+                      {dailyfitness && Math.round(dailyfitness.weight_loss)}
                     </Text>
                   </Center>
                 </Card>
@@ -194,7 +225,7 @@ const MemberDashboard = () => {
                       Avg Calories Burnt
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {fitness.average_calories_burnt}
+                      {fitness && fitness.average_calories_burnt}
                     </Text>
                   </Center>
                 </Card>
@@ -209,7 +240,7 @@ const MemberDashboard = () => {
                       Avg Heart rate
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {fitness.average_heart_rate}
+                      {fitness && fitness.average_heart_rate}
                     </Text>
                   </Center>
                 </Card>
@@ -222,7 +253,7 @@ const MemberDashboard = () => {
                   style={[
                     {
                       backgroundColor: getCardColor_BMI_status(
-                        fitness.bmi_status
+                        fitness && fitness.bmi_status
                       ),
                     },
                   ]}
@@ -237,9 +268,11 @@ const MemberDashboard = () => {
                       BMI
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                      {Math.round(fitness.bmi)}
+                      {fitness && Math.round(fitness.bmi)}
                     </Text>
-                    <Text fontSize={16} fontWeight={"semibold"}>{fitness.bmi_status}</Text>
+                    <Text fontSize={16} fontWeight={"semibold"}>
+                      {fitness && fitness.bmi_status}
+                    </Text>
                   </Center>
                 </Card>
                 <Card
@@ -249,7 +282,7 @@ const MemberDashboard = () => {
                   style={[
                     {
                       backgroundColor: getCardColorFat_status(
-                        fitness.fat_percentage_status
+                        fitness && fitness.fat_percentage_status
                       ),
                     },
                   ]}
@@ -264,26 +297,28 @@ const MemberDashboard = () => {
                       Fat %
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                      {Math.round(fitness.fat_percentage)}
+                      {fitness && Math.round(fitness.fat_percentage)}
                     </Text>
-                    <Text fontSize={16} fontWeight={"semibold"}>{fitness.fat_percentage_status}</Text>
+                    <Text fontSize={16} fontWeight={"semibold"}>
+                      {fitness && fitness.fat_percentage_status}
+                    </Text>
                   </Center>
                 </Card>
               </HStack>
             </View>
           </Center>
           <Center>
-            <Card bgColor="#E8E8E8" mt={4} style={{ width: 400, height: 400 }}>
+            <Card bgColor="grey" mt={4} style={{ width: 400, height: 400 }}>
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <View bgColor={"black"}>
+                <View>
                   <Center mt={2} mb={3}>
                     <Heading color={"white"}>Notifications</Heading>
                   </Center>
                   {notification &&
                     notification.map((object) => (
-                      <Box key={object.pk} bgColor={"grey"}>
+                      <Box key={object.pk} ml={4}>
                         <Heading mt={2} color={"lightblue"}>
                           {object.fields.title}
                         </Heading>

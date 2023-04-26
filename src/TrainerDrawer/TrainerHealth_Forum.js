@@ -64,6 +64,9 @@ const TrainerHealth_Forum = () => {
 const postData = async () => {
   const userId = await AsyncStorage.getItem("userId");
   try {
+    if (!title || !category || !content) {
+        alert("All fields are required");
+      } else {
     let result = await fetch(`${global.MyVar}/api/blog/`, {
       method: "POST",
       headers: {
@@ -80,6 +83,7 @@ const postData = async () => {
     getData();
     alert("Submitted Successfully..");
     handleClick();
+  }
   } catch (error) {
     alert("Something wrong!");
     console.log(error);
@@ -308,6 +312,9 @@ const handleInputChange = () => {
                       </Text>
                       <Text fontSize={18} mt={1}>
                         {object.content}
+                      </Text>
+                      <Text fontSize={12} mt={1}>
+                        Posted by : {object.created_by}
                       </Text>
                       <Text fontSize={13} mt={1} color={"gray.400"}>
                         posted on : {new Date(object.created_at).toGMTString()}

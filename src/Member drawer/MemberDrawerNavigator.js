@@ -62,6 +62,7 @@ const getIcon = (screenName) => {
 
 function CustomDrawerContent(props) {
   const [profile,setProfile]= React.useState(null)
+  const navigation = useNavigation();
   const getDataUser = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
@@ -73,12 +74,16 @@ function CustomDrawerContent(props) {
       console.log({ e });
     } 
   };
-useFocusEffect(
-  React.useCallback(() => {
-    getDataUser();
-  }, [])
-);
-  const navigation= useNavigation();
+  useFocusEffect(
+    React.useCallback(() => {
+      getDataUser();
+    }, [])
+  );
+
+  const ClearAsyncStorage = async () => {
+    AsyncStorage.clear();
+    navigation.navigate("Member Login");
+  };
   return (
     <DrawerContentScrollView {...props} safeArea>
       <VStack space="6" my="2" mx="1">
@@ -140,11 +145,23 @@ useFocusEffect(
               </Pressable>
             ))}
           </VStack>
+          <Button
+            bgColor={"#343a40"}
+            onPress={ClearAsyncStorage}
+            mr={106}
+          ><HStack space={8} > 
+            <MaterialIcons name="logout" size={24} color="white" />
+            <Text fontWeight={"bold"} fontSize={16} color={"white"}>
+              Logout
+            </Text></HStack>
+         
+          </Button>
         </VStack>
       </VStack>
     </DrawerContentScrollView>
   );
 }
+
 function MyDrawer() {
   return (
     <Box safeArea flex={1}>
@@ -255,14 +272,6 @@ function MyDrawer() {
             headerTitleStyle: {
               fontSize: 20,
             },
-          }}
-        />
-
-        <Drawer.Screen
-          name="Logout"
-          component={MemberLogin}
-          options={{
-            headerShown: false,
           }}
         />
       </Drawer.Navigator>

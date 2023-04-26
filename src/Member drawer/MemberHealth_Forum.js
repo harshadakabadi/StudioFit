@@ -25,7 +25,6 @@ const MemberHealth_Forum = () => {
       headerShown: true,
     });
   }, []);
-   const [liked, setLiked] = useState(false);
    const [blog, setBlog] = useState([]);
    const [loading, setLoading] = useState(true);
   
@@ -65,7 +64,7 @@ useFocusEffect(
               <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#E8E8E8" key={object.id} width={400}>
+                    <Card bgColor="#e7f3fb" key={object.id} width={400}>
                       <Heading color="#282828">{object.title}</Heading>
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}
@@ -73,20 +72,12 @@ useFocusEffect(
                       <Text mt={1} fontSize={16}>
                         {object.content}
                       </Text>
+                      <Text fontSize={12} mt={1}>
+                        Posted by : {object.created_by}
+                      </Text>
                       <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
                         posted on : {new Date(object.updated_at).toGMTString()}
                       </Text>
-                      {/* <View ml={300}>
-                        <Pressable
-                          onPress={() => setLiked((isLiked) => !isLiked)}
-                        >
-                          <Entypo
-                            name={liked ? "heart" : "heart-outlined"}
-                            size={30}
-                            color={liked ? "red" : "black"}
-                          />
-                        </Pressable>
-                      </View>*/}
                     </Card>
                   ))}
               </Box>

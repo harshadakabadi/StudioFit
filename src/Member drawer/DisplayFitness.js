@@ -24,9 +24,11 @@ const FitnessCards = () => {
   const getDataDaily = async () => {
      const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/daily_member_fitness/${userId}/`);
+      const data = await fetch(
+        `${global.MyVar}/api/daily_member_fitness/?member=${userId}&ordering=-created_at`
+      );
       const cards = await data.json();
-      setCards(cards);
+      setCards(cards[0]);
       setLoading(false);
     } catch (e) {
       console.log({ e });
@@ -116,11 +118,11 @@ const FitnessCards = () => {
                           Steps Walked
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {cards.steps_walked} steps
+                          {cards && cards.steps_walked} steps
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#28a745" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -138,7 +140,7 @@ const FitnessCards = () => {
                   </HStack>
 
                   <HStack space={2} mt={3}>
-                    <Card bgColor="#ffc107" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -153,7 +155,7 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#dc3545" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -205,7 +207,7 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#28a745" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -222,7 +224,7 @@ const FitnessCards = () => {
                     </Card>
                   </HStack>
                   <HStack space={2} mt={3}>
-                    <Card bgColor="#ffc107" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -237,7 +239,7 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#ffc107" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -254,7 +256,7 @@ const FitnessCards = () => {
                     </Card>
                   </HStack>
                   <HStack space={2} mt={3}>
-                    <Card bgColor="#dc3545" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -269,7 +271,7 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#ffc107" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -301,7 +303,7 @@ const FitnessCards = () => {
                         </Text>
                       </Center>
                     </Card>
-                    <Card bgColor="#28a745" height={120} width={190}>
+                    <Card bgColor="#17a2b8" height={120} width={190}>
                       <Center>
                         <Text
                           fontSize={18}
@@ -338,7 +340,7 @@ const FitnessCards = () => {
                         >
                           Fat percentage
                         </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
+                        <Text fontSize={17} fontWeight={"bold"} mt={3}>
                           {parseInt(fitness.fat_percentage)} %
                         </Text>
                         <Text fontSize={16} fontWeight={"semibold"}>
@@ -366,10 +368,10 @@ const FitnessCards = () => {
                         >
                           BMI
                         </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={5}>
+                        <Text fontSize={17} fontWeight={"bold"} mt={3}>
                           {parseInt(fitness.bmi)} kg/m2
                         </Text>
-                        <Text fontSize={16} fontWeight={"semibold"} >
+                        <Text fontSize={16} fontWeight={"semibold"}>
                           {fitness.bmi_status}
                         </Text>
                       </Center>

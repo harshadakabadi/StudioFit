@@ -29,7 +29,9 @@ const Centers= () => {
 
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/centers/`);
+      const data = await fetch(
+        `${global.MyVar}/api/branch/?status=Functioning`
+      );
       const center = await data.json();
       setCenter(center);
       setLoading(false);
@@ -92,7 +94,7 @@ const Centers= () => {
                           <Text fontSize={17} fontWeight="bold" mt={15}>
                             Mobile No. : {object.mobile}
                           </Text>
-                          <Text fontSize={17} fontWeight="bold" mt={15}>
+                          <Text fontSize={17} fontWeight="bold" mt={15} mb={10}>
                             Email : {object.email}
                           </Text>
                         </Center>

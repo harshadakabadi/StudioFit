@@ -30,34 +30,38 @@ const GeneralFitness = () => {
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      let result = await fetch(
-        `${global.MyVar}/api/general_member_fitness/`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            height,
-            weight,
-            age,
-            bmi:0,
-            bmi_status:"",
-            fat_percentage:0,
-            fat_percentage_status:"",
-            distance_covered,
-            steps_taken,
-            stride_length: 0,
-            average_calories_burnt: 0,
-            average_heart_rate: 0,
-            member: userId,
-            
-          }),
-        }
-      );
-      handleClick();
-      navigation.navigate("Dashboard");
-      alert("Submitted successfully..");
+      if (!height || !weight || !age || !distance_covered || !steps_taken) {
+        alert("All fields are required");
+      } else {
+        let result = await fetch(
+          `${global.MyVar}/api/general_member_fitness/`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              height,
+              weight,
+              age,
+              bmi: 0,
+              bmi_status: "",
+              fat_percentage: 0,
+              fat_percentage_status: "",
+              distance_covered,
+              steps_taken,
+              stride_length: 0,
+              average_calories_burnt: 0,
+              average_heart_rate: 0,
+              member: userId,
+            }),
+          }
+        );
+        handleClick();
+        navigation.navigate("Dashboard");
+        alert("Submitted successfully..");
+      }
+      
     } catch (error) {
       alert("Something Wrong");
       console.log(error);

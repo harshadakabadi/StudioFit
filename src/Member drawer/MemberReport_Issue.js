@@ -8,7 +8,6 @@ import {
   Text,
   TextArea,
   Box,
-  ScrollView,
   Container,
   Select,
   CheckIcon,
@@ -17,6 +16,7 @@ import {
   View,
   Heading,
 } from "native-base";
+import { ScrollView } from "react-native-gesture-handler";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -49,12 +49,14 @@ const MemberReport_Issue = () => {
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     const branchId = await AsyncStorage.getItem("branchId");
+    console.log(userId);
     console.log(branchId);
 
     try {
-      let result = await fetch(
-        `http://192.168.0.104:8000/api/reported_issue/`,
-        {
+       if ( !category || !issue ) {
+         alert("All fields are required");
+       } else {
+        let result = await fetch(`${global.MyVar}/api/reported_issue/`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -69,12 +71,12 @@ const MemberReport_Issue = () => {
             created_by: userId,
             updated_by: userId,
           }),
-        }
-      );
-      alert("Submitted Successfully..");
-      handleClick();
-      getData();
-      navigation.navigate("Dashboard");
+        });
+        alert("Submitted Successfully..");
+        handleClick();
+        getData();
+        navigation.navigate("Dashboard");
+       } 
     } catch (error) {
       alert("Something wrong!");
       console.log(error);
@@ -220,7 +222,6 @@ const MemberReport_Issue = () => {
                     borderRadius={8}
                     bgColor={"#28a745"}
                     onPress={postData}
-                    
                   >
                     <Text
                       textAlign={"center"}
@@ -236,32 +237,34 @@ const MemberReport_Issue = () => {
             </Container>
           </Center>
           <Center>
-            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }}>
+            <Card bgColor="grey" style={{ width: 400, height: 400 }}>
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <View bgColor={"grey"}>
+                <Box ml={4} mb={3}>
                   <Center mt={2} mb={3}>
                     <Heading>Issues Reported by you</Heading>
                   </Center>
-                  {reported_issue &&
-                    reported_issue.map((object) => (
-                      <Box key={object.id}>
-                        <Heading mt={2} color={"lightblue"}>
-                          {object.category}
-                        </Heading>
-                        <Text fontSize={20} mt={3} color={"white"}>
-                          {object.issue}
-                        </Text>
-                        <Text fontSize={12} mt={1} color={"white"} mb={2}>
-                          {object.is_resolved}
-                        </Text>
-                        <Box mt={3}>
-                          <Divider />
+                  <ScrollView>
+                    {reported_issue &&
+                      reported_issue.map((object) => (
+                        <Box key={object.id}>
+                          <Heading mt={2} color={"lightblue"}>
+                            {object.category}
+                          </Heading>
+                          <Text fontSize={20} mt={3} color={"white"}>
+                            {object.issue}
+                          </Text>
+                          <Text fontSize={16} mt={3} color={"white"} mb={8}>
+                            posted on : {new Date(object.created_at).toGMTString()}
+                          </Text>
+                          <Box mt={3}>
+                            <Divider />
+                          </Box>
                         </Box>
-                      </Box>
-                    ))}
-                </View>
+                      ))}
+                  </ScrollView>
+                </Box>
               )}
             </Card>
           </Center>

@@ -43,7 +43,6 @@ const MemberProfile = () => {
           await AsyncStorage.setItem("member", JSON.stringify(profile));
           const branchId = JSON.stringify(profile.branch);
           await AsyncStorage.setItem("branchId", branchId);
-          console.log(branchId);
         }
         else
         {

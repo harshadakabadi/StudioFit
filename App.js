@@ -26,7 +26,7 @@ import CenterTrainer from './src/bottom/CenterTrainer';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "http://192.168.0.104:8000";
+  global.MyVar = "http://192.168.1.18:8000";
   return (
     <NavigationContainer>
       <Stack.Navigator>
