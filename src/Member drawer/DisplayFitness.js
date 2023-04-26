@@ -28,7 +28,9 @@ const FitnessCards = () => {
         `${global.MyVar}/api/daily_member_fitness/?member=${userId}&ordering=-created_at`
       );
       const cards = await data.json();
-      setCards(cards[0]);
+      if (cards[0] != undefined) {
+       setCards(cards[0]);
+      } 
       setLoading(false);
     } catch (e) {
       console.log({ e });
@@ -76,6 +78,8 @@ const FitnessCards = () => {
   const getCardColorFat_status = (category) => {
     switch (category) {
       case "Dangerously low":
+        return "red";
+      case "Dangerously high":
         return "red";
       case "Excellent":
         return "green";
@@ -133,7 +137,7 @@ const FitnessCards = () => {
                           Distance Covered
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {cards.distance_covered} m
+                          {cards && cards.distance_covered} m
                         </Text>
                       </Center>
                     </Card>
@@ -151,7 +155,7 @@ const FitnessCards = () => {
                           Calories Burnt by Walking
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                          {cards.calories_burnt_by_walking} calories
+                          {cards && cards.calories_burnt_by_walking} calories
                         </Text>
                       </Center>
                     </Card>
@@ -166,7 +170,7 @@ const FitnessCards = () => {
                           Heart Rate
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={8}>
-                          {cards.heart_rate} bpm
+                          {cards && cards.heart_rate} bpm
                         </Text>
                       </Center>
                     </Card>
@@ -183,7 +187,7 @@ const FitnessCards = () => {
                           Calories Burnt
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={4}>
-                          {cards.calories_burnt} calories
+                          {cards && cards.calories_burnt} calories
                         </Text>
                       </Center>
                     </Card>
@@ -203,7 +207,7 @@ const FitnessCards = () => {
                           Height
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.height} cm
+                          {fitness && fitness.height} cm
                         </Text>
                       </Center>
                     </Card>
@@ -218,7 +222,7 @@ const FitnessCards = () => {
                           Weight
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.weight} kg
+                          {fitness && fitness.weight} kg
                         </Text>
                       </Center>
                     </Card>
@@ -235,7 +239,7 @@ const FitnessCards = () => {
                           Age
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.age} years
+                          {fitness && fitness.age} years
                         </Text>
                       </Center>
                     </Card>
@@ -244,13 +248,13 @@ const FitnessCards = () => {
                         <Text
                           fontSize={18}
                           fontWeight={800}
-                          color={"black"}
+                          color={"white"}
                           opacity={0.9}
                         >
                           Avg Heart Rate
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.average_heart_rate} bpm
+                          {fitness && fitness.average_heart_rate} bpm
                         </Text>
                       </Center>
                     </Card>
@@ -267,7 +271,7 @@ const FitnessCards = () => {
                           Distance covered
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.distance_covered} m
+                          {fitness && fitness.distance_covered} m
                         </Text>
                       </Center>
                     </Card>
@@ -282,7 +286,7 @@ const FitnessCards = () => {
                           Steps Taken
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {fitness.steps_taken} steps
+                          {fitness && fitness.steps_taken} steps
                         </Text>
                       </Center>
                     </Card>
@@ -299,7 +303,7 @@ const FitnessCards = () => {
                           Stride Length
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={8}>
-                          {fitness.stride_length} m/step
+                          {fitness && fitness.stride_length} m/step
                         </Text>
                       </Center>
                     </Card>
@@ -313,8 +317,8 @@ const FitnessCards = () => {
                         >
                           Avg Calories Burnt
                         </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                          {fitness.average_calories_burnt} calories
+                        <Text fontSize={17} fontWeight={"bold"} mt={8}>
+                          {fitness && fitness.average_calories_burnt} calories
                         </Text>
                       </Center>
                     </Card>
@@ -326,7 +330,7 @@ const FitnessCards = () => {
                       style={[
                         {
                           backgroundColor: getCardColorFat_status(
-                            fitness.fat_percentage_status
+                            fitness && fitness.fat_percentage_status
                           ),
                         },
                       ]}
@@ -341,10 +345,10 @@ const FitnessCards = () => {
                           Fat percentage
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                          {parseInt(fitness.fat_percentage)} %
+                          {fitness && parseInt(fitness.fat_percentage)} %
                         </Text>
                         <Text fontSize={16} fontWeight={"semibold"}>
-                          {fitness.fat_percentage_status}
+                          {fitness && fitness.fat_percentage_status}
                         </Text>
                       </Center>
                     </Card>
@@ -354,7 +358,7 @@ const FitnessCards = () => {
                       style={[
                         {
                           backgroundColor: getCardColor_BMI_status(
-                            fitness.bmi_status
+                            fitness && fitness.bmi_status
                           ),
                         },
                       ]}
@@ -369,10 +373,10 @@ const FitnessCards = () => {
                           BMI
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                          {parseInt(fitness.bmi)} kg/m2
+                          {fitness && parseInt(fitness.bmi)} kg/m2
                         </Text>
                         <Text fontSize={16} fontWeight={"semibold"}>
-                          {fitness.bmi_status}
+                          {fitness && fitness.bmi_status}
                         </Text>
                       </Center>
                     </Card>

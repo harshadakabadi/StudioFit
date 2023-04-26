@@ -23,6 +23,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
 import { Divider } from "@rneui/themed";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 
 const MemberReport_Issue = () => {
@@ -72,10 +73,15 @@ const MemberReport_Issue = () => {
             updated_by: userId,
           }),
         });
-        alert("Submitted Successfully..");
+        if (result.status === 201) {
+          alert("Submitted successfully..");
+          setHasStartedTyping(false);
+          navigation.navigate("Dashboard");
+        } else {
+          alert("Something Wrong");
+        }
         handleClick();
         getData();
-        navigation.navigate("Dashboard");
        } 
     } catch (error) {
       alert("Something wrong!");
@@ -249,15 +255,35 @@ const MemberReport_Issue = () => {
                     {reported_issue &&
                       reported_issue.map((object) => (
                         <Box key={object.id}>
-                          <Heading mt={2} color={"lightblue"}>
-                            {object.category}
-                          </Heading>
+                          <HStack space={40}>
+                            <Heading mt={2} color={"lightblue"}>
+                              {object.category}
+                            </Heading>
+                            <View mt={2}>
+                              {object.is_resolved ? (
+                                <AntDesign
+                                  name="checkcircleo"
+                                  size={24}
+                                  color="green"
+                                />
+                              ) : (
+                                <Entypo
+                                  name="circle-with-cross"
+                                  size={24}
+                                  color="black"
+                                />
+                              )}
+                            </View>
+                          </HStack>
+
                           <Text fontSize={20} mt={3} color={"white"}>
                             {object.issue}
                           </Text>
                           <Text fontSize={16} mt={3} color={"white"} mb={8}>
-                            posted on : {new Date(object.created_at).toGMTString()}
+                            posted on :{" "}
+                            {new Date(object.created_at).toGMTString()}
                           </Text>
+
                           <Box mt={3}>
                             <Divider />
                           </Box>

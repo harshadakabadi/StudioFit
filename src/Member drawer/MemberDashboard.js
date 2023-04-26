@@ -26,9 +26,9 @@ const MemberDashboard = () => {
   const [dailyfitness, setDailyFitness] = useState("");
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/view_notification/`);
+      const data = await fetch(`${global.MyVar}/api/notification/`);
       const notification = await data.json();
-      console.log(notification);
+     // console.log(notification);
       setNotification(notification);
       setLoading(false);
     } catch (e) {
@@ -58,8 +58,6 @@ const MemberDashboard = () => {
         `${global.MyVar}/api/daily_member_fitness/?member=${userId}&ordering=-created_at`
       );
       const dailyfitness = await data.json();
-      //console.log("dailyfitness" + dailyfitness[0]);
-
       if ((dailyfitness[0] != undefined)) {
         setDailyFitness(dailyfitness[0]);
         await AsyncStorage.setItem(
@@ -118,6 +116,8 @@ const MemberDashboard = () => {
   const getCardColorFat_status = (category) => {
     switch (category) {
       case "Dangerously low":
+        return "red";
+      case "Dangerously high":
         return "red";
       case "Excellent":
         return "green";
@@ -318,16 +318,16 @@ const MemberDashboard = () => {
                   </Center>
                   {notification &&
                     notification.map((object) => (
-                      <Box key={object.pk} ml={4}>
+                      <Box key={object.id} ml={4}>
                         <Heading mt={2} color={"lightblue"}>
-                          {object.fields.title}
+                          {object && object.title}
                         </Heading>
                         <Text fontSize={20} mt={3} color={"white"}>
-                          {object.fields.description}
+                          {object && object.description}
                         </Text>
-                        <Text fontSize={12} mt={1} color={"white"} mb={2}>
-                          posted on :
-                          {new Date(object.fields.updated_at).toGMTString()}
+                        <Text fontSize={14} mt={1} color={"white"} mb={2}>
+                          posted on : {object &&
+                            new Date(object.updated_at).toGMTString()}
                         </Text>
                         <Box mt={3}>
                           <Divider />

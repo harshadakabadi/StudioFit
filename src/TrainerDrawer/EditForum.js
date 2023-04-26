@@ -13,6 +13,7 @@ import {
   Select,
   Card,
   Input,
+  HStack
 } from "native-base";
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -61,6 +62,7 @@ const EditForum = () => {
         .then(function (response) {
           //console.log(response);
           alert("Blog Details Edited Successfully");
+          setHasStartedTyping(false);
           navigation.navigate("Trainer HomeScreen");
         })
         .catch(function (error) {
@@ -73,7 +75,6 @@ const EditForum = () => {
     const handleCancel = () => {
       setHasStartedTyping(false);
       navigation.navigate("Dashboard");
-      handleClick();
     };
     const handleInputChange = () => {
       setHasStartedTyping(true);
@@ -87,7 +88,7 @@ const EditForum = () => {
             <Center>
               <Card width={"350"} height={"400"} mt={150}>
                 <ScrollView>
-                  <Center mt={10}>
+                  <Center mt={5}>
                     <Box>
                       <Input
                         bgColor="#e7f3fb"

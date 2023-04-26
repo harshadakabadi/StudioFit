@@ -56,10 +56,16 @@ const GeneralFitness = () => {
               member: userId,
             }),
           }
-        );
+        );  
+        if (result.status === 201) {
+          alert("Submitted successfully..");
+          setHasStartedTyping(false);
+          navigation.navigate("Dashboard");
+          
+        } else {
+           alert("Something Wrong");
+        }
         handleClick();
-        navigation.navigate("Dashboard");
-        alert("Submitted successfully..");
       }
       
     } catch (error) {

@@ -10,7 +10,7 @@ import {
 } from "native-base";
 
 export default function TrainerBottomDrawer() {
-  const [selected, setSelected] = React.useState(1);
+  const [selected, setSelected] = React.useState(null);
   const navigation = useNavigation();
   return (
     <HStack bg="#85C1E9" alignItems="center" pb={3}>
@@ -60,10 +60,10 @@ export default function TrainerBottomDrawer() {
       </Pressable>
       <Pressable
         cursor="pointer"
-        opacity={selected === 1 ? 1 : 0.5}
+        opacity={selected === 2 ? 1 : 0.6}
         py="2"
         flex={1}
-        onPressOut={() => setSelected(1)}
+        onPressOut={() => setSelected(2)}
         onPress={() => navigation.navigate("Centers ")}
       >
         <Center>

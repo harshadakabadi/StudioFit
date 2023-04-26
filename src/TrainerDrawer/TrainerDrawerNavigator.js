@@ -130,10 +130,10 @@ const ClearAsyncStorage = async () => {
               </Pressable>
             ))}
           </VStack>
-          <Button bgColor={"#85C1E9"} onPress={ClearAsyncStorage} mr={106}>
+          <Button bgColor={"#85C1E9"} onPress={ClearAsyncStorage} mr={110}>
             <HStack space={8}>
-              <MaterialIcons name="logout" size={24} color="black" />
-              <Text fontWeight={"bold"} fontSize={16} color={"black"}>
+              <MaterialIcons name="logout" size={24} color="grey" />
+              <Text fontWeight={"bold"} fontSize={16} color={"#36454F"}>
                 Logout
               </Text>
             </HStack>

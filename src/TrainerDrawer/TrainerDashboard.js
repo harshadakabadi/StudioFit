@@ -20,9 +20,8 @@ const TrainerDashboard = () => {
    const [loading, setLoading] = useState(true);
    const getData = async () => {
      try {
-       const data = await fetch(`${global.MyVar}/api/view_notification/`);
+       const data = await fetch(`${global.MyVar}/api/notification/`);
        const notification = await data.json();
-       console.log(notification);
        setNotification(notification);
        setLoading(false);
      } catch (e) {
@@ -56,16 +55,16 @@ useFocusEffect(
 
                   {notification &&
                     notification.map((object) => (
-                      <Box mt={10} key={object.pk}>
+                      <Box mt={10} key={object.id}>
                         <Heading color={"#7d5fff"}>
-                          {object.fields.title}
+                          {object && object.title}
                         </Heading>
                         <Text fontSize={20} mt={3}>
-                          {object.fields.description}
+                          {object && object.description}
                         </Text>
                         <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
                           posted on :{" "}
-                          {new Date(object.fields.updated_at).toGMTString()}
+                          {object && new Date(object.updated_at).toGMTString()}
                         </Text>
                         <Box mt={3}>
                           <Divider />

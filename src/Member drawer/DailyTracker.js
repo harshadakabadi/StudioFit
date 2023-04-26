@@ -83,9 +83,14 @@ const DailyTracker =() => {
             member: userId,
           }),
         });
+        if (result.status === 201) {
+          alert("Submitted successfully..");
+          setHasStartedTyping(false);
+          navigation.navigate("Dashboard");
+        } else {
+          alert("Something Wrong");
+        }
         handleClick();
-        alert("Submitted successfully..");
-        navigation.navigate("Dashboard");
       }
     } catch (error) {
       alert("Something Wrong");
@@ -114,22 +119,21 @@ const DailyTracker =() => {
         behavior="height"
         style={[{ justifyContent: "center", height: "100%" }]}
       >
-        <View>
-          {showForm && (
-            <ScrollView>
-              {hasStartedTyping && (
-                <Button onPress={handleCancel} bgColor={"transparent"}>
-                  <HStack space={1} mt={3}>
-                    <MaterialIcons
-                      name="cancel-presentation"
-                      size={24}
-                      color="red"
-                    />
-                    <Text>Cancel</Text>
-                  </HStack>
-                </Button>
-              )}
-              <Center mt={60}>
+          <ScrollView>
+            {hasStartedTyping && (
+              <Button onPress={handleCancel} bgColor={"transparent"}>
+                <HStack space={1} mt={3}>
+                  <MaterialIcons
+                    name="cancel-presentation"
+                    size={24}
+                    color="red"
+                  />
+                  <Text>Cancel</Text>
+                </HStack>
+              </Button>
+            )}
+            <Center mt={60}>
+              {showForm && (
                 <Container>
                   <HStack space={37} mt={6}>
                     <Text fontSize={17}>Enter Steps walked</Text>
@@ -198,11 +202,12 @@ const DailyTracker =() => {
                     </Center>
                   </View>
                 </Container>
-              </Center>
-            </ScrollView>
-          )}
+              )}
+            </Center>
+          </ScrollView>
+        <View>
+          <MemberBottomDrawer />
         </View>
-        <MemberBottomDrawer />
       </KeyboardAvoidingView>
     </NativeBaseProvider>
   );

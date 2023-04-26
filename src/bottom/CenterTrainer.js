@@ -29,7 +29,9 @@ const CenterTrainer = () => {
 
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/branch/`);
+      const data = await fetch(
+        `${global.MyVar}/api/branch/?status=Functioning`
+      );
       const center = await data.json();
       setCenter(center);
       setLoading(false);

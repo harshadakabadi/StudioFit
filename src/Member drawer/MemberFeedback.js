@@ -44,9 +44,14 @@ const MemberFeedback = () => {
           created_by: userId,
         }),
       });
+      if (result.status === 201) {
+        alert("Submitted successfully..");
+        setHasStartedTyping(false);
+        navigation.navigate("Dashboard");
+      } else {
+        alert("Something Wrong");
+      }
       handleClick();
-      alert("Submitted successfully..");
-      navigation.navigate("Dashboard");
        }
       
     } catch (error) {
@@ -77,142 +82,143 @@ const handleInputChange = () => {
         style={[{ justifyContent: "center", height: "100%" }]}
       >
         <ScrollView>
-          <Container alignItems={"center"} ml={10} width={"800"}>
-            <HStack space={90}>
-              <Text mt={5} fontSize={18}>
-                Enter feedback for :
-              </Text>
-              {hasStartedTyping && (
-                <Button onPress={handleCancel} bgColor={"transparent"}>
-                  <HStack space={1} mt={3}>
-                    <MaterialIcons
-                      name="cancel-presentation"
-                      size={24}
-                      color="red"
-                    />
-                    <Text>Cancel</Text>
-                  </HStack>
-                </Button>
-              )}
-            </HStack>
-            <Box width={280} mt={4}>
-              <Select
-                bgColor="#E8E8E8"
-                selectedValue={category}
-                fontSize={16}
-                accessibilityLabel="select category"
-                placeholder="select category"
-                _selectedItem={{
-                  bg: "teal.600",
-                  endIcon: <CheckIcon size="3" />,
-                }}
-                _light={{
-                  bg: "coolGray.100",
-                  _hover: {
-                    bg: "coolGray.200",
-                  },
-                  _focus: {
-                    bg: "coolGray.200:alpha.70",
-                  },
-                }}
-                _dark={{
-                  bg: "coolGray.800",
-                  _hover: {
-                    bg: "coolGray.900",
-                  },
-                  _focus: {
-                    bg: "coolGray.900:alpha.70",
-                  },
-                }}
-                mt={1}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
-                <Select.Item
-                  shadow={2}
-                  label="Staff"
-                  value={"Staff"}
-                  onChangeText={(text) => setCategory(text)}
-                />
-                <Select.Item
-                  shadow={2}
-                  label="Management"
-                  value={"Management"}
-                  onChangeText={(text) => setCategory(text)}
-                />
-                <Select.Item
-                  shadow={2}
-                  label="Services"
-                  value={"Services"}
-                  onChangeText={(text) => setCategory(text)}
-                />
-                <Select.Item
-                  shadow={2}
-                  label="Environment"
-                  value={"Environment"}
-                  onChangeText={(text) => setCategory(text)}
-                />
-              </Select>
-            </Box>
-
-            <Center>
-              <Text mt={30} ml={-119} fontSize={18}>
-                Enter Your Feedback
-              </Text>
-              <Box alignItems="center" mt={5}>
-                <TextArea
-                  fontSize={16}
-                  bgColor="#E8E8E8"
-                  h={130}
-                  maxW="300"
-                  placeholder="Enter your feedback "
-                  value={feedback}
-                  onChangeText={(text) => setFeedback(text)}
-                  onChange={handleInputChange}
-                />
-              </Box>
-              <Text mt={30} fontSize={18}>
-                Rate Us
-              </Text>
-
-              <View>
-                <Center>
-                  <RatingInput
-                    maxStars={5}
-                    rating={rating}
-                    setRating={setRating}
-                    size={50}
-                    onRating={(value) => setRating(rating)}
-                  />
-                </Center>
-              </View>
-
-              <View>
-                <Center>
-                  <Button
-                    mt={10}
-                    textAlign={"center"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    width={200}
-                    height={50}
-                    borderRadius={8}
-                    bgColor={"#28a745"}
-                    onPress={postData}
-                    
-                  >
-                    <Text
-                      fontSize={20}
-                      fontWeight={"bold"}
-                      color={"white"}
-                      textAlign={"center"}
-                    >
-                      Submit
-                    </Text>
+          <Center>
+            <Container width={"800"}>
+              <HStack space={50}>
+                <Text mt={5} fontSize={18}>
+                  Enter feedback for :
+                </Text>
+                {hasStartedTyping && (
+                  <Button onPress={handleCancel} bgColor={"transparent"}>
+                    <HStack space={1} mt={3}>
+                      <MaterialIcons
+                        name="cancel-presentation"
+                        size={24}
+                        color="red"
+                      />
+                      <Text>Cancel</Text>
+                    </HStack>
                   </Button>
-                </Center>
-              </View>
-            </Center>
-          </Container>
+                )}
+              </HStack>
+              <Box width={280} mt={4}>
+                <Select
+                  bgColor="#E8E8E8"
+                  selectedValue={category}
+                  fontSize={16}
+                  accessibilityLabel="select category"
+                  placeholder="select category"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="3" />,
+                  }}
+                  _light={{
+                    bg: "coolGray.100",
+                    _hover: {
+                      bg: "coolGray.200",
+                    },
+                    _focus: {
+                      bg: "coolGray.200:alpha.70",
+                    },
+                  }}
+                  _dark={{
+                    bg: "coolGray.800",
+                    _hover: {
+                      bg: "coolGray.900",
+                    },
+                    _focus: {
+                      bg: "coolGray.900:alpha.70",
+                    },
+                  }}
+                  mt={1}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
+                >
+                  <Select.Item
+                    shadow={2}
+                    label="Staff"
+                    value={"Staff"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Management"
+                    value={"Management"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Services"
+                    value={"Services"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                  <Select.Item
+                    shadow={2}
+                    label="Environment"
+                    value={"Environment"}
+                    onChangeText={(text) => setCategory(text)}
+                  />
+                </Select>
+              </Box>
+
+              <Center>
+                <Text mt={30} ml={-119} fontSize={18}>
+                  Enter Your Feedback
+                </Text>
+                <Box alignItems="center" mt={5}>
+                  <TextArea
+                    fontSize={16}
+                    bgColor="#E8E8E8"
+                    h={130}
+                    maxW="300"
+                    placeholder="Enter your feedback "
+                    value={feedback}
+                    onChangeText={(text) => setFeedback(text)}
+                    onChange={handleInputChange}
+                  />
+                </Box>
+                <Text mt={30} fontSize={18}>
+                  Rate Us
+                </Text>
+
+                <View>
+                  <Center>
+                    <RatingInput
+                      maxStars={5}
+                      rating={rating}
+                      setRating={setRating}
+                      size={50}
+                      onRating={(value) => setRating(rating)}
+                    />
+                  </Center>
+                </View>
+
+                <View>
+                  <Center>
+                    <Button
+                      mt={10}
+                      textAlign={"center"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      width={200}
+                      height={50}
+                      borderRadius={8}
+                      bgColor={"#28a745"}
+                      onPress={postData}
+                    >
+                      <Text
+                        fontSize={20}
+                        fontWeight={"bold"}
+                        color={"white"}
+                        textAlign={"center"}
+                      >
+                        Submit
+                      </Text>
+                    </Button>
+                  </Center>
+                </View>
+              </Center>
+            </Container>
+          </Center>
         </ScrollView>
         <MemberBottomDrawer />
       </KeyboardAvoidingView>

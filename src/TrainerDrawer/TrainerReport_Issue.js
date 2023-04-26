@@ -22,7 +22,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons"; 
-
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 const TrainerReport_Issue = () => {
   const navigation = useNavigation();
@@ -71,10 +71,15 @@ useFocusEffect(
             updated_by: userId,
           }),
         });
+        if (result.status === 201) {
+          alert("Submitted successfully..");
+          setHasStartedTyping(false);
+          navigation.navigate("Dashboard");
+        } else {
+          alert("Something Wrong");
+        }
         handleClick();
         getData();
-        alert("Successfully submitted");
-        navigation.navigate("Dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -228,36 +233,54 @@ useFocusEffect(
               </Center>
             </Container>
             <Center>
-            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }}>
-              {loading ? (
-                <ActivityIndicator size="small" />
-              ) : (
-                <View bgColor={"grey"}>
-                  <Center mt={2} mb={3}>
-                    <Heading>Issues Reported by you</Heading>
-                  </Center>
-                  {reported_issue &&
-                    reported_issue.map((object) => (
-                      <Box key={object.id}>
-                        <Heading mt={2} color={"lightblue"}>
-                          {object.category}
-                        </Heading>
-                        <Text fontSize={20} mt={3} color={"white"}>
-                          {object.issue}
-                        </Text>
-                        <Text fontSize={12} mt={1} color={"white"} mb={2}>
-                          {object.is_resolved}
-                        </Text>
-                        <Box mt={3}>
-                          <Divider />
+              <Card bgColor="grey" style={{ width: 400, height: 400 }}>
+                {loading ? (
+                  <ActivityIndicator size="small" />
+                ) : (
+                  <Box ml={4}>
+                    <Center mt={2} mb={3}>
+                      <Heading>Issues Reported by you</Heading>
+                    </Center>
+                    {reported_issue &&
+                      reported_issue.map((object) => (
+                        <Box key={object.id}>
+                          <HStack space={40}>
+                            <Heading mt={2} color={"lightblue"}>
+                              {object.category}
+                            </Heading>
+                            <View mt={2}>
+                              {object.is_resolved ? (
+                                <AntDesign
+                                  name="checkcircleo"
+                                  size={24}
+                                  color="green"
+                                />
+                              ) : (
+                                <Entypo
+                                  name="circle-with-cross"
+                                  size={24}
+                                  color="black"
+                                />
+                              )}
+                            </View>
+                          </HStack>
+
+                          <Text fontSize={20} mt={3} color={"white"}>
+                            {object.issue}
+                          </Text>
+                          <Text fontSize={12} mt={1} color={"white"} mb={2}>
+                            {object.is_resolved}
+                          </Text>
+                          <Box mt={3}>
+                            <Divider />
+                          </Box>
                         </Box>
-                      </Box>
-                    ))}
-                </View>
-              )}
-            </Card>
+                      ))}
+                  </Box>
+                )}
+              </Card>
             </Center>
-          </Center>   
+          </Center>
         </ScrollView>
         <TrainerBottomDrawer />
       </KeyboardAvoidingView>

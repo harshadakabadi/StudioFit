@@ -81,7 +81,12 @@ const postData = async () => {
       }),
     });
     getData();
-    alert("Submitted Successfully..");
+    if (result.status === 201) {
+      alert("Submitted successfully..");
+      setHasStartedTyping(false);
+    } else {
+      alert("Something Wrong");
+    }
     handleClick();
   }
   } catch (error) {

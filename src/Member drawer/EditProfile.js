@@ -81,10 +81,11 @@ const UpdateDataMember = async() => {
   })
     .then(function (response) {
       alert("Updated successfully..");
+      setHasStartedTyping(false);
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      setHasStartedTyping(false);
       navigation.navigate("Member Profile");
     })
     .catch((error) => {
@@ -108,31 +109,17 @@ const handleInputChange = () => {
           <ActivityIndicator size="small" />
         ) : (
           <Container ml={4} width={1000}>
-            <HStack space={90}>
-              <Center ml={120}>
-                <Image
-                  style={{ width: 120, height: 120 }}
-                  borderRadius={100}
-                  mt={63}
-                  //source={profile && profile.profile_picture}
-                  source={Trainer1}
-                  alt="Alternate Text"
-                  bottom={10}
-                />
-              </Center>
-              {hasStartedTyping && (
-                <Button onPress={handleCancel} bgColor={"transparent"}>
-                  <HStack space={1} mt={3}>
-                    <MaterialIcons
-                      name="cancel-presentation"
-                      size={24}
-                      color="red"
-                    />
-                    <Text>Cancel</Text>
-                  </HStack>
-                </Button>
-              )}
-            </HStack>
+            <Center ml={120}>
+              <Image
+                style={{ width: 120, height: 120 }}
+                borderRadius={100}
+                mt={35}
+                //source={profile && profile.profile_picture}
+                source={Trainer1}
+                alt="Alternate Text"
+                bottom={10}
+              />
+            </Center>
             <View>
               <Center ml={18}>
                 <HStack>
@@ -148,7 +135,7 @@ const handleInputChange = () => {
                     onChange={handleInputChange}
                   />
                 </HStack>
-                <HStack mt={5}>
+                <HStack mt={3}>
                   <TextInput
                     width={340}
                     mode="outlined"
@@ -161,7 +148,7 @@ const handleInputChange = () => {
                     onChange={handleInputChange}
                   />
                 </HStack>
-                <HStack mt={5}>
+                <HStack mt={3}>
                   <TextInput
                     width={340}
                     mode="outlined"
@@ -176,7 +163,7 @@ const handleInputChange = () => {
                     onChange={handleInputChange}
                   />
                 </HStack>
-                <HStack mt={5}>
+                <HStack mt={3}>
                   <TextInput
                     width={340}
                     mode="outlined"
@@ -190,7 +177,7 @@ const handleInputChange = () => {
                   />
                   <Text></Text>
                 </HStack>
-                <HStack space="2" mt={5}>
+                <HStack space="2" mt={3}>
                   <TextInput
                     width={170}
                     mode="outlined"
@@ -214,7 +201,7 @@ const handleInputChange = () => {
                     onChange={handleInputChange}
                   />
                 </HStack>
-                <HStack space="2" mt={5}>
+                <HStack space="2" mt={3}>
                   <TextInput
                     width={170}
                     mode="outlined"
@@ -239,28 +226,41 @@ const handleInputChange = () => {
                 </HStack>
 
                 <View ml={12}>
-                  <TouchableOpacity>
-                    <Button
-                      width={"100%"}
-                      mt={45}
-                      height={50}
-                      borderRadius={8}
-                      bgColor={"#28a745"}
-                      borderColor="black"
-                      color={changeColor}
-                      onPressIn={handleButtonClick}
-                      onPress={UpdateDataMember}
-                    >
-                      <Text
-                        fontSize={20}
-                        fontWeight={"bold"}
-                        color={"white"}
-                        textAlign={"center"}
+                  <HStack>
+                    <TouchableOpacity>
+                      <Button
+                        width={"80%"}
+                        mt={30}
+                        borderRadius={8}
+                        bgColor={"#28a745"}
+                        borderColor="black"
+                        color={changeColor}
+                        onPressIn={handleButtonClick}
+                        onPress={UpdateDataMember}
                       >
-                        Update
-                      </Text>
-                    </Button>
-                  </TouchableOpacity>
+                        <Text
+                          fontSize={20}
+                          fontWeight={"bold"}
+                          color={"white"}
+                          textAlign={"center"}
+                        >
+                          Edit
+                        </Text>
+                      </Button>
+                    </TouchableOpacity>
+                    {hasStartedTyping && (
+                      <Button onPress={handleCancel} bgColor={"transparent"}>
+                        <HStack space={1} mt={3}>
+                          <MaterialIcons
+                            name="cancel-presentation"
+                            size={24}
+                            color="red"
+                          />
+                          <Text>Cancel</Text>
+                        </HStack>
+                      </Button>
+                    )}
+                  </HStack>
                 </View>
               </Center>
             </View>
