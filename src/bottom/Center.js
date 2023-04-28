@@ -64,7 +64,7 @@ const Centers= () => {
                     center.map((object) => (
                       <Card
                         key={object.id}
-                        style={{ height: 380, width: 270 }}
+                        style={{ height: 400, width: 280 }}
                         bgColor={"#E8E8E8"}
                         mt={10}
                         styles={{ boxShadow: "2px 2px 2px grey" }}
