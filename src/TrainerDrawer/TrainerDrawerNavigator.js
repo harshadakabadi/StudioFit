@@ -76,7 +76,7 @@ const ClearAsyncStorage = async () => {
         <Box px="4" left={30}>
           <View>
             <Image
-              style={{ width: 90, height: 90 }}
+              style={{ width: 100, height: 100 }}
               borderRadius={100}
               left={50}
               source={Trainer1}

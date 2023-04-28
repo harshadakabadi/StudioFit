@@ -3,7 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import {
-  View,
   Box,
   Center,
   Text,
@@ -16,6 +15,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { useFocusEffect } from "@react-navigation/native";
+import { StyleSheet, View, Platform } from "react-native";
 
 
 const MemberHealth_Forum = () => {
@@ -30,9 +30,7 @@ const MemberHealth_Forum = () => {
   
   const getData = async () => {
     try {
-    const data = await fetch(
-      `${global.MyVar}/api/blog/`
-    );
+    const data = await fetch(`${global.MyVar}/api/blog/?ordering=-created_at`);
     const blog = await data.json();
     //console.log(blog);
     setBlog(blog);
@@ -64,21 +62,26 @@ useFocusEffect(
               <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id} width={400}>
-                      <Heading color="#282828">{object.title}</Heading>
-                      <Text mt={2} fontWeight={"semibold"} fontSize={17}>
-                        {object.category}
-                      </Text>
-                      <Text mt={1} fontSize={16}>
-                        {object.content}
-                      </Text>
-                      <Text fontSize={12} mt={1}>
-                        Posted by : {object.created_by}
-                      </Text>
-                      <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
-                        posted on : {new Date(object.updated_at).toGMTString()}
-                      </Text>
-                    </Card>
+                      <Card
+                        bgColor="#E8E8E8"
+                        key={object.id}
+                        width={400}
+                        mt={2}
+                      >
+                        <Heading color="#282828">{object.title}</Heading>
+                        <Text mt={2} fontWeight={"semibold"} fontSize={17}>
+                          {object.category}
+                        </Text>
+                        <Text mt={1} fontSize={16}>
+                          {object.content}
+                        </Text>
+                        <Text fontSize={12} mt={1}>
+                          Posted by {object.created_by}
+                        </Text>
+                        <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
+                          posted on {new Date(object.updated_at).toGMTString()}
+                        </Text>
+                      </Card>
                   ))}
               </Box>
             )}
@@ -89,5 +92,19 @@ useFocusEffect(
     </NativeBaseProvider>
   );
 };
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+});
 
 export default MemberHealth_Forum;

@@ -12,7 +12,7 @@ import { Divider } from "@rneui/themed";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const TrainerDashboard = () => {
@@ -20,7 +20,9 @@ const TrainerDashboard = () => {
    const [loading, setLoading] = useState(true);
    const getData = async () => {
      try {
-       const data = await fetch(`${global.MyVar}/api/notification/`);
+       const data = await fetch(
+         `${global.MyVar}/api/notification/?is_active=true&ordering=-created_at`
+       );
        const notification = await data.json();
        setNotification(notification);
        setLoading(false);
@@ -30,10 +32,28 @@ const TrainerDashboard = () => {
        console.log("done");
      }
    };
+   const getDataBranchId = async () => {
+     const userId = await AsyncStorage.getItem("userId");
+     try {
+       const data = await fetch(`${global.MyVar}/api/staff/${userId}/`);
+       if (data.status === 200) {
+         const profile = await data.json();
+         await AsyncStorage.setItem("member", JSON.stringify(profile));
+         const branchid = JSON.stringify(profile.branch[0]);
+         await AsyncStorage.setItem("branchid", branchid[0]);
+         console.log(branchid);
+       } else {
+         console.log("something wrong");
+       }
+     } catch (e) {
+       console.log({ e });
+     }
+   };
   
 useFocusEffect(
   React.useCallback(() => {
     getData();
+    getDataBranchId();
   }, [])
 );
   return (

@@ -43,13 +43,10 @@ const EditTrainerProfile = () => {
     try {
       const data = await fetch(`${global.MyVar}/api/staff/${userId}`);
       const profile = await data.json();
-      // console.log(profile);
       setProfile(profile);
       setLoading(false);
     } catch (e) {
       console.log({ e });
-    } finally {
-      // console.log("done");
     }
   };
 
@@ -218,16 +215,37 @@ const EditTrainerProfile = () => {
                     editable={false}
                   />
                 </HStack>
+              </Center>
+              <HStack space={6}>
+                <TouchableOpacity>
+                  <Button
+                    mt={30}
+                    ml={5}
+                    width="70%"
+                    borderColor="black"
+                    bgColor={"#28a745"}
+                    color={changeColor}
+                    onPressIn={handleButtonClick}
+                    onPress={UpdateDataMember}
+                  >
+                    <Text
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      color={"white"}
+                      textAlign={"center"}
+                    >
+                      Edit
+                    </Text>
+                  </Button>
+                </TouchableOpacity>
 
-                <HStack>
+                {hasStartedTyping && (
                   <TouchableOpacity>
                     <Button
-                      mt={30}
-                      width="70%"
                       borderColor="black"
-                      color={changeColor}
-                      onPressIn={handleButtonClick}
-                      onPress={UpdateDataMember}
+                      width="70%"
+                      mt={30}
+                      onPress={handleCancel}
                     >
                       <Text
                         fontSize={20}
@@ -235,25 +253,12 @@ const EditTrainerProfile = () => {
                         color={"white"}
                         textAlign={"center"}
                       >
-                        Edit
+                        Cancel
                       </Text>
                     </Button>
                   </TouchableOpacity>
-
-                  {hasStartedTyping && (
-                    <Button onPress={handleCancel} bgColor={"transparent"}>
-                      <HStack space={1} mt={3}>
-                        <MaterialIcons
-                          name="cancel-presentation"
-                          size={24}
-                          color="red"
-                        />
-                        <Text>Cancel</Text>
-                      </HStack>
-                    </Button>
-                  )}
-                </HStack>
-              </Center>
+                )}
+              </HStack>
             </View>
           </Container>
         )}

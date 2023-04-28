@@ -86,14 +86,14 @@ const EditForum = () => {
         <View>
           <View style={{ backgroundColor: "white" }}>
             <Center>
-              <Card width={"350"} height={"400"} mt={150}>
+              <Card width={"370"} height={"450"} mt={100}>
                 <ScrollView>
                   <Center mt={5}>
                     <Box>
                       <Input
                         bgColor="#e7f3fb"
                         fontSize={14}
-                        minWidth="200"
+                        minWidth="250"
                         placeholder="Title of Forum"
                         value={title}
                         onChangeText={(text) => setTitle(text)}
@@ -105,7 +105,7 @@ const EditForum = () => {
                         bgColor="#e7f3fb"
                         selectedValue={category}
                         fontSize={14}
-                        minWidth="200"
+                        minWidth="250"
                         accessibilityLabel="select category"
                         placeholder="select category"
                         _selectedItem={{
@@ -178,7 +178,8 @@ const EditForum = () => {
                           mt={5}
                           fontSize={14}
                           placeholder="Enter Your Content"
-                          minWidth="200"
+                          minWidth="250"
+                          h={40}
                           value={content}
                           onChangeText={(text) => setContent(text)}
                           onChange={handleInputChange}

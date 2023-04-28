@@ -317,7 +317,7 @@ const FitnessCards = () => {
                         >
                           Avg Calories Burnt
                         </Text>
-                        <Text fontSize={17} fontWeight={"bold"} mt={8}>
+                        <Text fontSize={17} fontWeight={"bold"} mt={4}>
                           {fitness && fitness.average_calories_burnt} calories
                         </Text>
                       </Center>

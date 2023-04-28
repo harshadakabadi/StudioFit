@@ -64,16 +64,16 @@ export default function TrainerBottomDrawer() {
         py="2"
         flex={1}
         onPressOut={() => setSelected(2)}
-        onPress={() => navigation.navigate("Centers ")}
+        onPress={() => navigation.navigate("Centers")}
       >
         <Center>
           <Icon
             mb="1"
             as={<Foundation name="social-game-center" />}
-            color="grey"
+            color="white"
             size="sm"
           />
-          <Text color="grey" fontSize="12">
+          <Text color="white" fontSize="12">
             Centers
           </Text>
         </Center>

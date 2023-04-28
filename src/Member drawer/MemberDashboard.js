@@ -26,7 +26,9 @@ const MemberDashboard = () => {
   const [dailyfitness, setDailyFitness] = useState("");
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/notification/`);
+      const data = await fetch(
+        `${global.MyVar}/api/notification/?is_active=true&ordering=-created_at`
+      );
       const notification = await data.json();
      // console.log(notification);
       setNotification(notification);
@@ -161,7 +163,7 @@ const MemberDashboard = () => {
                       Step Walked
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness && dailyfitness.steps_walked}
+                      {dailyfitness && dailyfitness.steps_walked} steps
                     </Text>
                   </Center>
                 </Card>
@@ -176,7 +178,7 @@ const MemberDashboard = () => {
                       Calories Burnt
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness && dailyfitness.calories_burnt}
+                      {dailyfitness && dailyfitness.calories_burnt} calories
                     </Text>
                   </Center>
                 </Card>
@@ -193,7 +195,7 @@ const MemberDashboard = () => {
                       Heart Rate
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness && dailyfitness.heart_rate}
+                      {dailyfitness && dailyfitness.heart_rate} bpm
                     </Text>
                   </Center>
                 </Card>
@@ -208,7 +210,7 @@ const MemberDashboard = () => {
                       Weight Loss
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness && Math.round(dailyfitness.weight_loss)}
+                      {dailyfitness && Math.round(dailyfitness.weight_loss)} gm
                     </Text>
                   </Center>
                 </Card>
@@ -224,8 +226,8 @@ const MemberDashboard = () => {
                     >
                       Avg Calories Burnt
                     </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {fitness && fitness.average_calories_burnt}
+                    <Text fontSize={17} fontWeight={"bold"} mt={2}>
+                      {fitness && fitness.average_calories_burnt} calories
                     </Text>
                   </Center>
                 </Card>
@@ -239,8 +241,8 @@ const MemberDashboard = () => {
                     >
                       Avg Heart rate
                     </Text>
-                    <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {fitness && fitness.average_heart_rate}
+                    <Text fontSize={17} fontWeight={"bold"} mt={8}>
+                      {fitness && fitness.average_heart_rate} bpm
                     </Text>
                   </Center>
                 </Card>

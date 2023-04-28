@@ -113,7 +113,7 @@ const handleInputChange = () => {
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
-                mt={35}
+                mt={50}
                 //source={profile && profile.profile_picture}
                 source={Trainer1}
                 alt="Alternate Text"
@@ -224,19 +224,36 @@ const handleInputChange = () => {
                     editable={false}
                   />
                 </HStack>
-
-                <View ml={12}>
-                  <HStack>
+              </Center>
+              <View>
+                <HStack space={6}>
+                  <TouchableOpacity>
+                    <Button
+                      width={"70%"}
+                      mt={30}
+                      ml={5}
+                      bgColor={"#28a745"}
+                      color={changeColor}
+                      onPressIn={handleButtonClick}
+                      onPress={UpdateDataMember}
+                    >
+                      <Text
+                        fontSize={20}
+                        fontWeight={"bold"}
+                        color={"white"}
+                        textAlign={"center"}
+                      >
+                        Edit
+                      </Text>
+                    </Button>
+                  </TouchableOpacity>
+                  {hasStartedTyping && (
                     <TouchableOpacity>
                       <Button
-                        width={"80%"}
-                        mt={30}
-                        borderRadius={8}
-                        bgColor={"#28a745"}
                         borderColor="black"
-                        color={changeColor}
-                        onPressIn={handleButtonClick}
-                        onPress={UpdateDataMember}
+                        width="70%"
+                        mt={30}
+                        onPress={handleCancel}
                       >
                         <Text
                           fontSize={20}
@@ -244,25 +261,13 @@ const handleInputChange = () => {
                           color={"white"}
                           textAlign={"center"}
                         >
-                          Edit
+                          Cancel
                         </Text>
                       </Button>
                     </TouchableOpacity>
-                    {hasStartedTyping && (
-                      <Button onPress={handleCancel} bgColor={"transparent"}>
-                        <HStack space={1} mt={3}>
-                          <MaterialIcons
-                            name="cancel-presentation"
-                            size={24}
-                            color="red"
-                          />
-                          <Text>Cancel</Text>
-                        </HStack>
-                      </Button>
-                    )}
-                  </HStack>
-                </View>
-              </Center>
+                  )}
+                </HStack>
+              </View>
             </View>
           </Container>
         )}

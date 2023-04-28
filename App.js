@@ -20,7 +20,6 @@ import EditTrainerProfile from './src/TrainerDrawer/EditProfileTrainer';
 import EditForum from './src/TrainerDrawer/EditForum';
 import HomeMember from './src/bottom/HomeMember';
 import ContactMember from './src/bottom/ContactMember';
-import { Center } from 'native-base';
 import Centers from './src/bottom/Center';
 import CenterTrainer from './src/bottom/CenterTrainer';
 
@@ -84,14 +83,15 @@ const App = () => {
           component={CenterTrainer}
           options={{
             headerShown: true,
-            headerStyle: { backgroundColor: "#E8E8E8" },
+            headerStyle: { backgroundColor: "#85C1E9" },
           }}
         />
         <Stack.Screen
           name="Edit Forum"
           component={EditForum}
           options={{
-            headerShown: false,
+            headerShown: true,
+            headerStyle: { backgroundColor: "#85C1E9" },
           }}
         />
         <Stack.Screen

@@ -11,6 +11,7 @@ import {
   Center,
   Button,
 } from "native-base";
+import { LogBox } from "react-native";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,6 +19,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 
 const GeneralFitness = () => {
+  LogBox.ignoreAllLogs(); 
   const navigation = useNavigation();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState(0);
@@ -116,7 +118,6 @@ const GeneralFitness = () => {
                 <Text fontSize={17}>Enter Height (in cm)</Text>
                 <Input
                   width="30%"
-                  height="39"
                   borderWidth={2}
                   fontSize={17}
                   textAlign={"center"}
@@ -130,7 +131,6 @@ const GeneralFitness = () => {
                 <Text fontSize={17}>Enter Weight (in kg)</Text>
                 <Input
                   width="30%"
-                  height="39"
                   borderWidth={2}
                   fontSize={17}
                   textAlign={"center"}
@@ -140,11 +140,10 @@ const GeneralFitness = () => {
                   onChange={handleInputChange}
                 />
               </HStack>
-              <HStack space={147} mt={6}>
+              <HStack space={158} mt={6}>
                 <Text fontSize={17}>Enter Age</Text>
                 <Input
                   width="30%"
-                  height="39"
                   borderWidth={2}
                   fontSize={17}
                   textAlign={"center"}
@@ -157,11 +156,9 @@ const GeneralFitness = () => {
               <HStack space={47} mt={6}>
                 <View>
                   <Text fontSize={17}>Enter Distance covered</Text>
-                  <Text fontSize={17}>(in meter)</Text>
                 </View>
                 <Input
                   width="30%"
-                  height="39"
                   borderWidth={2}
                   fontSize={17}
                   textAlign={"center"}
@@ -171,11 +168,10 @@ const GeneralFitness = () => {
                   onChange={handleInputChange}
                 />
               </HStack>
-              <HStack space={84} mt={6}>
+              <HStack space={89} mt={6}>
                 <Text fontSize={17}>Enter Steps Taken</Text>
                 <Input
                   width="30%"
-                  height="39"
                   borderWidth={2}
                   keyboardType="numeric"
                   fontSize={17}
@@ -186,7 +182,7 @@ const GeneralFitness = () => {
                 />
               </HStack>
               <View>
-                <Center ml={8}>
+                <Center ml={16}>
                   <Button
                     mt={20}
                     textAlign={"center"}
@@ -197,7 +193,6 @@ const GeneralFitness = () => {
                     borderRadius={8}
                     bgColor={"#28a745"}
                     onPress={postData}
-                   
                   >
                     <Text
                       fontSize={20}

@@ -1,4 +1,4 @@
-import { View,Prompt } from 'react-native'
+import { View} from 'react-native'
 import React from 'react'
 import {
   NativeBaseProvider,

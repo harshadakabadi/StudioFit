@@ -64,7 +64,7 @@ const Centers= () => {
                     center.map((object) => (
                       <Card
                         key={object.id}
-                        style={{ height: 370, width: 270 }}
+                        style={{ height: 380, width: 270 }}
                         bgColor={"#E8E8E8"}
                         mt={10}
                         styles={{ boxShadow: "2px 2px 2px grey" }}
@@ -82,9 +82,9 @@ const Centers= () => {
                           <Text fontSize={17} fontWeight="bold" mt={3}>
                             Locality name : {object.address}
                           </Text>
-                            <Text fontSize={17} fontWeight="bold" mt={3}>
-                              City : {object.city}
-                            </Text>
+                          <Text fontSize={17} fontWeight="bold" mt={3}>
+                            City : {object.city}
+                          </Text>
                           <Text fontSize={17} fontWeight="bold" mt={15}>
                             State : {object.state}
                           </Text>

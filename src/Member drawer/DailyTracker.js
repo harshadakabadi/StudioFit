@@ -139,7 +139,6 @@ const DailyTracker =() => {
                     <Text fontSize={17}>Enter Steps walked</Text>
                     <Input
                       width="30%"
-                      height="39"
                       borderWidth={2}
                       keyboardType="numeric"
                       fontSize={16}
@@ -153,7 +152,6 @@ const DailyTracker =() => {
                     <Text fontSize={17}>Enter Calories Burnt</Text>
                     <Input
                       width="30%"
-                      height="39"
                       borderWidth={2}
                       keyboardType="numeric"
                       fontSize={16}
@@ -167,7 +165,6 @@ const DailyTracker =() => {
                     <Text fontSize={17}>Enter Heart Rate</Text>
                     <Input
                       width="30%"
-                      height="39"
                       borderWidth={2}
                       keyboardType="numeric"
                       fontSize={16}

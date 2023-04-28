@@ -15,14 +15,14 @@ import {
   CheckIcon,
   KeyboardAvoidingView,
   HStack,
-  Card,Heading
+  Card,Heading, VStack
 } from "native-base";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons"; 
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const TrainerReport_Issue = () => {
   const navigation = useNavigation();
@@ -35,7 +35,9 @@ const [loading, setLoading] = useState(true);
 const getData = async () => {
   const userId = await AsyncStorage.getItem("userId");
   try {
-    const data = await fetch(`${global.MyVar}/api/reported_issue/`);
+    const data = await fetch(
+      `${global.MyVar}/api/reported_issue/?branch=&category=&created_by=${userId}&is_resolved=&ordering=-created_at&updated_by=`
+    );
     const reported_issue = await data.json();
     setReportedIssue(reported_issue);
     setLoading(false);
@@ -52,7 +54,9 @@ useFocusEffect(
 );
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    const branchId = await AsyncStorage.getItem("branchId");
+    const branchid = await AsyncStorage.getItem("branchid");
+    console.log(branchid);
+    console.log(userId);
     try {
       if (!category || !issue) {
         alert("All fields are required");
@@ -66,7 +70,8 @@ useFocusEffect(
             category,
             issue,
             comment: "",
-            branch: branchId,
+            is_resolved: false,
+            branch: branchid,
             created_by: userId,
             updated_by: userId,
           }),
@@ -233,7 +238,7 @@ useFocusEffect(
               </Center>
             </Container>
             <Center>
-              <Card bgColor="grey" style={{ width: 400, height: 400 }}>
+              <Card bgColor="#e7f3fb" style={{ width: 400, height: 400 }}>
                 {loading ? (
                   <ActivityIndicator size="small" />
                 ) : (
@@ -244,32 +249,35 @@ useFocusEffect(
                     {reported_issue &&
                       reported_issue.map((object) => (
                         <Box key={object.id}>
-                          <HStack space={40}>
-                            <Heading mt={2} color={"lightblue"}>
+                          <HStack align="center">
+                            <Heading mt={2} color={"black"} flex={1}>
                               {object.category}
                             </Heading>
-                            <View mt={2}>
-                              {object.is_resolved ? (
-                                <AntDesign
-                                  name="checkcircleo"
-                                  size={24}
-                                  color="green"
-                                />
-                              ) : (
-                                <Entypo
-                                  name="circle-with-cross"
-                                  size={24}
-                                  color="black"
-                                />
-                              )}
-                            </View>
+                            <VStack align="center" mr={5}>
+                              <View mt={2}>
+                                {object.is_resolved ? (
+                                  <AntDesign
+                                    name="checkcircleo"
+                                    size={24}
+                                    color="green"
+                                  />
+                                ) : (
+                                  <Ionicons
+                                    name="radio-button-off"
+                                    size={24}
+                                    color="black"
+                                  />
+                                )}
+                              </View>
+                            </VStack>
                           </HStack>
 
-                          <Text fontSize={20} mt={3} color={"white"}>
+                          <Text fontSize={20} mt={3} color={"black"}>
                             {object.issue}
                           </Text>
-                          <Text fontSize={12} mt={1} color={"white"} mb={2}>
-                            {object.is_resolved}
+                          <Text fontSize={16} mt={3} color={"black"} mb={15}>
+                            posted on :{" "}
+                            {new Date(object.created_at).toGMTString()}
                           </Text>
                           <Box mt={3}>
                             <Divider />

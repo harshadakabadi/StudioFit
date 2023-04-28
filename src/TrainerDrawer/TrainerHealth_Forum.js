@@ -44,7 +44,9 @@ const TrainerHealth_Forum = () => {
   
   const getData = async () => {
     try {
-      const data = await fetch(`${global.MyVar}/api/blog/`);
+      const data = await fetch(
+        `${global.MyVar}/api/blog/?ordering=-created_at`
+      );
       const blog = await data.json();
       //console.log(blog);
       setBlog(blog);
@@ -110,7 +112,7 @@ const handleEditBtn =async (Id) => {
 const handleDeleteBtn = async (Id) => {
   try {
     const res = await axios.delete(`${global.MyVar}/api/blog/${Id}/`);
-    console.log("Item successfully deleted.",res.data);
+    alert("Successfully deleted.");
     getData();
   } catch (error) {
     console.log(error);
@@ -124,7 +126,6 @@ const handleCancel = () => {
 const handleInputChange = () => {
   setHasStartedTyping(true);
 };
-
   return (
     <NativeBaseProvider>
       <KeyboardAvoidingView
@@ -141,7 +142,7 @@ const handleInputChange = () => {
                       bgColor="#e7f3fb"
                       mt={3}
                       fontSize={14}
-                      minWidth="250"
+                      minWidth="270"
                       placeholder="Title of Forum"
                       value={title}
                       onChangeText={(text) => setTitle(text)}
@@ -152,7 +153,7 @@ const handleInputChange = () => {
                     <Select
                       bgColor="#e7f3fb"
                       selectedValue={category}
-                      minWidth="250"
+                      minWidth="270"
                       fontSize={14}
                       accessibilityLabel="select category"
                       placeholder="select category"
@@ -226,7 +227,7 @@ const handleInputChange = () => {
                         mt={5}
                         fontSize={14}
                         placeholder="Enter Your Content"
-                        minWidth="250"
+                        minWidth="270"
                         value={content}
                         onChangeText={(text) => setContent(text)}
                         onChange={handleInputChange}
@@ -241,10 +242,9 @@ const handleInputChange = () => {
                         justifyContent={"center"}
                         alignItems={"center"}
                         width={"80%"}
-                        height={45}
+                        height={50}
                         borderRadius={8}
                         bgColor={"#4CAF50"}
-                        mb={0}
                         onPress={postData}
                       >
                         <Text
@@ -252,6 +252,7 @@ const handleInputChange = () => {
                           fontWeight={"bold"}
                           textAlign={"center"}
                           color={"white"}
+                          mb={1}
                         >
                           Post
                         </Text>
@@ -286,10 +287,10 @@ const handleInputChange = () => {
               <Box mt={3}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#e7f3fb" key={object.id} width={"400"}>
-                      <HStack space={6}>
-                        <Heading color={"#7d5fff"}>{object.title}</Heading>
-                        <HStack>
+                    <Card bgColor="#e7f3fb" key={object.id} width={"420"}>
+                      <HStack>
+                        <Heading color={"#7d5fff"} flex={1}>{object.category}</Heading>
+                        <HStack mr={6}>
                           <Button
                             bgColor={"#e7f3fb"}
                             onPress={() => handleEditBtn(object.id)}
@@ -312,8 +313,9 @@ const handleInputChange = () => {
                           </Button>
                         </HStack>
                       </HStack>
+
                       <Text fontSize={20} mt={2} fontWeight={"semibold"}>
-                        {object.category}
+                        {object.title}
                       </Text>
                       <Text fontSize={18} mt={1}>
                         {object.content}

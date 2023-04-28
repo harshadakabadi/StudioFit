@@ -64,8 +64,8 @@ const CenterTrainer = () => {
                     center.map((object) => (
                       <Card
                         key={object.id}
-                        style={{ height: 370, width: 270 }}
-                        bgColor={"#E8E8E8"}
+                        style={{ height: 380, width: 270 }}
+                        bgColor={"#e7f3fb"}
                         mt={10}
                         styles={{ boxShadow: "2px 2px 2px grey" }}
                       >
@@ -94,7 +94,7 @@ const CenterTrainer = () => {
                           <Text fontSize={17} fontWeight="bold" mt={15}>
                             Mobile No. : {object.mobile}
                           </Text>
-                          <Text fontSize={17} fontWeight="bold" mt={15}>
+                          <Text fontSize={17} fontWeight="bold" mt={15} mb={10}>
                             Email : {object.email}
                           </Text>
                         </Center>

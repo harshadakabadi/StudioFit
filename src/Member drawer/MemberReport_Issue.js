@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { KeyboardAvoidingView } from "native-base";
+import { KeyboardAvoidingView, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import {
   Button,
@@ -23,7 +23,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
 import { Divider } from "@rneui/themed";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 
 const MemberReport_Issue = () => {
@@ -37,7 +37,9 @@ const MemberReport_Issue = () => {
   const getData = async () => {
     const userId = await AsyncStorage.getItem("userId");
     try {
-      const data = await fetch(`${global.MyVar}/api/reported_issue/`);
+      const data = await fetch(
+        `${global.MyVar}/api/reported_issue/?branch=&category=&created_by=${userId}&is_resolved=&ordering=-created_at&updated_by=`
+      );
       const reported_issue = await data.json();
       setReportedIssue(reported_issue);
       setLoading(false);
@@ -243,43 +245,45 @@ const MemberReport_Issue = () => {
             </Container>
           </Center>
           <Center>
-            <Card bgColor="grey" style={{ width: 400, height: 400 }}>
+            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }} mb={3}>
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <Box ml={4} mb={3}>
+                <Box ml={4}>
                   <Center mt={2} mb={3}>
                     <Heading>Issues Reported by you</Heading>
                   </Center>
-                  <ScrollView>
+                  <ScrollView mb={15}>
                     {reported_issue &&
                       reported_issue.map((object) => (
                         <Box key={object.id}>
-                          <HStack space={40}>
-                            <Heading mt={2} color={"lightblue"}>
+                          <HStack align="center">
+                            <Heading mt={2} color={"black"} flex={1}>
                               {object.category}
                             </Heading>
-                            <View mt={2}>
-                              {object.is_resolved ? (
-                                <AntDesign
-                                  name="checkcircleo"
-                                  size={24}
-                                  color="green"
-                                />
-                              ) : (
-                                <Entypo
-                                  name="circle-with-cross"
-                                  size={24}
-                                  color="black"
-                                />
-                              )}
-                            </View>
+                            <VStack align="center" mr={5}>
+                              <View mt={2}>
+                                {object.is_resolved ? (
+                                  <AntDesign
+                                    name="checkcircleo"
+                                    size={24}
+                                    color="green"
+                                  />
+                                ) : (
+                                  <Ionicons
+                                    name="radio-button-off"
+                                    size={24}
+                                    color="black"
+                                  />
+                                )}
+                              </View>
+                            </VStack>
                           </HStack>
 
-                          <Text fontSize={20} mt={3} color={"white"}>
+                          <Text fontSize={20} mt={3} color={"black"}>
                             {object.issue}
                           </Text>
-                          <Text fontSize={16} mt={3} color={"white"} mb={8}>
+                          <Text fontSize={16} mt={3} color={"black"} mb={15}>
                             posted on :{" "}
                             {new Date(object.created_at).toGMTString()}
                           </Text>
