@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
 import {
   Button,
   Center,
@@ -284,8 +285,10 @@ const MemberReport_Issue = () => {
                             {object.issue}
                           </Text>
                           <Text fontSize={16} mt={3} color={"black"} mb={15}>
-                            posted on :{" "}
-                            {new Date(object.created_at).toGMTString()}
+                            posted on {" "}
+                            {moment(new Date(object.created_at)).format(
+                              "MMMM d, YYYY"
+                            )}
                           </Text>
 
                           <Box mt={3}>

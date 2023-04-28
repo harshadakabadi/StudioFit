@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StyleSheet from "react-native";
+import moment from "moment";
 import {
   Box,
   Center,
@@ -320,7 +320,7 @@ const MemberDashboard = () => {
                   </Center>
                   {notification &&
                     notification.map((object) => (
-                      <Box key={object.id} ml={4}>
+                      <Box key={object.id} ml={4} mb={4}>
                         <Heading mt={2} color={"lightblue"}>
                           {object && object.title}
                         </Heading>
@@ -328,8 +328,10 @@ const MemberDashboard = () => {
                           {object && object.description}
                         </Text>
                         <Text fontSize={14} mt={1} color={"white"} mb={2}>
-                          posted on : {object &&
-                            new Date(object.updated_at).toGMTString()}
+                          posted on{" "}
+                          {object && moment(new Date(object.updated_at)).format(
+                            "MMMM d, YYYY"
+                          )}
                         </Text>
                         <Box mt={3}>
                           <Divider />

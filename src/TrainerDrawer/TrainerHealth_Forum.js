@@ -5,6 +5,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import moment from "moment";
 import {
   Box,
   Center,
@@ -289,7 +290,9 @@ const handleInputChange = () => {
                   blog.map((object) => (
                     <Card bgColor="#e7f3fb" key={object.id} width={"420"}>
                       <HStack>
-                        <Heading color={"#7d5fff"} flex={1}>{object.category}</Heading>
+                        <Heading color={"#7d5fff"} flex={1}>
+                          {object.category}
+                        </Heading>
                         <HStack mr={6}>
                           <Button
                             bgColor={"#e7f3fb"}
@@ -321,10 +324,14 @@ const handleInputChange = () => {
                         {object.content}
                       </Text>
                       <Text fontSize={12} mt={1}>
-                        Posted by : {object.created_by}
+                        Posted by {" "} {object.created_by}
                       </Text>
                       <Text fontSize={13} mt={1} color={"gray.400"}>
-                        posted on : {new Date(object.created_at).toGMTString()}
+                        posted on{" "}
+                        {object &&
+                          moment(new Date(object.created_at)).format(
+                            "MMMM d, YYYY"
+                          )}
                       </Text>
                     </Card>
                   ))}

@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import moment from "moment";
 import {
   Box,
   Center,
@@ -59,29 +60,26 @@ useFocusEffect(
             {loading ? (
               <ActivityIndicator size="small" />
             ) : (
-              <Box mt={4}>
+              <Box mt={4} ml={4}>
                 {blog &&
                   blog.map((object) => (
-                      <Card
-                        bgColor="#E8E8E8"
-                        key={object.id}
-                        width={400}
-                        mt={2}
-                      >
-                        <Heading color="#282828">{object.title}</Heading>
-                        <Text mt={2} fontWeight={"semibold"} fontSize={17}>
-                          {object.category}
-                        </Text>
-                        <Text mt={1} fontSize={16}>
-                          {object.content}
-                        </Text>
-                        <Text fontSize={12} mt={1}>
-                          Posted by {object.created_by}
-                        </Text>
-                        <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
-                          posted on {new Date(object.updated_at).toGMTString()}
-                        </Text>
-                      </Card>
+                    <Card bgColor="#E8E8E8" key={object.id} width={400} mt={2}>
+                      <Heading color="#282828">{object.title}</Heading>
+                      <Text mt={2} fontWeight={"semibold"} fontSize={17}>
+                        {object.category}
+                      </Text>
+                      <Text mt={1} fontSize={16}>
+                        {object.content}
+                      </Text>
+                      <Text fontSize={12} mt={1}>
+                        Posted by {object.created_by}
+                      </Text>
+                      <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
+                        posted on {moment(new Date(object.updated_at)).format(
+                          "MMMM d, YYYY"
+                        )}
+                      </Text>
+                    </Card>
                   ))}
               </Box>
             )}

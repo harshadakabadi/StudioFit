@@ -7,6 +7,7 @@ import {
   NativeBaseProvider,
   Card,Heading, KeyboardAvoidingView
 } from "native-base";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { Divider } from "@rneui/themed";
 import TrainerBottomDrawer from "./TrainerBottomDrawer";
@@ -83,8 +84,11 @@ useFocusEffect(
                           {object && object.description}
                         </Text>
                         <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
-                          posted on :{" "}
-                          {object && new Date(object.updated_at).toGMTString()}
+                          posted on {" "}
+                          {object &&
+                            moment(new Date(object.updated_at)).format(
+                              "MMMM d, YYYY"
+                            )}
                         </Text>
                         <Box mt={3}>
                           <Divider />

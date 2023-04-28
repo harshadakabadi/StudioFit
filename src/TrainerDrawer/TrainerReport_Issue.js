@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Divider } from "@rneui/themed";
+import moment from "moment";
 import {
   Button,
   Center,
@@ -276,8 +277,11 @@ useFocusEffect(
                             {object.issue}
                           </Text>
                           <Text fontSize={16} mt={3} color={"black"} mb={15}>
-                            posted on :{" "}
-                            {new Date(object.created_at).toGMTString()}
+                            posted on {" "}
+                            {object &&
+                              moment(new Date(object.created_at)).format(
+                                "MMMM d, YYYY"
+                              )}
                           </Text>
                           <Box mt={3}>
                             <Divider />

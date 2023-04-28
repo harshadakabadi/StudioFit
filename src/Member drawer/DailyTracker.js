@@ -17,44 +17,61 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const DailyTracker =() => {
+const DailyTracker = () => {
   const navigation = useNavigation();
   const [steps_walked, setStepWalked] = useState("");
   const [calories_burnt, setCaloriesBurnt] = useState("");
   const [heart_rate, setHeartRate] = useState("");
   const [hasStartedTyping, setHasStartedTyping] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  
+
+  const [inputSubmittedStepWalked, setInputSubmittedStepWalked] =
+    useState(false);
+  const [inputSubmittedCaloriesBurnt, setInputSubmittedCaloriesBurnt] =
+    useState(false);
+  const [inputSubmittedHeartRate, setInputSubmittedHeartRate] = useState(false);
+  const handleInput1 = (text) => {
+    setStepWalked(text);
+  };
+  const handleInput2 = (text) => {
+    setCaloriesBurnt(text);
+  };
+
+  const handleInput3 = (text) => {
+    setHeartRate(text);
+  };
 
   const getDate = async () => {
     const created_at = await AsyncStorage.getItem("created_at");
-    if(created_at)
-    {
+    if (created_at) {
       const val = created_at.substring(1, 11).split("-");
       const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    console.log(day + "-" + month + "-" + year);
-    console.log(val[2] + "-" + val[1] + "-" + val[0]);
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      console.log(day + "-" + month + "-" + year);
+      console.log(val[2] + "-" + val[1] + "-" + val[0]);
 
-    if (
-      parseInt(val[0]) === year &&
-      parseInt(val[1]) === month &&
-      parseInt(val[2]) === day
-    ) {
-      alert("You have already submitted the fitness details..");
-      setShowForm(false);
+      if (
+        parseInt(val[0]) === year &&
+        parseInt(val[1]) === month &&
+        parseInt(val[2]) === day
+      ) {
+        alert("You have already submitted the fitness details..");
+        setInputSubmittedStepWalked(true);
+        setInputSubmittedCaloriesBurnt(true);
+        setInputSubmittedHeartRate(true);
+      } else {
+        setInputSubmittedStepWalked(false);
+        setInputSubmittedCaloriesBurnt(false);
+        setInputSubmittedHeartRate(false);
+      }
     } else {
-      setShowForm(true);
+      setInputSubmittedStepWalked(false);
+      setInputSubmittedCaloriesBurnt(false);
+      setInputSubmittedHeartRate(false);
     }
-    }
-    else {
-      setShowForm(true);
-    }  
-    
-  }
-  
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       getDate();
@@ -63,7 +80,7 @@ const DailyTracker =() => {
 
   const postData = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    
+
     try {
       if (!steps_walked || !calories_burnt || !heart_rate) {
         alert("All fields are required");
@@ -119,89 +136,98 @@ const DailyTracker =() => {
         behavior="height"
         style={[{ justifyContent: "center", height: "100%" }]}
       >
-          <ScrollView>
-            {hasStartedTyping && (
-              <Button onPress={handleCancel} bgColor={"transparent"}>
-                <HStack space={1} mt={3}>
-                  <MaterialIcons
-                    name="cancel-presentation"
-                    size={24}
-                    color="red"
-                  />
-                  <Text>Cancel</Text>
-                </HStack>
-              </Button>
-            )}
-            <Center mt={60}>
-              {showForm && (
-                <Container>
-                  <HStack space={37} mt={6}>
-                    <Text fontSize={17}>Enter Steps walked</Text>
-                    <Input
-                      width="30%"
-                      borderWidth={2}
-                      keyboardType="numeric"
-                      fontSize={16}
+        <ScrollView>
+          {hasStartedTyping && (
+            <Button onPress={handleCancel} bgColor={"transparent"}>
+              <HStack space={1} mt={3}>
+                <MaterialIcons
+                  name="cancel-presentation"
+                  size={24}
+                  color="red"
+                />
+                <Text>Cancel</Text>
+              </HStack>
+            </Button>
+          )}
+          <Center mt={60}>
+            <Container>
+              <HStack space={37} mt={6}>
+                <Text fontSize={17}>Enter Steps walked</Text>
+                <Input
+                  width="30%"
+                  borderWidth={2}
+                  keyboardType="numeric"
+                  fontSize={16}
+                  textAlign={"center"}
+                  value={steps_walked}
+                  //onChangeText={(text) => setStepWalked(text)}
+                  onChangeText={handleInput1}
+                  editable={!inputSubmittedStepWalked}
+                  onChange={handleInputChange}
+                />
+              </HStack>
+              <HStack space={31} mt={6}>
+                <Text fontSize={17}>Enter Calories Burnt</Text>
+                <Input
+                  width="30%"
+                  borderWidth={2}
+                  keyboardType="numeric"
+                  fontSize={16}
+                  textAlign={"center"}
+                  value={calories_burnt}
+                  onChangeText={handleInput2}
+                  editable={!inputSubmittedCaloriesBurnt}
+                  //onChangeText={(text) => setCaloriesBurnt(text)}
+                  onChange={handleInputChange}
+                />
+              </HStack>
+              <HStack space={60} mt={6}>
+                <Text fontSize={17}>Enter Heart Rate</Text>
+                <Input
+                  width="30%"
+                  borderWidth={2}
+                  keyboardType="numeric"
+                  fontSize={16}
+                  textAlign={"center"}
+                  value={heart_rate}
+                  //onChangeText={(text) => setHeartRate(text)}
+                  onChangeText={handleInput3}
+                  editable={!inputSubmittedHeartRate}
+                  onChange={handleInputChange}
+                />
+              </HStack>
+              <View>
+                <Center ml={10}>
+                  <Button
+                    mt={20}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    width={200}
+                    height={50}
+                    borderRadius={8}
+                    bgColor={"#28a745"}
+                    onPress={postData}
+                    disabled={
+                      inputSubmittedStepWalked &&
+                      inputSubmittedCaloriesBurnt &&
+                      inputSubmittedHeartRate
+                    }
+                  >
+                    <Text
+                      fontSize={20}
+                      fontWeight={"bold"}
+                      color={"white"}
                       textAlign={"center"}
-                      value={steps_walked}
-                      onChangeText={(text) => setStepWalked(text)}
-                      onChange={handleInputChange}
-                    />
-                  </HStack>
-                  <HStack space={31} mt={6}>
-                    <Text fontSize={17}>Enter Calories Burnt</Text>
-                    <Input
-                      width="30%"
-                      borderWidth={2}
-                      keyboardType="numeric"
-                      fontSize={16}
-                      textAlign={"center"}
-                      value={calories_burnt}
-                      onChangeText={(text) => setCaloriesBurnt(text)}
-                      onChange={handleInputChange}
-                    />
-                  </HStack>
-                  <HStack space={60} mt={6}>
-                    <Text fontSize={17}>Enter Heart Rate</Text>
-                    <Input
-                      width="30%"
-                      borderWidth={2}
-                      keyboardType="numeric"
-                      fontSize={16}
-                      textAlign={"center"}
-                      value={heart_rate}
-                      onChangeText={(text) => setHeartRate(text)}
-                      onChange={handleInputChange}
-                    />
-                  </HStack>
-                  <View>
-                    <Center ml={10}>
-                      <Button
-                        mt={20}
-                        textAlign={"center"}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        width={200}
-                        height={50}
-                        borderRadius={8}
-                        bgColor={"#28a745"}
-                        onPress={postData}
-                      >
-                        <Text
-                          fontSize={20}
-                          fontWeight={"bold"}
-                          color={"white"}
-                          textAlign={"center"}
-                        >
-                          Submit
-                        </Text>
-                      </Button>
-                    </Center>
-                  </View>
-                </Container>
-              )}
-            </Center>
-          </ScrollView>
+                    >
+                      Submit
+                    </Text>
+                  </Button>
+                </Center>
+              </View>
+            </Container>
+          </Center>
+        </ScrollView>
         <View>
           <MemberBottomDrawer />
         </View>
