@@ -76,12 +76,13 @@ const MemberReport_Issue = () => {
             updated_by: userId,
           }),
         });
+        console.log(result.status);
         if (result.status === 201) {
           alert("Submitted successfully..");
           setHasStartedTyping(false);
           navigation.navigate("Dashboard");
         } else {
-          alert("Something Wrong");
+          alert("Something ");
         }
         handleClick();
         getData();

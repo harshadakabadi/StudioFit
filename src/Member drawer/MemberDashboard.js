@@ -10,12 +10,13 @@ import {
   HStack,
   Heading,
   KeyboardAvoidingView,
+  ScrollView,
 } from "native-base";
 import axios from "axios";
 import { Divider } from "@rneui/themed";
 import MemberBottomDrawer from "./MemberBottomDrawer";
 import { ActivityIndicator } from "react-native-paper";
-import { ScrollView } from "react-native";
+
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -310,34 +311,40 @@ const MemberDashboard = () => {
             </View>
           </Center>
           <Center>
-            <Card bgColor="grey" mt={4} style={{ width: 400, height: 400 }}>
+            <Card
+              bgColor="grey"
+              mt={4}
+              style={{ width: 400 }}
+              mb={2}
+            >
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (
-                <View>
-                  <Center mt={2} mb={3}>
-                    <Heading color={"white"}>Notifications</Heading>
-                  </Center>
-                  {notification &&
-                    notification.map((object) => (
-                      <Box key={object.id} ml={4} mb={4}>
-                        <Heading mt={2} color={"lightblue"}>
-                          {object && object.title}
-                        </Heading>
-                        <Text fontSize={20} mt={3} color={"white"}>
-                          {object && object.description}
-                        </Text>
-                        <Text fontSize={14} mt={1} color={"white"} mb={2}>
-                          posted on{" "}
-                          {object && moment(new Date(object.updated_at)).format(
-                            "MMMM d, YYYY"
-                          )}
-                        </Text>
-                        <Box mt={3}>
-                          <Divider />
+                <View mb={3}>
+                    <Center mt={2} mb={3}>
+                      <Heading color={"white"}>Notifications</Heading>
+                    </Center>
+                    {notification &&
+                      notification.map((object) => (
+                        <Box key={object.id} ml={4} mb={4}>
+                          <Heading mt={2} color={"lightblue"}>
+                            {object && object.title}
+                          </Heading>
+                          <Text fontSize={20} mt={3} color={"white"}>
+                            {object && object.description}
+                          </Text>
+                          <Text fontSize={14} mt={1} color={"white"} mb={4}>
+                            posted on{" "}
+                            {object &&
+                              moment(new Date(object.updated_at)).format(
+                                "MMMM d, YYYY"
+                              )}
+                          </Text>
+                          <Box mt={3}>
+                            <Divider />
+                          </Box>
                         </Box>
-                      </Box>
-                    ))}
+                      ))}
                 </View>
               )}
             </Card>

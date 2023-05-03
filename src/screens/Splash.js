@@ -1,4 +1,5 @@
-import { View } from 'react-native'
+{
+  /*import { View } from 'react-native'
 import React, { useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Center, NativeBaseProvider,Box, Container,Text } from 'native-base';
@@ -31,3 +32,5 @@ navigation.navigate('Member Login')
 }
 
 export default Splash
+*/
+}

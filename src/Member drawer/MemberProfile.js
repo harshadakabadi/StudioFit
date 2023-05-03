@@ -39,6 +39,7 @@ const MemberProfile = () => {
         if (data.status === 200) {
           const profile = await data.json();
           setProfile(profile);
+         // console.log(profile);
           setLoading(false);
           await AsyncStorage.setItem("member", JSON.stringify(profile));
           const branchId = JSON.stringify(profile.branch);
@@ -68,12 +69,11 @@ const MemberProfile = () => {
             <Container ml={4} width={1000} mt={8}>
               <HStack space={99} ml={7}>
                 <Image
-                  style={{ width: 100, height: 100 }}
+                  style={{ width: 120, height: 120 }}
                   borderRadius={100}
                   mt={63}
-                  //source={profile && profile.profile_picture}
                   source={Trainer1}
-                  alt="Alternate Text"
+                  alt="profile"
                   bottom={10}
                 />
                 <Button

@@ -70,6 +70,7 @@ const UpdateDataMember = async() => {
     method: "PATCH",
 
     body: JSON.stringify({
+      profile_picture: profile.profile_picture,
       first_name: profile.first_name,
       email: profile.email,
       mobile: profile.mobile,
@@ -109,14 +110,13 @@ const handleInputChange = () => {
           <ActivityIndicator size="small" />
         ) : (
           <Container ml={4} width={1000}>
-            <Center ml={120}>
+            <Center ml={130}>
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
                 mt={50}
-                //source={profile && profile.profile_picture}
                 source={Trainer1}
-                alt="Alternate Text"
+                alt="profile"
                 bottom={10}
               />
             </Center>

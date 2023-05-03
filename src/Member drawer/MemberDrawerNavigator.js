@@ -90,11 +90,11 @@ function CustomDrawerContent(props) {
         <Box px="4" left={30}>
           <View>
             <Image
-              style={{ width: 90, height: 90 }}
+              style={{ width: 110, height: 110 }}
               borderRadius={100}
               left={50}
               source={Trainer1}
-              alt="Alternate Text"
+              alt="profile"
               bottom={10}
             />
           </View>
@@ -145,16 +145,13 @@ function CustomDrawerContent(props) {
               </Pressable>
             ))}
           </VStack>
-          <Button
-            bgColor={"#343a40"}
-            onPress={ClearAsyncStorage}
-            mr={106}
-          ><HStack space={8} > 
-            <MaterialIcons name="logout" size={24} color="white" />
-            <Text fontWeight={"bold"} fontSize={16} color={"white"}>
-              Logout
-            </Text></HStack>
-         
+          <Button bgColor={"#343a40"} onPress={ClearAsyncStorage} mr={106}>
+            <HStack space={8}>
+              <MaterialIcons name="logout" size={24} color="white" />
+              <Text fontWeight={"bold"} fontSize={16} color={"white"}>
+                Logout
+              </Text>
+            </HStack>
           </Button>
         </VStack>
       </VStack>

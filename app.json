@@ -4,10 +4,10 @@
     "slug": "StudioFit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/StudioFit_logo.jpg",
+    "icon": "./assets/StudioFit.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/StudioFit.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.harshadakabadi.StudioFit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a29ac70f-6a87-4bbf-be02-a8222663a1c7"
+      }
     }
   }
 }

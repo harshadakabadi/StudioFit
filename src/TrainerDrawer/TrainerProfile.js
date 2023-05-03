@@ -6,7 +6,9 @@ import {
   Center,
   Text,
   HStack,
-  Container,Button
+  Container,
+  Button,
+  ScrollView,
 } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -16,8 +18,7 @@ import { TextInput } from "react-native-paper";
 import {
   MaterialIcons,
 } from "@expo/vector-icons";
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Trainer1, profile1 } from '../../assets';
+import { Trainer1 } from '../../assets';
 
 const TrainerProfile = () => {
   const navigation = useNavigation();

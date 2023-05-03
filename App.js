@@ -25,15 +25,10 @@ import CenterTrainer from './src/bottom/CenterTrainer';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  global.MyVar = "http://192.168.1.9:8000";
+  global.MyVar = "https://abhijit08.pythonanywhere.com";
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="Member Login"
           component={MemberLogin}
