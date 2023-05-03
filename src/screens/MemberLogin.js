@@ -46,13 +46,17 @@ const MemberLogin = () => {
         await AsyncStorage.setItem("userId", userId);
         const is_staff = data.is_staff;
         await AsyncStorage.setItem("is_staff", JSON.stringify(is_staff));
-        if (is_staff === false) {
+        const is_active = data.is_active;
+        await AsyncStorage.setItem("is_active", JSON.stringify(is_active));
+        if (is_staff === false && is_active === true) {
           navigation.navigate("Member HomeScreen");
-        } else {
+        } else if (is_active === true) {
           navigation.navigate("Trainer HomeScreen");
         }
-        
-       
+        else
+        {
+          alert("Check your Password or username again!! "); 
+        } 
       } else {
         alert("Check your Password or username again!! "); 
            
