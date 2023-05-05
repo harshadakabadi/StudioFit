@@ -64,7 +64,7 @@ const TrainerProfile = () => {
          <Container ml={4} width={1000}>
            <HStack space={99} ml={7}>
              <Image
-               style={{ width: 100, height: 100 }}
+               style={{ width: 120, height: 120 }}
                borderRadius={100}
                mt={63}
                source={Trainer1}

@@ -239,7 +239,7 @@ useFocusEffect(
               </Center>
             </Container>
             <Center>
-              <Card bgColor="#e7f3fb" style={{ width: 400, height: 400 }}>
+              <Card bgColor="#e7f3fb" style={{ width: 400}}>
                 {loading ? (
                   <ActivityIndicator size="small" />
                 ) : (

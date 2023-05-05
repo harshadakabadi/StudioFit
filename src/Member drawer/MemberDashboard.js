@@ -211,7 +211,7 @@ const MemberDashboard = () => {
                       Weight Loss
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                      {dailyfitness && Math.round(dailyfitness.weight_loss)} gm
+                      {dailyfitness && dailyfitness.weight_loss.toFixed(2)} gm
                     </Text>
                   </Center>
                 </Card>
@@ -271,7 +271,7 @@ const MemberDashboard = () => {
                       BMI
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                      {fitness && Math.round(fitness.bmi)}
+                      {fitness && fitness.bmi.toFixed(2)} kg/m2
                     </Text>
                     <Text fontSize={16} fontWeight={"semibold"}>
                       {fitness && fitness.bmi_status}
@@ -300,7 +300,7 @@ const MemberDashboard = () => {
                       Fat %
                     </Text>
                     <Text fontSize={17} fontWeight={"bold"} mt={1}>
-                      {fitness && Math.round(fitness.fat_percentage)}
+                      {fitness && fitness.fat_percentage.toFixed(2)} %
                     </Text>
                     <Text fontSize={16} fontWeight={"semibold"}>
                       {fitness && fitness.fat_percentage_status}
@@ -311,40 +311,35 @@ const MemberDashboard = () => {
             </View>
           </Center>
           <Center>
-            <Card
-              bgColor="grey"
-              mt={4}
-              style={{ width: 400 }}
-              mb={2}
-            >
+            <Card bgColor="grey" mt={4} style={{ width: 400 }} mb={2}>
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (
                 <View mb={3}>
-                    <Center mt={2} mb={3}>
-                      <Heading color={"white"}>Notifications</Heading>
-                    </Center>
-                    {notification &&
-                      notification.map((object) => (
-                        <Box key={object.id} ml={4} mb={4}>
-                          <Heading mt={2} color={"lightblue"}>
-                            {object && object.title}
-                          </Heading>
-                          <Text fontSize={20} mt={3} color={"white"}>
-                            {object && object.description}
-                          </Text>
-                          <Text fontSize={14} mt={1} color={"white"} mb={4}>
-                            posted on{" "}
-                            {object &&
-                              moment(new Date(object.updated_at)).format(
-                                "MMMM d, YYYY"
-                              )}
-                          </Text>
-                          <Box mt={3}>
-                            <Divider />
-                          </Box>
+                  <Center mt={2} mb={3}>
+                    <Heading color={"white"}>Notifications</Heading>
+                  </Center>
+                  {notification &&
+                    notification.map((object) => (
+                      <Box key={object.id} ml={4} mb={4}>
+                        <Heading mt={2} color={"lightblue"}>
+                          {object && object.title}
+                        </Heading>
+                        <Text fontSize={20} mt={3} color={"white"}>
+                          {object && object.description}
+                        </Text>
+                        <Text fontSize={14} mt={1} color={"white"} mb={4}>
+                          posted on{" "}
+                          {object &&
+                            moment(new Date(object.updated_at)).format(
+                              "MMMM d, YYYY"
+                            )}
+                        </Text>
+                        <Box mt={3}>
+                          <Divider />
                         </Box>
-                      ))}
+                      </Box>
+                    ))}
                 </View>
               )}
             </Card>

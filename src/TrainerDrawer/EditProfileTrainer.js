@@ -105,7 +105,7 @@ const EditTrainerProfile = () => {
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
-                mt={30}
+                mt={60}
                 source={Trainer1}
                 //source={profile && profile.profile_picture}
                 alt="Alternate Text"

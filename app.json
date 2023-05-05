@@ -4,10 +4,10 @@
     "slug": "StudioFit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/StudioFit.png",
+    "icon": "./assets/StudioFit_logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/StudioFit.png",
+      "image": "./assets/StudioFit_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -29,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a29ac70f-6a87-4bbf-be02-a8222663a1c7"
+        "projectId": "e0299271-f8d8-4ace-911e-2905ab2829a2"
       }
     }
   }

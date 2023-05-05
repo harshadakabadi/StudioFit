@@ -15,6 +15,7 @@ import {
   HStack,
   Divider,
   Icon,
+  Center,
  
 } from "native-base";
 import { useFocusEffect } from "@react-navigation/native";
@@ -87,34 +88,32 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props} safeArea>
       <VStack space="6" my="2" mx="1">
-        <Box px="4" left={30}>
-          <View>
-            <Image
-              style={{ width: 110, height: 110 }}
-              borderRadius={100}
-              left={50}
-              source={Trainer1}
-              alt="profile"
-              bottom={10}
-            />
-          </View>
-          <Text left={10} bold color={"white"} fontSize={16}>
-            {profile && profile.first_name}
-          </Text>
-
-          <Button
-            mr={12}
-            bgColor={"#343a40"}
-            onPress={() => navigation.navigate("Member Profile")}
-          >
-            <Text fontWeight={"bold"} fontSize={16} color={"white"}>
-              View Profile
+        <Center>
+            <View>
+              <Image
+                style={{ width: 110, height: 110 }}
+                borderRadius={100}
+                source={Trainer1}
+                alt="profile"
+                bottom={10}
+              />
+            </View>
+            <Text  bold color={"white"} fontSize={16}>
+              {profile && profile.first_name}
             </Text>
-          </Button>
-          <Text left={62} fontSize={16} color={"white"}>
-            Member
-          </Text>
-        </Box>
+
+            <Button
+              bgColor={"#343a40"}
+              onPress={() => navigation.navigate("Member Profile")}
+            >
+              <Text fontWeight={"bold"} fontSize={16} color={"white"}>
+                View Profile
+              </Text>
+            </Button>
+            <Text  fontSize={16} color={"white"}>
+              Member
+            </Text>
+        </Center>
         <VStack divider={<Divider />} space="4">
           <VStack space="3">
             {props.state.routeNames.map((name, index) => (

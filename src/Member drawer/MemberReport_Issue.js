@@ -247,7 +247,7 @@ const MemberReport_Issue = () => {
             </Container>
           </Center>
           <Center>
-            <Card bgColor="#E8E8E8" style={{ width: 400, height: 400 }} mb={3}>
+            <Card bgColor="#E8E8E8" style={{ width: 400 }} mb={3}>
               {loading ? (
                 <ActivityIndicator size="small" />
               ) : (

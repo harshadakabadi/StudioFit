@@ -73,33 +73,31 @@ const ClearAsyncStorage = async () => {
   return (
     <DrawerContentScrollView {...props} safeArea>
       <VStack space="6" my="2" mx="1">
-        <Box px="4" left={30}>
+        <Center>
           <View>
             <Image
               style={{ width: 100, height: 100 }}
               borderRadius={100}
-              left={50}
               source={Trainer1}
               alt="Alternate Text"
               bottom={10}
             />
           </View>
-          <Text left={10} bold color="gray.700" fontSize={16}>
+          <Text bold color="gray.700" fontSize={16}>
             {profile && profile.first_name}
           </Text>
           <Button
-            mr={10}
             bgColor={"#85C1E9"}
             onPress={() => navigation.navigate("Trainer Profile")}
           >
-            <Text fontWeight={"bold"} fontSize={16} right={2}>
+            <Text fontWeight={"bold"} fontSize={16}>
               View Profile
             </Text>
           </Button>
-          <Text left={62} fontSize={16}>
+          <Text fontSize={16} fontWeight={"semibold"}>
             Trainer
           </Text>
-        </Box>
+        </Center>
         <VStack divider={<Divider />} space="4">
           <VStack space="3">
             {props.state.routeNames.map((name, index) => (

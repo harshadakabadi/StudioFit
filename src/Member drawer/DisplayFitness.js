@@ -137,7 +137,7 @@ const FitnessCards = () => {
                           Distance Covered
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={5}>
-                          {cards && cards.distance_covered} m
+                          {cards && cards.distance_covered.toFixed(2)} m
                         </Text>
                       </Center>
                     </Card>
@@ -303,7 +303,7 @@ const FitnessCards = () => {
                           Stride Length
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={8}>
-                          {fitness && fitness.stride_length} m/step
+                          {fitness && fitness.stride_length.toFixed(2)} m/step
                         </Text>
                       </Center>
                     </Card>
@@ -345,7 +345,7 @@ const FitnessCards = () => {
                           Fat percentage
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                          {fitness && parseInt(fitness.fat_percentage)} %
+                          {fitness && fitness.fat_percentage.toFixed(2)} %
                         </Text>
                         <Text fontSize={16} fontWeight={"semibold"}>
                           {fitness && fitness.fat_percentage_status}
@@ -373,7 +373,7 @@ const FitnessCards = () => {
                           BMI
                         </Text>
                         <Text fontSize={17} fontWeight={"bold"} mt={3}>
-                          {fitness && parseInt(fitness.bmi)} kg/m2
+                          {fitness && fitness.bmi.toFixed(2)} kg/m2
                         </Text>
                         <Text fontSize={16} fontWeight={"semibold"}>
                           {fitness && fitness.bmi_status}

@@ -60,10 +60,16 @@ useFocusEffect(
             {loading ? (
               <ActivityIndicator size="small" />
             ) : (
-              <Box mt={4} ml={4}>
+              <Box mt={4}>
                 {blog &&
                   blog.map((object) => (
-                    <Card bgColor="#E8E8E8" key={object.id} width={400} mt={2}>
+                    <Card
+                      bgColor="#B0B7C0"
+                      key={object.id}
+                      width={400}
+                      mt={4}
+                      mb={2}
+                    >
                       <Heading color="#282828">{object.title}</Heading>
                       <Text mt={2} fontWeight={"semibold"} fontSize={17}>
                         {object.category}
@@ -74,8 +80,9 @@ useFocusEffect(
                       <Text fontSize={12} mt={1}>
                         Posted by {object.created_by}
                       </Text>
-                      <Text fontSize={12} mt={1} color={"gray.400"} mb={2}>
-                        posted on {moment(new Date(object.updated_at)).format(
+                      <Text fontSize={12} mt={1} color={"white"} mb={2}>
+                        posted on{" "}
+                        {moment(new Date(object.updated_at)).format(
                           "MMMM d, YYYY"
                         )}
                       </Text>

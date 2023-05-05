@@ -114,7 +114,7 @@ const handleInputChange = () => {
               <Image
                 style={{ width: 120, height: 120 }}
                 borderRadius={100}
-                mt={50}
+                mt={70}
                 source={Trainer1}
                 alt="profile"
                 bottom={10}
